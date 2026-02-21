@@ -4,8 +4,80 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+       <!-- Nadia -->
+    <link rel="stylesheet" href="/css/styles">
+    <link rel="icon" type="" href="">
+    <script defer src="/js/matcha-cat.js"></script>
 </head>
 <body>
-    <!-- Nadia -->
+    <!--header nav bar-->
+   <header class="site-header">
+    <nav class="top-nav">
+    <img src="/images/logo.jpg">
+    <a href="home.ejs">Home</a>
+    <a href="account.html">Account</a>
+    </nav>
+   </header>
+
+   <main>
+    <section class="reseveration-section">
+        <h1> Reservations</h1>
+    </section>
+
+    <section class="res-form">
+    <form action="/reserve" method="POST"></form>
+    <fieldset>
+     <legend>Reserve a Visit</legend>
+  
+
+    <label for="fname">First Name</label>
+    <input type="text" id="fname" name="fname">
+
+    <label for="phone">Phone Number</label>
+    <input type="tel" id="phone" name="phone">
+
+    <label for="email">Email Address</label>
+    <input type="email" id="email" name="email">
+
+    <label for="date">Select a Date</label>
+    <input type="date" id="date" name="date">
+
+    <label for="time">Select a Time</label>
+    <input type="time" id="time" name="time">
+
+    <label for="size">Select Party Size</label>
+    <select id="size" name="size" required>
+      <option value="">-- Select --</option>
+      <option value="1">1 person</option>
+      <option value="2">2 people</option>
+      <option value="3">3 people</option>
+      <option value="4">4 people</option>
+      <option value="5+">5+ people</option>
+  </select>
+
+  <label for="comment">Additional Comments</label>
+  <textarea id="comment" name="comment" rows="4"></textarea>
+
+  <button type="submit">Save</button>
+</fieldset>
+</form>
+</section>
+</main>
+
+
+<!--nav bar that follows-->
+   <div>
+    <a href="home.ejs">Home</a>
+    <a href="menu.html">Order</a>
+    <a href="checkout.html">Check Out</a>
+    <a href="deals.html">Deals</a>
+    <a href="account.html">Account</a>
+   </div>
+
+<!--footer-->
+   <footer class="site-footer">
+    <p> Matcha Cat Cafe • Seattle, WA </p>
+   </footer> 
+    
 </body>
 </html>

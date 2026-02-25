@@ -1,66 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Matcha Cat Cafe</title>
-    <link rel="stylesheet" href="/css/styles">
-    <link rel="icon" type="image/png" href="/favicon.png">
-    <script defer src="/js/matcha-cat.js"></script>
-
-    <!--nadia-->
+  <%- include('partials/head', { title: 'Home' }) %>
+  <script defer src="/js/matcha-cat.js"></script>
 </head>
 <body>
-<!--header nav bar-->
-   <header class="site-header">
-    <nav class="top-nav">
+
+  <!--header-->
+  <header class="site-header">
     <img src="/images/logo.jpg">
-    <a href="home.ejs">Home</a>
-    <a href="account.html">Account</a>
-    </nav>
-   </header>
+  </header>
 
-<!--Home video top section-->
-    <main>
-    <section class="home-video">
-    <video width="320" height="240" autoplay muted loop playsinline class="home-video">
-    <source src="/media/matcha-eating-video.mp4" type="video/mp4">
-    Your browser does not support the video tag.
+  <!-- Hero video OUTSIDE main so it goes full width -->
+  <section class="home-video">
+    <video autoplay muted loop playsinline>
+      <source src="/media/matcha-eating-video.mp4" type="video/mp4">
+      Your browser does not support the video tag.
     </video>
-    </section>
- 
-<!--About Section - inlcude video-->
+  </section>
+
+  <main>
+
+    <!--About Section-->
     <section class="about">
-    <h1>Welcome to Matcha Cat</h1>
-    <p>Women owned and ethically sourced</p>
-    <video width="320" height="240" autoplay muted>
-    <source src="/media/136050-764371327_medium.mp4" type="video/mp4">
-    Your browser does not support the video tag.
-    </video>
+      <h1>Welcome to Matcha Cat</h1>
+      <p>Women owned and ethically sourced</p>
+      <video autoplay muted loop playsinline>
+        <source src="/media/136050-764371327_medium.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
     </section>
 
+    <!--Cat section-->
+    <section class="cat-section">
+      <div class="cat">
+        <!--cat images here-->
+        <button onclick="window.location.href='/reservation'">Click here to reserve</button>
+      </div>
+    </section>
 
-<!-- cat section - include images of cats-->
-  <section class="cat-section">
-   <div class="cat">
-    <!--cat images here-->
-    <button>Click here to reserve</button>
-   </div>
-   </section>
-   </main>
+  </main>
 
-<!--nav bar that follows-->
-   <div>
-    <a href="home.ejs">Home</a>
-    <a href="menu.html">Order</a>
-    <a href="checkout.html">Check Out</a>
-    <a href="deals.html">Deals</a>
-    <a href="account.html">Account</a>
-   </div>
+  <!--footer-->
+  <footer class="site-footer">
+    <p>Matcha Cat Cafe • Seattle, WA</p>
+  </footer>
 
-<!--footer-->
-   <footer class="site-footer">
-    <p> Matcha Cat Cafe • Seattle, WA </p>
-   </footer> 
+  <%- include('partials/bottom-nav') %>
+
 </body>
 </html>

@@ -130,3 +130,19 @@ function clearError(errorId) {
     errorEl.style.display = "none";
     errorEl.textContent = "";
 }
+
+function showCategory(category) {
+  // Hide all sections
+  document.querySelectorAll('.menu-category').forEach(section => {
+    section.classList.add('hidden');
+  });
+
+  // Remove active from all tabs
+  document.querySelectorAll('.tab').forEach(tab => {
+    tab.classList.remove('active');
+  });
+
+  // Show selected section and set tab active
+  document.getElementById(category).classList.remove('hidden');
+  event.target.classList.add('active');
+}

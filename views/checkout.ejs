@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('partials/head', { title: 'Checkout' }) %>
+  <script defer src="/js/matcha-cat.js"></script>
+</head>
+<body>
+
+  <!--header-->
+  <header class="site-header">
+    <img src="/images/logo.jpg">
+  </header>
+
+  <main>
+    <h1>Checkout</h1>
+
+    <!-- Review Order Section -->
+    <section class="review-order">
+      <div class="review-order-header">
+        <h2>Review Order</h2>
+        <a href="/review">Edit</a>
+      </div>
+
+      <!-- Order items will be dynamically inserted here eventually -->
+      <div class="order-item">
+        <img src="/images/matcha-latte.jpg" alt="Matcha Latte">
+        <span class="item-name">Matcha Latte</span>
+        <select name="qty-matcha">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+        </select>
+        <span class="item-price">$7.00</span>
+      </div>
+
+      <div class="order-item">
+        <img src="/images/iced-latte.jpg" alt="Iced Latte">
+        <span class="item-name">Iced Latte</span>
+        <select name="qty-iced">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+        </select>
+        <span class="item-price">$10.00</span>
+      </div>
+
+      <div class="order-item">
+        <img src="/images/strawberry-roll.jpg" alt="Strawberry Roll">
+        <span class="item-name">Strawberry Roll</span>
+        <select name="qty-roll">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+        </select>
+        <span class="item-price">$4.00</span>
+      </div>
+
+      <div class="order-total">
+        <span>Total:</span>
+        <span>$21.00</span>
+      </div>
+    </section>
+
+    <!-- Payment Information Section -->
+    <section class="payment-section">
+      <h2>Payment Information</h2>
+      <form action="/place-order" method="POST">
+
+        <div class="card-row">
+          <div class="form-field">
+            <label for="card-number">Card Number</label>
+            <input type="text" id="card-number" name="card-number" maxlength="16" required>
+          </div>
+          <div class="form-field">
+            <label for="exp">Exp</label>
+            <input type="text" id="exp" name="exp" placeholder="MM/YY" maxlength="5" required>
+          </div>
+          <div class="form-field">
+            <label for="cvc">CVC</label>
+            <input type="text" id="cvc" name="cvc" maxlength="3" required>
+          </div>
+        </div>
+
+        <div class="form-field">
+          <label for="name-on-card">Name on Card</label>
+          <input type="text" id="name-on-card" name="name-on-card" required>
+        </div>
+
+        <div class="form-field">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" required>
+        </div>
+
+        <div class="form-field">
+          <label for="phone">Phone</label>
+          <input type="tel" id="phone" name="phone" required>
+        </div>
+
+        <button type="submit">Place Order</button>
+      </form>
+    </section>
+  </main>
+
+  <!--footer-->
+  <footer class="site-footer">
+    <p>Matcha Cat Cafe • Seattle, WA</p>
+  </footer>
+
+  <%- include('partials/bottom-nav') %>
+
+</body>
+</html>

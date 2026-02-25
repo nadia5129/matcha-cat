@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('partials/head', { title: 'Order Confirmed' }) %>
+  <script defer src="/js/matcha-cat.js"></script>
+</head>
+<body>
+
+  <!--header-->
+  <header class="site-header">
+    <img src="/images/logo.jpg">
+  </header>
+
+  <main>
+
+    <!-- Success Message -->
+    <section class="confirmation-hero">
+      <div class="confirmation-icon">🍵</div>
+      <h1>Order Confirmed!</h1>
+      <p>Thank you for your order. We'll have it ready for you soon!</p>
+    </section>
+
+    <!-- Order Summary -->
+    <section class="confirmation-summary">
+      <h2>Order Summary</h2>
+
+      <div class="order-item">
+        <img src="/images/matcha-latte.jpg" alt="Matcha Latte">
+        <div class="item-details">
+          <p class="item-name">Matcha Latte</p>
+          <p class="item-customization">16 oz • Oat Milk</p>
+        </div>
+        <span class="item-price">$7.00</span>
+      </div>
+
+      <div class="summary-row">
+        <span>Subtotal</span>
+        <span>$7.00</span>
+      </div>
+      <div class="summary-row">
+        <span>Tax</span>
+        <span>$0.70</span>
+      </div>
+      <hr>
+      <div class="summary-row total">
+        <span>Total</span>
+        <span>$7.70</span>
+      </div>
+    </section>
+
+    <!-- Confirmation Details -->
+    <section class="confirmation-details">
+      <p>📧 A confirmation has been sent to your email.</p>
+      <p>📍 Matcha Cat Cafe • Seattle, WA</p>
+    </section>
+
+    <!-- Back to Home -->
+    <div class="confirmation-actions">
+      <a href="/"><button class="home-btn">Back to Home</button></a>
+      <a href="/reservation"><button class="reservation-btn">Make a Reservation</button></a>
+    </div>
+
+  </main>
+
+  <!--footer-->
+  <footer class="site-footer">
+    <p>Matcha Cat Cafe • Seattle, WA</p>
+  </footer>
+
+  <%- include('partials/bottom-nav') %>
+
+</body>
+</html>

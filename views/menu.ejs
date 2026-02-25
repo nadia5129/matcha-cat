@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
   <%- include('partials/head', { title: 'Menu' }) %>
+  <script defer src="/js/matcha-cat.js"></script>
 </head>
 <body>
 
@@ -11,7 +12,79 @@
   </header>
 
   <main>
-    <!-- Paris - menu content here -->
+
+    <!-- Category Tabs -->
+    <nav class="menu-tabs">
+      <button class="tab active" onclick="showCategory('coffee', event)">Coffee</button>
+      <button class="tab" onclick="showCategory('matcha', event)">Matcha</button>
+      <button class="tab" onclick="showCategory('pastries', event)">Pastries</button>
+    </nav>
+
+    <!-- Coffee Section -->
+    <section id="coffee" class="menu-category">
+      <h2>Coffee</h2>
+      <div class="menu-grid">
+
+        <div class="menu-item">
+          <img src="/images/latte.jpg" alt="Latte">
+          <p class="item-name">Latte</p>
+          <a href="/menu-item"><button class="add-btn">Add</button></a>
+        </div>
+
+        <div class="menu-item">
+          <img src="/images/iced-americano.jpg" alt="Iced Americano">
+          <p class="item-name">Iced Americano</p>
+          <a href="/menu-item"><button class="add-btn">Add</button></a>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Matcha Section -->
+    <section id="matcha" class="menu-category hidden">
+      <h2>Matcha</h2>
+      <div class="menu-grid">
+
+        <div class="menu-item">
+          <img src="/images/iced-matcha-latte.jpg" alt="Iced Matcha Latte">
+          <p class="item-name">Iced Matcha Latte</p>
+          <a href="/menu-item"><button class="add-btn">Add</button></a>
+        </div>
+
+        <div class="menu-item">
+          <img src="/images/matcha-latte.jpg" alt="Matcha Latte">
+          <p class="item-name">Matcha Latte</p>
+          <a href="/menu-item"><button class="add-btn">Add</button></a>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Pastries Section -->
+    <section id="pastries" class="menu-category hidden">
+      <h2>Pastries</h2>
+      <div class="menu-grid">
+
+        <div class="menu-item">
+          <img src="/images/butter-croissant.jpg" alt="Butter Croissant">
+          <p class="item-name">Butter Croissant</p>
+          <a href="/menu-item"><button class="add-btn">Add</button></a>
+        </div>
+
+        <div class="menu-item">
+          <img src="/images/strawberry-roll.jpg" alt="Strawberry Roll">
+          <p class="item-name">Strawberry Roll</p>
+          <a href="/menu-item"><button class="add-btn">Add</button></a>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- View Order Button -->
+    <div class="view-order">
+      <a href="/review"><button>View Order 🛍️</button></a>
+    </div>
+
   </main>
 
   <!--footer-->

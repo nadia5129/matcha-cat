@@ -111,6 +111,13 @@ p {
   color: var(--text-mid);
   line-height: 1.6;
 }
+li {
+  font-size: 0.95rem;
+  color: var(--text-mid);
+  line-height: 1.6;
+  margin-left: 20px;
+  margin-bottom: 8px;
+}
 
 
 /* -------------------------------------------
@@ -119,6 +126,12 @@ p {
 a {
   text-decoration: none;
   color: var(--brown-mid);
+}
+.deals-img {
+  width: 75%;
+  height: auto;
+  border-radius: var(--radius-md);
+  object-fit: cover;
 }
 
 

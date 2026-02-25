@@ -1,40 +1,85 @@
-/* ===== IMPORTS ===== */
+/* ===========================================
+   MATCHA CAT CAFE — MAIN STYLESHEET
+   ===========================================
+   Table of Contents:
+   1. Imports
+   2. CSS Variables
+   3. Reset
+   4. Base / Body
+   5. Typography
+   6. Links
+   7. Header
+   8. Buttons
+   9. Forms
+   10. Cards
+   11. Main Layout
+   12. Footer
+   13. Bottom Nav
+   14. Home Page
+   15. Utilities
+   =========================================== */
+
+
+/* -------------------------------------------
+   1. IMPORTS
+------------------------------------------- */
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Lato:wght@300;400;700&display=swap');
 
-/* ===== CSS VARIABLES ===== */
+
+/* -------------------------------------------
+   2. CSS VARIABLES
+------------------------------------------- */
 :root {
+  /* Browns */
   --brown-dark:   #3B2314;
   --brown-mid:    #6F4E37;
   --brown-light:  #C4956A;
+
+  /* Pinks */
   --pink-dark:    #C4788A;
   --pink-mid:     #E8A0B0;
   --pink-light:   #F7D6DF;
+
+  /* Creams */
   --cream:        #FAF3EB;
   --cream-dark:   #EDE0D0;
+
+  /* Neutrals */
   --white:        #FFFFFF;
+
+  /* Text */
   --text-dark:    #2C1A0E;
   --text-mid:     #6F4E37;
   --text-light:   #A0896A;
 
+  /* Fonts */
   --font-heading: 'Playfair Display', serif;
   --font-body:    'Lato', sans-serif;
 
+  /* Border Radius */
   --radius-sm:    8px;
   --radius-md:    16px;
   --radius-lg:    24px;
   --radius-full:  999px;
 
-  --shadow:       0 2px 12px rgba(59, 35, 20, 0.1);
+  /* Shadow */
+  --shadow: 0 2px 12px rgba(59, 35, 20, 0.1);
 }
 
-/* ===== RESET ===== */
+
+/* -------------------------------------------
+   3. RESET
+------------------------------------------- */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-/* ===== BASE ===== */
+
+/* -------------------------------------------
+   4. BASE / BODY
+------------------------------------------- */
 body {
   font-family: var(--font-body);
   background-color: var(--cream);
@@ -43,7 +88,10 @@ body {
   padding-bottom: 80px; /* space for fixed bottom nav */
 }
 
-/* ===== TYPOGRAPHY ===== */
+
+/* -------------------------------------------
+   5. TYPOGRAPHY
+------------------------------------------- */
 h1, h2, h3 {
   font-family: var(--font-heading);
   color: var(--brown-dark);
@@ -59,26 +107,37 @@ p {
   line-height: 1.6;
 }
 
+
+/* -------------------------------------------
+   6. LINKS
+------------------------------------------- */
 a {
   text-decoration: none;
   color: var(--brown-mid);
 }
 
-/* ===== HEADER ===== */
+
+/* -------------------------------------------
+   7. HEADER
+------------------------------------------- */
 .site-header {
   background-color: var(--brown-dark);
   padding: 12px 20px;
   display: flex;
   align-items: center;
   justify-content: center;
+  min-height: 200px;
 }
 
 .site-header img {
-  height: 48px;
+  height: 200px;
   object-fit: contain;
 }
 
-/* ===== BUTTONS ===== */
+
+/* -------------------------------------------
+   8. BUTTONS
+------------------------------------------- */
 button, .btn {
   font-family: var(--font-body);
   font-weight: 700;
@@ -91,22 +150,28 @@ button, .btn {
 }
 
 /* Primary - Brown */
-.btn-primary, button[type="submit"], button.home-btn {
+.btn-primary,
+button[type="submit"],
+button.home-btn {
   background-color: var(--brown-dark);
   color: var(--white);
 }
 
-.btn-primary:hover, button[type="submit"]:hover {
+.btn-primary:hover,
+button[type="submit"]:hover {
   background-color: var(--brown-mid);
 }
 
 /* Secondary - Pink */
-.btn-secondary, button.add-btn, button.reservation-btn {
+.btn-secondary,
+button.add-btn,
+button.reservation-btn {
   background-color: var(--pink-light);
   color: var(--brown-dark);
 }
 
-.btn-secondary:hover, button.add-btn:hover {
+.btn-secondary:hover,
+button.add-btn:hover {
   background-color: var(--pink-mid);
 }
 
@@ -121,7 +186,10 @@ button, .btn {
   background-color: var(--cream-dark);
 }
 
-/* ===== FORMS ===== */
+
+/* -------------------------------------------
+   9. FORMS
+------------------------------------------- */
 input, select, textarea {
   font-family: var(--font-body);
   font-size: 0.95rem;
@@ -167,7 +235,16 @@ legend {
   padding: 0 8px;
 }
 
-/* ===== CARDS ===== */
+.error-message {
+  display: none;
+  color: red;
+  font-size: 0.8rem;
+}
+
+
+/* -------------------------------------------
+   10. CARDS
+------------------------------------------- */
 .card {
   background-color: var(--white);
   border-radius: var(--radius-md);
@@ -175,14 +252,20 @@ legend {
   padding: 16px;
 }
 
-/* ===== MAIN ===== */
+
+/* -------------------------------------------
+   11. MAIN LAYOUT
+------------------------------------------- */
 main {
   max-width: 480px;
   margin: 0 auto;
   padding: 20px 16px;
 }
 
-/* ===== FOOTER ===== */
+
+/* -------------------------------------------
+   12. FOOTER
+------------------------------------------- */
 .site-footer {
   text-align: center;
   padding: 16px;
@@ -191,7 +274,10 @@ main {
   border-top: 1px solid var(--cream-dark);
 }
 
-/* ===== BOTTOM NAV ===== */
+
+/* -------------------------------------------
+   13. BOTTOM NAV
+------------------------------------------- */
 .bottom-nav {
   position: fixed;
   bottom: 0;
@@ -226,52 +312,12 @@ main {
   font-size: 1.3rem;
 }
 
-/* ===== HIDDEN ===== */
-.hidden {
-  display: none;
-}
 
+/* -------------------------------------------
+   14. HOME PAGE
+------------------------------------------- */
 
-
-.error-message {
-    display:none;
-    color: red;
-}
-.bottom-nav {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  background-color: #fff;
-  border-top: 1px solid #ddd;
-  padding: 8px 0;
-  z-index: 100;
-}
-
-.nav-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-decoration: none;
-  color: #555;
-  font-size: 0.75rem;
-  gap: 2px;
-}
-
-.nav-icon {
-  font-size: 1.3rem;
-}
-
-.hidden {
-  display: none;
-}
-
-/* ===== HOME PAGE ===== */
-
-/* Full width hero video */
+/* Hero video - full width */
 .home-video {
   width: 100%;
   max-width: 100%;
@@ -311,7 +357,7 @@ main {
   border-radius: var(--radius-md);
 }
 
-/* Cat section */
+/* Cat / Reserve section */
 .cat-section {
   padding: 24px 16px;
   text-align: center;
@@ -337,7 +383,10 @@ main {
   background-color: var(--brown-mid);
 }
 
-.site-header img {
-  height: 200px;
-  object-fit: contain;
+
+/* -------------------------------------------
+   15. UTILITIES
+------------------------------------------- */
+.hidden {
+  display: none;
 }

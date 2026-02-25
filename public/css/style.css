@@ -2,21 +2,23 @@
    MATCHA CAT CAFE — MAIN STYLESHEET
    ===========================================
    Table of Contents:
-   1. Imports
-   2. CSS Variables
-   3. Reset
-   4. Base / Body
-   5. Typography
-   6. Links
-   7. Header
-   8. Buttons
-   9. Forms
-   10. Cards
-   11. Main Layout
-   12. Footer
-   13. Bottom Nav
-   14. Home Page
-   15. Utilities
+   1.  Imports
+   2.  CSS Variables
+   3.  Reset
+   4.  Base / Body
+   5.  Typography
+   6.  Links
+   7.  Header
+   8.  Buttons
+   9.  Forms & Inputs
+   10. Form Pages (Reservation & Create Account)
+   11. Cards
+   12. Main Layout
+   13. Footer
+   14. Bottom Nav
+   15. Home Page
+   16. Page Grid Layouts
+   17. Utilities
    =========================================== */
 
 
@@ -79,6 +81,7 @@
 
 /* -------------------------------------------
    4. BASE / BODY
+   - Merged grid layout here to avoid duplicate body rules
 ------------------------------------------- */
 body {
   font-family: var(--font-body);
@@ -86,6 +89,8 @@ body {
   color: var(--text-dark);
   min-height: 100vh;
   padding-bottom: 80px; /* space for fixed bottom nav */
+  display: grid;
+  grid-template-rows: auto 1fr auto auto; /* header | main | footer | bottom-nav */
 }
 
 
@@ -188,7 +193,7 @@ button.add-btn:hover {
 
 
 /* -------------------------------------------
-   9. FORMS
+   9. FORMS & INPUTS
 ------------------------------------------- */
 input, select, textarea {
   font-family: var(--font-body);
@@ -215,35 +220,93 @@ label {
   display: block;
 }
 
+/* Each field stacks label → input → error */
 .form-field {
   display: flex;
   flex-direction: column;
   gap: 4px;
-  margin-bottom: 16px;
+  margin-bottom: 12px;
+}
+
+/* Inline error messages */
+.error-message {
+  display: none;
+  color: #c0392b;
+  font-size: 0.78rem;
+  margin-top: 2px;
 }
 
 fieldset {
-  border: 1.5px solid var(--cream-dark);
-  border-radius: var(--radius-md);
-  padding: 20px;
+  border: none;
+  padding: 0;
 }
 
 legend {
   font-family: var(--font-heading);
-  font-size: 1rem;
+  font-size: 1.2rem;
   color: var(--brown-dark);
-  padding: 0 8px;
-}
-
-.error-message {
-  display: none;
-  color: red;
-  font-size: 0.8rem;
+  margin-bottom: 16px;
 }
 
 
 /* -------------------------------------------
-   10. CARDS
+   10. FORM PAGES (Reservation & Create Account)
+------------------------------------------- */
+
+/* Card container */
+.res-form,
+.form-section {
+  background-color: var(--white);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow);
+  padding: 24px;
+  margin-top: 16px;
+}
+
+/* Grid layout - single column by default */
+.res-form form,
+.account-form {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 4px;
+}
+
+/* Two column layout on wider screens */
+@media (min-width: 480px) {
+  .res-form form,
+  .account-form {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  /* Fields that should always be full width */
+  .res-form .form-field:has(#email),
+  .res-form .form-field:has(#comment),
+  .res-form fieldset > button,
+  .account-form .form-field:has(#username),
+  .account-form .form-field:has(#email),
+  .account-form .form-field:has(#password),
+  .account-form button {
+    grid-column: 1 / -1;
+  }
+}
+
+/* Submit buttons always full width */
+.res-form button[type="submit"],
+.account-form button[type="submit"] {
+  grid-column: 1 / -1;
+  width: 100%;
+  margin-top: 8px;
+}
+
+/* Page headings */
+.reservation-section h1,
+#create-an-account-section h2 {
+  margin-bottom: 8px;
+}
+
+
+/* -------------------------------------------
+   11. CARDS
 ------------------------------------------- */
 .card {
   background-color: var(--white);
@@ -254,7 +317,7 @@ legend {
 
 
 /* -------------------------------------------
-   11. MAIN LAYOUT
+   12. MAIN LAYOUT
 ------------------------------------------- */
 main {
   max-width: 480px;
@@ -264,7 +327,7 @@ main {
 
 
 /* -------------------------------------------
-   12. FOOTER
+   13. FOOTER
 ------------------------------------------- */
 .site-footer {
   text-align: center;
@@ -276,7 +339,7 @@ main {
 
 
 /* -------------------------------------------
-   13. BOTTOM NAV
+   14. BOTTOM NAV
 ------------------------------------------- */
 .bottom-nav {
   position: fixed;
@@ -314,7 +377,7 @@ main {
 
 
 /* -------------------------------------------
-   14. HOME PAGE
+   15. HOME PAGE
 ------------------------------------------- */
 
 /* Hero video - full width */
@@ -385,7 +448,235 @@ main {
 
 
 /* -------------------------------------------
-   15. UTILITIES
+   16. PAGE GRID LAYOUTS
+------------------------------------------- */
+
+/* --- MENU PAGE --- */
+
+.menu-tabs {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.menu-tabs .tab {
+  background-color: var(--cream-dark);
+  color: var(--text-mid);
+  border-radius: var(--radius-md);
+  padding: 10px 0;
+  font-size: 0.85rem;
+}
+
+.menu-tabs .tab.active {
+  background-color: var(--brown-dark);
+  color: var(--white);
+}
+
+/* 2 column item grid */
+.menu-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.menu-item {
+  display: grid;
+  grid-template-rows: auto auto auto; /* image | name | button */
+  align-items: center;
+  background-color: var(--white);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow);
+  padding: 12px;
+  text-align: center;
+  gap: 8px;
+}
+
+.menu-item img {
+  width: 100%;
+  height: 100px;
+  object-fit: cover;
+  border-radius: var(--radius-sm);
+}
+
+.item-name {
+  font-family: var(--font-heading);
+  font-size: 0.9rem;
+  color: var(--brown-dark);
+}
+
+.view-order {
+  display: grid;
+  place-items: center;
+  margin-top: 16px;
+}
+
+/* --- REVIEW PAGE --- */
+
+.order-items {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.order-item {
+  display: grid;
+  grid-template-columns: 60px 1fr auto; /* image | details | price */
+  grid-template-rows: 1fr;
+  align-items: center;
+  gap: 12px;
+  background-color: var(--white);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow);
+  padding: 12px;
+}
+
+.order-item img {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: var(--radius-sm);
+}
+
+.item-details {
+  display: grid;
+  gap: 2px;
+}
+
+.item-customization {
+  font-size: 0.8rem;
+  color: var(--text-light);
+}
+
+.item-price {
+  font-weight: 700;
+  color: var(--brown-dark);
+}
+
+.order-summary {
+  background-color: var(--white);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow);
+  padding: 16px;
+  display: grid;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.summary-row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+}
+
+.summary-row.total {
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: var(--brown-dark);
+}
+
+.order-actions {
+  display: grid;
+  gap: 12px;
+  place-items: center;
+}
+
+.order-actions a,
+.order-actions button {
+  width: 100%;
+}
+
+/* --- CHECKOUT PAGE --- */
+
+.review-order {
+  background-color: var(--white);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow);
+  padding: 16px;
+  margin-bottom: 20px;
+}
+
+.review-order-header {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.review-order-header a {
+  color: var(--pink-dark);
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.order-total {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  font-weight: 700;
+  color: var(--brown-dark);
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid var(--cream-dark);
+}
+
+.payment-section {
+  background-color: var(--white);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow);
+  padding: 16px;
+}
+
+.payment-section h2 {
+  margin-bottom: 16px;
+}
+
+.card-row {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 12px;
+}
+
+/* --- ACCOUNT PAGE --- */
+
+.user-account {
+  display: grid;
+  place-items: center;
+  padding: 24px 0 12px;
+}
+
+.user-form {
+  background-color: var(--white);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow);
+  padding: 24px;
+  margin-bottom: 20px;
+}
+
+.user-form form {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 4px;
+}
+
+.user-form button[type="submit"] {
+  width: 100%;
+  margin-top: 8px;
+}
+
+/* Past orders and reservations sections */
+section.past-orders,
+section.my-reservations {
+  background-color: var(--white);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow);
+  padding: 16px;
+  margin-bottom: 16px;
+}
+
+
+/* -------------------------------------------
+   17. UTILITIES
 ------------------------------------------- */
 .hidden {
   display: none;

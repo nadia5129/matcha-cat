@@ -393,72 +393,132 @@ main {
    15. HOME PAGE
 ------------------------------------------- */
 
+/* -------------------------------------------
+   15. HOME PAGE
+------------------------------------------- */
+
+/* Make home main wider (desktop + mobile) */
+.home-video + main{
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 20px 16px;
+}
+
 /* Hero video - full width */
-.home-video {
+.home-video{
   width: 100%;
-  max-width: 100%;
   margin: 0;
   padding: 0;
   overflow: hidden;
   max-height: 350px;
 }
 
-.home-video video {
+.home-video video{
   width: 100%;
-  height: 100%;
+  height: 350px;          
   object-fit: cover;
   display: block;
 }
 
 /* About section */
-.about {
+.about{
   text-align: center;
   padding: 32px 16px;
   background-color: var(--cream);
 }
 
-.about h1 {
-  margin-bottom: 8px;
-}
-
-.about p {
+.about h1{ margin-bottom: 8px; }
+.about p{
   margin-bottom: 20px;
   font-style: italic;
 }
 
-.about video {
+.about video{
   width: 100%;
   max-height: 280px;
   object-fit: cover;
   border-radius: var(--radius-md);
+  box-shadow: var(--shadow);
 }
 
-/* Cat / Reserve section */
-.cat-section {
-  padding: 24px 16px;
+/* Menu + Cats: consistent section spacing */
+.home-section,
+.cat-section{
+  margin-top: 18px;
+  padding: 26px 18px;
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow);
   text-align: center;
-  background-color: var(--cream-dark);
 }
 
-.cat {
+/*  cat section slightly tinted  */
+.cat-section{
+  background: var(--cream-dark);
+}
+
+/* Buttons row */
+.feature-actions{
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 16px;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin: 14px 0 18px;
 }
 
-.cat button {
-  background-color: var(--brown-dark);
-  color: var(--white);
-  border-radius: var(--radius-full);
-  padding: 14px 32px;
-  font-size: 1rem;
+/* Media wrappers (menu + cats) */
+.feature-media{
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: var(--cream);
 }
 
-.cat button:hover {
-  background-color: var(--brown-mid);
+/* MENU preview images */
+.menu-grid-preview{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  padding: 10px;
 }
 
+.menu-grid-preview img{
+  width: 100%;
+  height: 140px;
+  object-fit: cover;
+  border-radius: var(--radius-md);
+}
+
+.menu-grid-preview img:nth-child(3){
+  grid-column: 1 / -1;
+  height: 170px;
+}
+
+/* CAT grid images */
+.cat-grid{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  padding: 10px;
+}
+
+.cat-grid img{
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  border-radius: var(--radius-md);
+  box-shadow: 0 4px 14px rgba(59,35,20,.12);
+}
+
+/* Mobile */
+@media (max-width: 600px){
+  .home-video video{ height: 280px; }
+  .home-video + main{ max-width: 480px; }
+
+  .menu-grid-preview img{ height: 120px; }
+  .menu-grid-preview img:nth-child(3){ height: 140px; }
+
+  .cat-grid img{ height: 140px; }
+}
 
 /* -------------------------------------------
    16. PAGE GRID LAYOUTS

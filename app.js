@@ -42,9 +42,6 @@ app.get('/account', (req, res) => {
   res.render('account');
 });
 
-app.get('/create-an-account', (req, res) => {
-  res.render('create-an-account');
-});
 
 app.get('/review', (req, res) => {
   res.render('review');
@@ -54,6 +51,10 @@ app.listen(PORT, () => {
   console.log(`Server is running at http://localhost:${PORT}`);
 });
 
+// create an account pages
+app.get('/create-an-account', (req, res) => {
+  res.render('create-an-account');
+});
 // array to store account submit for create-an-account.ejs
 const accountSubmissions = [];
 // store it
@@ -75,7 +76,6 @@ app.post('/submit', (req, res) => {
     timestamp: new Date().toLocaleString()
   };
   accountSubmissions.push(submission);
-
   res.render('confirm-create-an-account', { submission });
 });
 app.get('/confirm-create-an-account', (req, res) => {

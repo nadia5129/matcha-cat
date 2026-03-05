@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('partials/head', { title: 'Admin - Order History' }) %>
+    <link rel="stylesheet" href="//cdn.datatables.net/2.3.7/css/dataTables.dataTables.css">
+</head>
+<body>
+
+<main class="admin-container">
+    <h2>Live Order Feed 🍵</h2>
+
+    <div class="table-responsive">
+        <table id="ordersTable" class="display" style="width:100%">
+            <thead>
+                <tr>
+                    <th>Time</th>
+                    <th>Customer</th>
+                    <th>Items</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% orders.forEach(order => { %>
+                <tr>
+                    <td><%= order.timestamp %></td>
+                    <td><%= order.customerName %></td>
+                    <td>
+                        <ul class="admin-item-list">
+                            <% if (order.items && Array.isArray(order.items)) { %>
+                                <% order.items.forEach(item => { %>
+                                    <li><%= item.name %> (<%= item.size %>)</li>
+                                <% }) %>
+                            <% } else { %>
+                                <li>No item data</li>
+                            <% } %>
+                        </ul>
+                    </td>
+                    <td>$<%= order.total %></td>
+                </tr>
+                <% }) %>
+            </tbody>
+        </table>
+    </div>
+</main>
+
+<script src="//code.jquery.com/jquery-3.7.1.js"></script>
+<script src="//cdn.datatables.net/2.3.7/js/dataTables.js"></script>
+
+<script>
+    $(document).ready(function() {
+        $('#ordersTable').DataTable({
+            "order": [[ 0, "desc" ]], // Sort by the first column (Time) descending
+            "pageLength": 10
+        });
+    });
+</script>
+
+</body>
+</html>

@@ -6,88 +6,70 @@
 </head>
 <body>
 
-  <!--header-->
   <header class="site-header">
-    <img src="/images/logo.jpg">
+    <img src="/images/logo.jpg" alt="Matcha Cat Logo">
   </header>
 
-  <main>
+  <main class="checkout-container">
     <h1>Checkout</h1>
 
-    <!-- Review Order Section -->
     <section class="review-order">
       <div class="review-order-header">
-        <h2>Review Order</h2>
-        <a href="/review">Edit</a>
+        <h2>Order Summary</h2>
+        <a href="/review" class="edit-link">Edit Order</a>
       </div>
 
-      <!-- Order items will be dynamically inserted here eventually -->
-      <div class="order-item">
-        <img src="/images/matcha-latte.jpg" alt="Matcha Latte">
-        <span class="item-name">Matcha Latte</span>
-        <select name="qty-matcha">
-          <option value="1">1</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
-        </select>
-        <span class="item-price">$7.00</span>
-      </div>
+      <div class="checkout-item-list">
+        <% if (order && order.length > 0) { %>
+          <% order.forEach(item => { %>
+            <div class="checkout-item">
+              <div class="checkout-item-info">
+                <span class="item-name"><strong><%= item.name %></strong></span>
+                <span class="item-meta"><%= item.size %> | <%= item.milk %></span>
+              </div>
+              <span class="item-price"><%= item.price %></span>
+            </div>
+          <% }); %>
 
-      <div class="order-item">
-        <img src="/images/iced-latte.jpg" alt="Iced Latte">
-        <span class="item-name">Iced Latte</span>
-        <select name="qty-iced">
-          <option value="1">1</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
-        </select>
-        <span class="item-price">$10.00</span>
-      </div>
-
-      <div class="order-item">
-        <img src="/images/strawberry-roll.jpg" alt="Strawberry Roll">
-        <span class="item-name">Strawberry Roll</span>
-        <select name="qty-roll">
-          <option value="1">1</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
-        </select>
-        <span class="item-price">$4.00</span>
-      </div>
-
-      <div class="order-total">
-        <span>Total:</span>
-        <span>$21.00</span>
+          <div class="order-total">
+            <span>Total (<%= order.length %> items):</span>
+            <span class="total-amount">$<%= (order.length * 4.00).toFixed(2) %></span>
+          </div>
+        <% } else { %>
+          <p>Your cart is empty. <a href="/menu">Go to Menu</a></p>
+        <% } %>
       </div>
     </section>
 
-    <!-- Payment Information Section -->
     <section class="payment-section">
       <h2>Payment Information</h2>
-      <form action="/place-order" method="POST">
+      <form action="/place-order" method="POST" class="checkout-form">
 
         <div class="card-row">
           <div class="form-field">
             <label for="card-number">Card Number</label>
-            <input type="text" id="card-number" name="card-number" maxlength="16" required>
+            <input type="text" id="card-number" name="cardNumber" maxlength="16" placeholder="0000 0000 0000 0000" required>
           </div>
+        </div>
+        
+        <div class="card-extra-row">
           <div class="form-field">
             <label for="exp">Exp</label>
             <input type="text" id="exp" name="exp" placeholder="MM/YY" maxlength="5" required>
           </div>
           <div class="form-field">
             <label for="cvc">CVC</label>
-            <input type="text" id="cvc" name="cvc" maxlength="3" required>
+            <input type="text" id="cvc" name="cvc" placeholder="123" maxlength="3" required>
           </div>
         </div>
 
         <div class="form-field">
           <label for="name-on-card">Name on Card</label>
-          <input type="text" id="name-on-card" name="name-on-card" required>
+          <input type="text" id="name-on-card" name="nameOnCard" required>
         </div>
 
         <div class="form-field">
-          <label for="email">Email</label>
+          <label for="email">Email for Receipt</label>
           <input type="email" id="email" name="email" required>
         </div>
 
@@ -96,12 +78,11 @@
           <input type="tel" id="phone" name="phone" required>
         </div>
 
-        <button type="submit">Place Order</button>
+        <button type="submit" class="place-order-btn">Place Order</button>
       </form>
     </section>
   </main>
 
-  <!--footer-->
   <footer class="site-footer">
     <p>Matcha Cat Cafe • Seattle, WA</p>
   </footer>

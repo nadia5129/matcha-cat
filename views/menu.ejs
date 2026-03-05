@@ -6,100 +6,81 @@
 </head>
 <body>
 
-  <!--header-->
   <header class="site-header">
     <img src="/images/logo.jpg">
   </header>
 
   <main>
 
-    <!-- Category Tabs -->
     <nav class="menu-tabs">
       <button class="tab active" onclick="showCategory('coffee', event)">Coffee</button>
       <button class="tab" onclick="showCategory('matcha', event)">Matcha</button>
       <button class="tab" onclick="showCategory('pastries', event)">Pastries</button>
     </nav>
 
-    <!-- Coffee Section -->
     <section id="coffee" class="menu-category">
       <h2>Coffee</h2>
       <div class="menu-grid">
-
-        <div class="menu-item">
-          <img src="/images/hot_latte.png" alt="Latte">
-          <p class="item-name">Latte</p>
-          <a href="/menu-item"><button class="add-btn">Add</button></a>
-        </div>
-
-        <div class="menu-item">
-          <img src="/images/iced-latte.png" alt="Iced Latte">
-          <p class="item-name">Iced Latte</p>
-          <a href="/menu-item"><button class="add-btn">Add</button></a>
-        </div>
-
-        <div class="menu-item">
-          <img src="/images/hot_americano.png" alt="Hot Americano">
-          <p class="item-name">Hot Americano</p>
-          <a href="/menu-item"><button class="add-btn">Add</button></a>
-        </div>
-
-        <div class="menu-item">
-          <img src="/images/iced_americano.png" alt="Iced Americano">
-          <p class="item-name">Iced Americano</p>
-          <a href="/menu-item"><button class="add-btn">Add</button></a>
-        </div>
-
+        <% Object.keys(menu).forEach(key => { %>
+          <% if (key.includes('latte') || key.includes('americano')) { %>
+            <div class="menu-item">
+              <img src="/images/<%= menu[key].image %>" alt="<%= menu[key].name %>">
+              <div class="item-info">
+                <p class="item-name"><%= menu[key].name %></p>
+                <p class="item-description"><%= menu[key].description %></p>
+                <p class="item-price"><%= menu[key].price %></p>
+              </div>
+              <a href="/menu-item/<%= key %>"><button class="add-btn">View</button></a>
+            </div>
+          <% } %>
+        <% }); %>
       </div>
     </section>
 
-    <!-- Matcha Section -->
     <section id="matcha" class="menu-category hidden">
       <h2>Matcha</h2>
       <div class="menu-grid">
-
-        <div class="menu-item">
-          <img src="/images/iced-matcha.png" alt="Iced Matcha Latte">
-          <p class="item-name">Iced Matcha Latte</p>
-          <a href="/menu-item"><button class="add-btn">Add</button></a>
-        </div>
-
-        <div class="menu-item">
-          <img src="/images/hot_matcha.png" alt="Matcha Latte">
-          <p class="item-name">Matcha Latte</p>
-          <a href="/menu-item"><button class="add-btn">Add</button></a>
-        </div>
-
+        <% Object.keys(menu).forEach(key => { %>
+          <% if (key.includes('matcha')) { %>
+            <div class="menu-item">
+              <img src="/images/<%= menu[key].image %>" alt="<%= menu[key].name %>">
+              <div class="item-info">
+                <p class="item-name"><%= menu[key].name %></p>
+                <p class="item-description"><%= menu[key].description %></p>
+                <p class="item-price"><%= menu[key].price %></p>
+              </div>
+              <a href="/menu-item/<%= key %>"><button class="add-btn">View</button></a>
+            </div>
+          <% } %>
+        <% }); %>
       </div>
     </section>
 
-    <!-- Pastries Section -->
     <section id="pastries" class="menu-category hidden">
       <h2>Pastries</h2>
       <div class="menu-grid">
-
-        <div class="menu-item">
-          <img src="/images/butter_croissant.png" alt="Butter Croissant">
-          <p class="item-name">Butter Croissant</p>
-          <a href="/menu-item"><button class="add-btn">Add</button></a>
-        </div>
-
-        <div class="menu-item">
-          <img src="/images/strawberry-roll.png" alt="Strawberry Roll">
-          <p class="item-name">Strawberry Roll</p>
-          <a href="/menu-item"><button class="add-btn">Add</button></a>
-        </div>
-
+        <% Object.keys(menu).forEach(key => { %>
+          <% if (key === 'butter-croissant' || key === 'strawberry-roll') { %>
+            <div class="menu-item">
+              <img src="/images/<%= menu[key].image %>" alt="<%= menu[key].name %>">
+              <div class="item-info">
+                <p class="item-name"><%= menu[key].name %></p>
+                <p class="item-description"><%= menu[key].description %></p>
+                <p class="item-price"><%= menu[key].price %></p>
+              </div>
+              <a href="/menu-item/<%= key %>"><button class="add-btn">View</button></a>
+            </div>
+          <% } %>
+        <% }); %>
       </div>
     </section>
 
-    <!-- View Order Button -->
     <div class="view-order">
       <a href="/review"><button>View Order 🛍️</button></a>
     </div>
 
   </main>
 
-  <!--footer-->
   <footer class="site-footer">
     <p>Matcha Cat Cafe • Seattle, WA</p>
   </footer>

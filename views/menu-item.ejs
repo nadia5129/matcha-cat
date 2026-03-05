@@ -1,79 +1,118 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <%- include('partials/head', { title: 'Menu Item' }) %>
+  <%- include('partials/head', { title: item.name }) %>
   <script defer src="/js/matcha-cat.js"></script>
 </head>
 <body>
 
-  <!--header-->
   <header class="site-header">
-    <img src="/images/logo.jpg">
+    <img src="/images/logo.jpg" alt="Matcha Cat Logo">
   </header>
 
-  <main>
+  <main class="item-details-container">
+    <div class="back-nav">
+      <a href="/menu" style="text-decoration: none; color: #b2bec3;">← Back to Menu</a>
+    </div>
 
-    <!-- Item Image -->
     <section class="item-hero">
       <div class="item-image-circle">
-        <img src="/images/matcha-latte.jpg" alt="Matcha Latte">
+        <img src="/images/<%= item.image %>" alt="<%= item.name %>">
       </div>
-      <h1 class="item-title">Matcha Latte</h1>
+      <h1 class="item-title"><%= item.name %></h1>
+      <p class="item-price-large"><%= item.price %></p>
     </section>
 
     <form action="/add-to-order" method="POST">
+      <input type="hidden" name="itemName" value="<%= item.name %>">
 
-      <!-- Size Options -->
-      <section class="item-options">
-        <h2>Size Option</h2>
-        <div class="option-list">
-          <label class="option-row">
-            <input type="radio" name="size" value="8oz" required>
-            <span>8 oz</span>
-          </label>
-          <label class="option-row">
-            <input type="radio" name="size" value="16oz">
-            <span>16 oz</span>
-          </label>
-        </div>
-      </section>
+      <% if (!item.image.includes('croissant') && !item.image.includes('roll')) { %>
+        <section class="item-options">
+          <h2>Size Option</h2>
+          <div class="option-list">
+            <label class="option-row">
+              <input type="radio" name="size" value="8oz" required>
+              <span>8 oz</span>
+            </label>
+            <label class="option-row">
+              <input type="radio" name="size" value="12oz">
+              <span>12 oz</span>
+            </label>
+            <label class="option-row">
+              <input type="radio" name="size" value="16oz">
+              <span>16 oz</span>
+            </label>
+          </div>
+        </section>
 
-      <!-- Milk Options -->
-      <section class="item-options">
-        <h2>Milk</h2>
-        <div class="option-list">
-          <label class="option-row">
-            <input type="radio" name="milk" value="milk" required>
-            <span>Milk</span>
-          </label>
-          <label class="option-row">
-            <input type="radio" name="milk" value="oat-milk">
-            <span>Oat Milk</span>
-          </label>
-          <label class="option-row">
-            <input type="radio" name="milk" value="soy">
-            <span>Soy</span>
-          </label>
-          <label class="option-row">
-            <input type="radio" name="milk" value="whole-milk">
-            <span>Whole Milk</span>
-          </label>
-        </div>
-      </section>
+        <section class="item-options">
+          <h2>Milk</h2>
+          <div class="option-list">
+            <label class="option-row">
+              <input type="radio" name="milk" value="whole-milk" required>
+              <span>Whole Milk</span>
+            </label>
+            <label class="option-row">
+              <input type="radio" name="milk" value="oat-milk">
+              <span>Oat Milk</span>
+            </label>
+            <label class="option-row">
+              <input type="radio" name="milk" value="almond-milk">
+              <span>Almond Milk</span>
+            </label>
+            <label class="option-row">
+              <input type="radio" name="milk" value="soy">
+              <span>Soy</span>
+            </label>
+            <label class="option-row">
+              <input type="radio" name="milk" value="coconut-milk">
+              <span>Coconut Milk</span>
+            </label>
+            <label class="option-row">
+              <input type="radio" name="milk" value="2%-milk">
+              <span>2% Milk</span>
+            </label>
+          </div>
+        </section>
 
-      <!-- Description -->
+        <section class="item-options">
+          <h2>Add Syrup (+$0.50)</h2>
+          <div class="option-list">
+            <label class="option-row">
+              <input type="radio" name="syrup" value="none" checked>
+              <span>None</span>
+            </label>
+            <label class="option-row">
+              <input type="radio" name="syrup" value="vanilla">
+              <span>Vanilla</span>
+            </label>
+            <label class="option-row">
+              <input type="radio" name="syrup" value="caramel">
+              <span>Caramel</span>
+            </label>
+            <label class="option-row">
+              <input type="radio" name="syrup" value="hazelnut">
+              <span>Hazelnut</span>
+            </label>
+            <label class="option-row">
+              <input type="radio" name="syrup" value="lavender">
+              <span>Lavender</span>
+            </label>
+          </div>
+        </section>
+      <% } %>
+
       <section class="item-description">
         <h2>Description</h2>
-        <textarea name="description" rows="3" placeholder="Any special instructions..."></textarea>
+        <p><%= item.description %></p>
+        <textarea name="specialInstructions" rows="3" placeholder="Any special instructions..."></textarea>
       </section>
 
       <button type="submit" class="add-to-order-btn">Add to Order</button>
 
     </form>
-
   </main>
 
-  <!--footer-->
   <footer class="site-footer">
     <p>Matcha Cat Cafe • Seattle, WA</p>
   </footer>

@@ -53,3 +53,35 @@ app.get('/review', (req, res) => {
 app.listen(PORT, () => {
   console.log(`Server is running at http://localhost:${PORT}`);
 });
+
+// array to store account submit for create-an-account.ejs
+const accountSubmissions = [];
+// store it
+app.post('/submit', (req, res) => {
+  let username = req.body.username;
+  let firstName = req.body.fname;
+  let lastName = req.body.lname;
+  let phone = req.body.phone;
+  let birthday = req.body.birthday;
+  let email = req.body.email;
+
+  const submission = {
+    username,
+    firstName,
+    lastName,
+    phone,
+    birthday,
+    email,
+    timestamp: new Date().toLocaleString()
+  };
+  accountSubmissions.push(submission);
+
+  res.render('confirm-create-an-account', { submission });
+});
+app.get('/confirm-create-an-account', (req, res) => {
+  res.render('confirm-create-an-account', { submission: null });
+});
+
+app.get('/admin-create-an-accounts', (req, res) => {
+  res.render('admin-create-an-accounts', { submissions: accountSubmissions });
+});

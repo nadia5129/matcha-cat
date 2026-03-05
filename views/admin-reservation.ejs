@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Reservations</title>
+
+    <!-- Scripts -->
+    <script src="//code.jquery.com/jquery-3.7.1.js"></script>
+    <script src="//cdn.datatables.net/2.3.7/js/dataTables.js"></script>
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="//cdn.datatables.net/2.3.7/css/dataTables.dataTables.css">
+</head>
+
+<body>
+
+<h1>Reservation Submissions</h1>
+
+<table id="reservations-table">
+<thead>
+<tr>
+<th>Name</th>
+<th>Phone</th>
+<th>Email</th>
+<th>Date</th>
+<th>Time</th>
+<th>Party Size</th>
+<th>Comment</th>
+<th>Timestamp</th>
+</tr>
+</thead>
+
+<tbody>
+
+<% submissions.forEach(r => { %>
+<tr>
+<td><%= r.fname %></td>
+<td><%= r.phone %></td>
+<td><%= r.email %></td>
+<td><%= r.date %></td>
+<td><%= r.time %></td>
+<td><%= r.size %></td>
+<td><%= r.comment %></td>
+<td><%= r.timestamp %></td>
+</tr>
+<% }) %>
+
+</tbody>
+</table>
+
+<script>
+new DataTable('#reservations-table');
+</script>
+
+<!--footer-->
+<footer class="site-footer">
+<p>Matcha Cat Cafe • Seattle, WA</p>
+</footer>
+
+<%- include('partials/bottom-nav') %>
+
+</body>
+</html>

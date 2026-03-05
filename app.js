@@ -50,9 +50,28 @@ app.get('/review', (req, res) => {
   res.render('review');
 });
 
-app.listen(PORT, () => {
-  console.log(`Server is running at http://localhost:${PORT}`);
+// In-memory array to store reservations
+const reservations = [];
+
+app.post('/reserve', (req, res) => {
+  const reservation = {
+    fname: req.body.fname,
+    phone: req.body.phone,
+    email: req.body.email,
+    date: req.body.date,
+    time: req.body.time,
+    size: req.body.size,
+    comment: req.body.comment || "",
+    timestamp: new Date().toLocaleString()
+  };
+
+  reservations.push(reservation);
+
+  // confirmation page with reservation details
+  res.render('reservation-confirmation', { reservation });
 });
+
+
 
 // array to store account submit for create-an-account.ejs
 const accountSubmissions = [];
@@ -84,4 +103,15 @@ app.get('/confirm-create-an-account', (req, res) => {
 
 app.get('/admin-create-an-account', (req, res) => {
   res.render('admin-create-an-account', { submissions: accountSubmissions });
+});
+
+app.get('/admin-reservation', (req, res) => {
+  res.render('admin-reservation', { submissions: reservations });
+});
+
+
+
+// this needs to be at te end of the file to avoid conflicts with other routes
+app.listen(PORT, () => {
+  console.log(`Server is running at http://localhost:${PORT}`);
 });

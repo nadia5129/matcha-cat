@@ -82,6 +82,6 @@ app.get('/confirm-create-an-account', (req, res) => {
   res.render('confirm-create-an-account', { submission: null });
 });
 
-app.get('/admin-create-an-accounts', (req, res) => {
-  res.render('admin-create-an-accounts', { submissions: accountSubmissions });
+app.get('/admin-create-an-account', (req, res) => {
+  res.render('admin-create-an-account', { submissions: accountSubmissions });
 });

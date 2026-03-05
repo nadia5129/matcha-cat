@@ -3,9 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Confirmation Page for Create An Account</title>
+    <%- include('partials/head', { title: 'Account Created' }) %>
 </head>
 <body>
     
+    <!--header-->
+    <header class="site-header">
+        <img src="/images/logo.jpg">
+    </header>
+
+    <!--confirmation section-->
+    <main>
+        <section id="confirm-create-an-account-section" class="confirm-section">
+
+            <% if (submission) { %>
+                <h2>Account Created! MEOW</h2>
+                <p>Welcome, <strong><%= submission.firstName %> <%= submission.lastName %></strong>!</p>
+
+                <div class="confirm-details">
+                    <ul>
+                        <li><strong>Username:</strong> <%= submission.username %></li>
+                        <li><strong>Name:</strong> <%= submission.firstName %> <%= submission.lastName %></li>
+                        <li><strong>Phone:</strong> <%= submission.phone %></li>
+                        <li><strong>Birthday:</strong> <%= submission.birthday %></li>
+                        <li><strong>Email:</strong> <%= submission.email %></li>
+                        <li><strong>Submitted:</strong> <%= submission.timestamp %></li>
+                    </ul>
+                </div>
+
+                <a href="/">Back to Home</a>
+
+            <% } else { %>
+                <h2>No account data found.</h2>
+                <a href="/create-an-account">Create an Account</a>
+            <% } %>
+
+        </section>
+    </main>
+
+    <!--footer-->
+    <footer class="site-footer">
+        <p>Matcha Cat Cafe • Seattle, WA</p>
+    </footer>
+
+    <%- include('partials/bottom-nav') %>
 </body>
 </html>

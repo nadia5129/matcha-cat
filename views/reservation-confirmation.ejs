@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('partials/head', { title: 'Reservation Summary' }) %>
+</head>
+<body>
+
+<header class="site-header">
+  <img src="/images/logo.jpg" alt="Matcha Cat Cafe Logo">
+</header>
+
+<main>
+  <section class="reservation-section">
+    <h1>Reservation Summary </h1>
+    <p>Thanks, <%= reservation.fname %>! Your reservation has been saved.</p>
+  </section>
+
+  <section class="res-form">
+    <div class="card">
+      <p><strong>Date:</strong> <%= reservation.date %></p>
+      <p><strong>Time:</strong> <%= reservation.time %></p>
+      <p><strong>Party Size:</strong> <%= reservation.size %></p>
+      <p><strong>Phone:</strong> <%= reservation.phone %></p>
+      <p><strong>Email:</strong> <%= reservation.email %></p>
+
+      <% if (reservation.comment && reservation.comment.trim().length > 0) { %>
+        <p><strong>Comments:</strong> <%= reservation.comment %></p>
+      <% } %>
+
+      <p><strong>Submitted:</strong> <%= reservation.timestamp %></p>
+    </div>
+
+  <div style="margin-top: 16px;">
+  <button class="confirm-res-btn" type="button" onclick="window.location.href='/reservation'">
+    Make another reservation
+  </button>
+</div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <p>Matcha Cat Cafe • Seattle, WA</p>
+</footer>
+
+<%- include('partials/bottom-nav') %>
+
+</body>
+</html>

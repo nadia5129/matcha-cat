@@ -183,7 +183,8 @@ button[type="submit"]:hover {
 /* Secondary - Pink */
 .btn-secondary,
 button.add-btn,
-button.reservation-btn {
+button.reservation-btn,
+button.confirm-res-btn {
   background-color: var(--pink-light);
   color: var(--brown-dark);
 }

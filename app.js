@@ -42,9 +42,6 @@ app.get('/account', (req, res) => {
   res.render('account');
 });
 
-app.get('/create-an-account', (req, res) => {
-  res.render('create-an-account');
-});
 
 app.get('/review', (req, res) => {
   res.render('review');
@@ -72,6 +69,10 @@ app.post('/reserve', (req, res) => {
 });
 
 
+// create an account pages
+app.get('/create-an-account', (req, res) => {
+  res.render('create-an-account');
+});
 
 // array to store account submit for create-an-account.ejs
 const accountSubmissions = [];
@@ -94,7 +95,6 @@ app.post('/submit', (req, res) => {
     timestamp: new Date().toLocaleString()
   };
   accountSubmissions.push(submission);
-
   res.render('confirm-create-an-account', { submission });
 });
 app.get('/confirm-create-an-account', (req, res) => {
@@ -108,8 +108,6 @@ app.get('/admin-create-an-account', (req, res) => {
 app.get('/admin-reservation', (req, res) => {
   res.render('admin-reservation', { submissions: reservations });
 });
-
-
 
 // this needs to be at te end of the file to avoid conflicts with other routes
 app.listen(PORT, () => {

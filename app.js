@@ -7,18 +7,24 @@ dotenv.config();
 const app = express();
 const PORT = 3003;
 
-import mysql2 from 'mysql2';
-import dotenv from 'dotenv';
+// mysql connection pool
+const pool = mysql2.createPool({
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME,
+  port: process.env.DB_PORT,
+}).promise();
 
-dotenv.config();
-
+// middleware
 app.use(express.static('public'));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 
-
+// set EJS as the view engine
 app.set('view engine', 'ejs');
+app.set('views', './views');
 
 // --- MENU DATA OBJECT ---
 const menuData = {
@@ -171,20 +177,33 @@ const accountSubmissions = [];
 app.get('/create-an-account', (req, res) => {
     res.render('create-an-account');
 });
+// POST /submit - insert new account into myql
+app.post('/submit', async (req, res) => {
+    try {
+    const sql = `INSERT INTO accounts (username, first_name, last_name, phone, birthday, email, password)
+            VALUES (?, ?, ?, ?, ?, ?, ?)`;
+        const params = [
+            req.body.username,
+            req.body.fname,
+            req.body.lname,
+            req.body.phone,
+            req.body.birthday,
+            req.body.email,
+            req.body.password
+        ];
+    const [result] = await pool.execute(sql, params);
+    console.log('Account saved with ID', result.insertId);
 
-app.post('/submit', (req, res) => {
     const submission = {
-        username: req.body.username,
-        firstName: req.body.fname,
-        lastName: req.body.lname,
+        username = req.body.username,
+        firstName = req.body.fName,
+        lastname: req.body.lName,
         phone: req.body.phone,
         birthday: req.body.birthday,
         email: req.body.email,
         timestamp: new Date().toLocaleString()
     };
-    accountSubmissions.push(submission);
-    res.render('confirm-create-an-account', { submission });
-});
+    res.render('confirm-create-an-account', {submission});
 
 app.get('/confirm-create-an-account', (req, res) => {
     res.render('confirm-create-an-account', { submission: null });

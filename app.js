@@ -172,7 +172,6 @@ app.post('/reserve', (req, res) => {
 });
 
 // --- ACCOUNTS ---
-const accountSubmissions = [];
 
 app.get('/create-an-account', (req, res) => {
     res.render('create-an-account');
@@ -195,22 +194,47 @@ app.post('/submit', async (req, res) => {
     console.log('Account saved with ID', result.insertId);
 
     const submission = {
-        username = req.body.username,
-        firstName = req.body.fName,
-        lastname: req.body.lName,
+        username: req.body.username,
+        firstName: req.body.fname,
+        lastname: req.body.lname,
         phone: req.body.phone,
         birthday: req.body.birthday,
         email: req.body.email,
         timestamp: new Date().toLocaleString()
     };
     res.render('confirm-create-an-account', {submission});
+} catch (err) {
+    console.error('Error saving account: ', err);
+    res.status(500).send('Error saving account. Please try again. ');
+}
+});
 
 app.get('/confirm-create-an-account', (req, res) => {
     res.render('confirm-create-an-account', { submission: null });
 });
-
-app.get('/admin-create-an-account', (req, res) => {
-    res.render('admin-create-an-account', { submissions: accountSubmissions });
+// get /admin create-an-account, read from mysql
+app.get('/admin-create-an-account', async (req, res) => {
+    try {
+        const [submissions] = await pool.query(`
+            SELECT username, first_name AS firstName, last_name AS lastName,
+                   phone, birthday, email, created_at AS timestamp
+            FROM accounts
+            ORDER BY created_at DESC
+        `);
+        res.render('admin-create-an-account', { submissions });
+    } catch (err) {
+        console.error('Database error:', err);
+        res.status(500).send('Error loading accounts: ' + err.message); 
+    }
+});
+// DB test route
+app.get('/db-test', async (req, res) => {
+    try {
+        const [rows] = await pool.query('SELECT * FROM accounts');
+        res.json(rows);
+    } catch (err) {
+        res.status(500).send('Database error: ' + err.message);
+    }
 });
 
 app.get('/admin-reservation', (req, res) => {

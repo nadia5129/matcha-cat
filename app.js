@@ -1,11 +1,17 @@
 import express from 'express';
+import mysql2 from 'mysql2';
+import dotenv from 'dotenv';
+
+dotenv.config();
+
 const app = express();
+const PORT = 3003;
 
 app.use(express.static('public'));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-const PORT = 3003;
+
 
 app.set('view engine', 'ejs');
 

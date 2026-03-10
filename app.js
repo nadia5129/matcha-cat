@@ -7,6 +7,11 @@ dotenv.config();
 const app = express();
 const PORT = 3003;
 
+import mysql2 from 'mysql2';
+import dotenv from 'dotenv';
+
+dotenv.config();
+
 app.use(express.static('public'));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());

@@ -9,10 +9,17 @@ dotenv.config();
 app.use(express.static('public'));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-
 const PORT = 3003;
 
 app.set('view engine', 'ejs');
+
+const pool = mysql2.createPool({
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME,
+  port: process.env.DB_PORT
+}).promise();
 
 // --- MENU DATA OBJECT ---
 const menuData = {
@@ -142,21 +149,40 @@ app.get('/account', (req, res) => {
 });
 
 // --- RESERVATIONS ---
-const reservations = [];
+app.post('/reserve', async (req, res) => {
+    try{
+        const reservation = {
+            fname: req.body.fname,
+            phone: req.body.phone,
+            email: req.body.email,
+            date: req.body.date,
+            time: req.body.time,
+            size: req.body.size,
+            comment: req.body.comment || "",
+            timestamp: new Date().toLocaleString()
+            
+        };
 
-app.post('/reserve', (req, res) => {
-    const reservation = {
-        fname: req.body.fname,
-        phone: req.body.phone,
-        email: req.body.email,
-        date: req.body.date,
-        time: req.body.time,
-        size: req.body.size,
-        comment: req.body.comment || "",
-        timestamp: new Date().toLocaleString()
-    };
-    reservations.push(reservation);
-    res.render('reservation-confirmation', { reservation });
+        await pool.query(
+            `INSERT INTO reservations (fname, phone, email, date, time, size, comment)
+             VALUES (?, ?, ?, ?, ?, ?, ?)`,
+            [
+                reservation.fname,
+                reservation.phone,
+                reservation.email,
+                reservation.date,
+                reservation.time,
+                reservation.size,
+                reservation.comment
+                
+            ]
+        );
+
+        res.render('reservation-confirmation', { reservation });
+    } catch (err) {
+        console.error('Error saving reservation:', err);
+        res.status(500).send('Error saving reservation');
+    }
 });
 
 // --- ACCOUNTS ---
@@ -188,8 +214,14 @@ app.get('/admin-create-an-account', (req, res) => {
     res.render('admin-create-an-account', { submissions: accountSubmissions });
 });
 
-app.get('/admin-reservation', (req, res) => {
-    res.render('admin-reservation', { submissions: reservations });
+app.get('/admin-reservation', async (req, res) => {
+    try {
+        const [rows] = await pool.query('SELECT * FROM reservations ORDER BY id DESC');
+        res.render('admin-reservation', { submissions: rows });
+    } catch (err) {
+        console.error('Error loading reservations:', err);
+        res.status(500).send('Error loading reservations');
+    }
 });
 
 // --- REMOVE FROM CART ROUTE ---

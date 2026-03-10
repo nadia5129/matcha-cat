@@ -19,8 +19,10 @@
   },
   "homepage": "https://github.com/nadia5129/matcha-cat#readme",
   "dependencies": {
+    "dotenv": "^17.3.1",
     "ejs": "^4.0.1",
-    "express": "^5.2.1"
+    "express": "^5.2.1",
+    "mysql2": "^3.19.1"
   },
   "devDependencies": {
     "nodemon": "^3.1.13"

@@ -41,10 +41,18 @@
   --pink-dark:    #C4788A;
   --pink-mid:     #E8A0B0;
   --pink-light:   #F7D6DF;
+  --pink-soft:    #F3C6D1;
+  --pink-pale:    #faeef2;
 
+  --pink-paler:   #F9E4EA;   
+  --pink-fair:    #FDF0F4;   
+  --rose-muted:   #DFA2B1;
   /* Creams */
   --cream:        #FAF3EB;
   --cream-dark:   #EDE0D0;
+  --cream-deep:   #E6D4C3;
+  --cream-soft:   #FFF8F2;
+  --cream-blush:  #F9EEE8;
 
   /* Neutrals */
   --white:        #FFFFFF;
@@ -139,16 +147,18 @@ a {
    7. HEADER
 ------------------------------------------- */
 .site-header {
-  background-color: var(--brown-dark);
-  padding: 12px 20px;
+  background-color: var(--pink-fair);
+  padding: 14px 20px;
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 200px;
+  min-height: auto;
+  border-bottom: 1px solid var(--cream-dark);
 }
 
 .site-header img {
-  height: 200px;
+  height: 130px;
+  width: auto;
   object-fit: contain;
 }
 

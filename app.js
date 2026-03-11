@@ -241,15 +241,7 @@ app.get('/admin-create-an-account', async (req, res) => {
         res.status(500).send('Error loading accounts: ' + err.message); 
     }
 });
-// DB test route
-app.get('/db-test', async (req, res) => {
-    try {
-        const [rows] = await pool.query('SELECT * FROM accounts');
-        res.json(rows);
-    } catch (err) {
-        res.status(500).send('Database error: ' + err.message);
-    }
-});
+
 
 app.get('/admin-reservation', async (req, res) => {
     try {

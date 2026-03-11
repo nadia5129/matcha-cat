@@ -158,7 +158,6 @@ app.post('/reserve', async (req, res) => {
             size: req.body.size,
             comment: req.body.comment || "",
             timestamp: new Date().toLocaleString()
-            
         };
 
         await pool.query(
@@ -172,7 +171,6 @@ app.post('/reserve', async (req, res) => {
                 reservation.time,
                 reservation.size,
                 reservation.comment
-                
             ]
         );
 
@@ -181,7 +179,6 @@ app.post('/reserve', async (req, res) => {
         console.error('Error saving reservation:', err);
         res.status(500).send('Error saving reservation');
     }
-
 });
 
 // --- ACCOUNTS ---

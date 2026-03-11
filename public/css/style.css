@@ -404,11 +404,7 @@ main {
    15. HOME PAGE
 ------------------------------------------- */
 
-/* -------------------------------------------
-   15. HOME PAGE
-------------------------------------------- */
-
-/* Make home main wider (desktop + mobile) */
+/* (desktop + mobile) */
 .home-video + main{
   max-width: 1000px;
   margin: 0 auto;
@@ -452,7 +448,7 @@ main {
   box-shadow: var(--shadow);
 }
 
-/* Menu + Cats: consistent section spacing */
+/* Menu + Cats */
 .home-section,
 .cat-section{
   margin-top: 18px;
@@ -498,8 +494,6 @@ main {
   object-fit: cover;
   border-radius: var(--radius-md);
 }
-
-
 
 /* CAT grid images */
 .cat-grid{
@@ -718,7 +712,7 @@ width: 100%;
   gap: 12px;
 }
 
-/* --- ACCOUNT PAGE --- */
+/* --- CREATE ACCOUNT PAGE --- */
 
 .user-account {
   display: grid;
@@ -745,7 +739,7 @@ width: 100%;
   margin-top: 8px;
 }
 
-/* Past orders and reservations sections */
+/*  Account Page */
 section.past-orders,
 section.my-reservations {
   background-color: var(--white);
@@ -755,6 +749,51 @@ section.my-reservations {
   margin-bottom: 16px;
 }
 
+.account-page {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 24px 16px;
+  display: grid;
+  gap: 18px;
+}
+
+.profile-hero {
+  background: var(--pink-light);
+  border: 1px solid var(--cream-dark);
+}
+
+.profile-copy h1 {
+  margin-bottom: 8px;
+}
+
+.section-heading {
+  margin-bottom: 14px;
+}
+
+.account-panel,
+.user-form {
+  border: 1px solid var(--cream-dark);
+  background: var(--pink-pale);
+}
+
+.empty-state {
+  text-align: center;
+  padding: 12px 8px 4px;
+}
+
+.empty-icon {
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+
+.empty-state p {
+  margin-bottom: 16px;
+}
+
+.account-panel .btn,
+.empty-state .btn {
+  display: inline-block;
+}
 
 /* -------------------------------------------
    17. UTILITIES

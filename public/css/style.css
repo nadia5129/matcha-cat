@@ -365,7 +365,7 @@ main {
 /* -------------------------------------------
    14. BOTTOM NAV
 ------------------------------------------- */
-.bottom-nav {
+/* .bottom-nav {
   position: fixed;
   bottom: 0;
   left: 0;
@@ -397,8 +397,59 @@ main {
 
 .nav-icon {
   font-size: 1.3rem;
+} */
+.bottom-nav {
+  position: fixed;
+  bottom: 18px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 92%;
+  max-width: 520px;
+
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+
+  background: var(--pink-pale);
+  border: 1px solid var(--cream-dark);
+  border-radius: 28px;
+  padding: 12px 10px;
+
+  box-shadow: 0 10px 30px rgba(59, 35, 20, 0.08);
+  z-index: 100;
 }
 
+.nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: none;
+  color: var(--text-light);
+  font-size: 0.72rem;
+  gap: 4px;
+  transition: all 0.25s ease;
+}
+
+.nav-icon {
+  width: 22px;
+  height: 22px;
+  stroke-width: 1.6;
+  color: var(--brown-mid);
+}
+
+.nav-label {
+  font-size: 0.65rem;
+  letter-spacing: 0.3px;
+}
+
+.nav-item:hover {
+  transform: translateY(-3px);
+  color: var(--pink-dark);
+}
+
+.nav-item:hover .nav-icon {
+  color: var(--pink-dark);
+}
 
 /* -------------------------------------------
    15. HOME PAGE
@@ -598,7 +649,7 @@ width: 100%;
 
 .order-item {
   display: grid;
-  grid-template-columns: 60px 1fr auto; /* image | details | price */
+  grid-template-columns: 60px 1fr auto;
   grid-template-rows: 1fr;
   align-items: center;
   gap: 12px;
@@ -739,7 +790,7 @@ width: 100%;
   margin-top: 8px;
 }
 
-/*  Account Page */
+/* --- ACCOUNT PAGE --- */
 section.past-orders,
 section.my-reservations {
   background-color: var(--white);
@@ -758,7 +809,7 @@ section.my-reservations {
 }
 
 .profile-hero {
-  background: var(--pink-light);
+  background: var(--pink-pale);
   border: 1px solid var(--cream-dark);
 }
 
@@ -768,12 +819,6 @@ section.my-reservations {
 
 .section-heading {
   margin-bottom: 14px;
-}
-
-.account-panel,
-.user-form {
-  border: 1px solid var(--cream-dark);
-  background: var(--pink-pale);
 }
 
 .empty-state {

@@ -27,6 +27,8 @@
 ------------------------------------------- */
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Lato:wght@300;400;700&display=swap');
 
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Lato:wght@300;400;700&family=Pacifico&display=swap');
+
 
 /* -------------------------------------------
    2. CSS VARIABLES
@@ -142,26 +144,59 @@ a {
   object-fit: cover;
 }
 
-
 /* -------------------------------------------
-   7. HEADER
+   7. HEADER & LOGO (FINAL - CLEAN VERSION)
 ------------------------------------------- */
 .site-header {
-  background-color: var(--pink-fair);
-  padding: 14px 20px;
+  background: linear-gradient(180deg, var(--pink-fair) 0%, var(--pink-paler) 100%); /* Subtle gradient */
+  padding: 28px 20px;
   display: flex;
   align-items: center;
   justify-content: center;
   min-height: auto;
-  border-bottom: 1px solid var(--cream-dark);
+  border-bottom: 2px solid var(--cream-dark); /* Slightly thicker border */
+  box-shadow: 0 2px 8px rgba(107, 127, 60, 0.05); /* Subtle green-tinted shadow */
 }
 
-.site-header img {
-  height: 130px;
-  width: auto;
-  object-fit: contain;
+/* Script-style logo - clean, no emojis */
+.logo-text {
+  font-family: 'Pacifico', cursive;
+  font-size: 48px;
+  font-weight: 400;
+  text-decoration: none;
+  display: inline-block;
+  letter-spacing: 2px;
+  position: relative;
+  transition: all 0.3s ease;
+  line-height: 1.1;
+  color: #6B7F3C;
 }
 
+.logo-text .matcha {
+  color: #6B7F3C; /* Deep matcha green */
+}
+
+.logo-text .cat {
+  color: #6B7F3C;
+  margin-left: 6px;
+}
+
+.logo-text:hover {
+  transform: scale(1.02);
+  color: #88AB75;
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+  .site-header {
+    padding: 20px 16px;
+  }
+  
+  .logo-text {
+    font-size: 36px;
+    letter-spacing: 1px;
+  }
+}
 
 /* -------------------------------------------
    8. BUTTONS

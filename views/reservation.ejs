@@ -6,54 +6,83 @@
 </head>
 <body>
 
-  <!--header-->
+  <!-- 
+    HEADER SECTION
+    Displays the Matcha Cat logo text with link to homepage
+  -->
   <header class="site-header">
-    <img src="/images/logo.jpg">
+    <a href="/" class="logo-text">
+      <span class="matcha">Matcha</span> <span class="cat">Cat</span>
+    </a>
   </header>
 
-  <main>
-    <section class="reservation-section">
-      <h1>Reservations</h1>
+  <main class="reservation-page">
+    <!-- 
+      PAGE TITLE SECTION
+      Introduces the reservation page to users
+    -->
+    <section class="page-intro">
+      <h1>Reserve Your Visit</h1>
+      <p>Book a cozy spot to sip matcha and spend time with our friendly cats.</p>
     </section>
 
-    <section class="res-form">
-      <form id="reservation-form" action="/reserve" method="POST">
-        <fieldset>
-          <legend>Reserve a Visit</legend>
-
+    <!-- 
+      RESERVATION FORM SECTION
+      Collects customer information for cafe reservations
+      Form uses responsive grid layout based on screen size
+    -->
+    <section class="form-container">
+      <form id="reservation-form" class="reservation-form" action="/reserve" method="POST">
+        
+        <h2 class="form-title">Reserve a Visit</h2>
+        
+        <div class="input-grid">
+          <!-- First Name -->
           <div class="form-field">
             <label for="fname">First Name</label>
-            <input type="text" id="fname" name="fname">
+            <input type="text" id="fname" name="fname" required>
             <span id="fname-error" class="error-message"></span>
           </div>
 
+          <!-- Last Name -->
+          <div class="form-field">
+            <label for="lname">Last Name</label>
+            <input type="text" id="lname" name="lname" required>
+            <span id="lname-error" class="error-message"></span>
+          </div>
+
+          <!-- Phone Number -->
           <div class="form-field">
             <label for="phone">Phone Number</label>
-            <input type="tel" id="phone" name="phone">
+            <input type="tel" id="phone" name="phone" placeholder="(206) 555-1234" required>
             <span id="phone-error" class="error-message"></span>
           </div>
 
-          <div class="form-field">
+          <!-- Email - Full Width -->
+          <div class="form-field full-width">
             <label for="email">Email Address</label>
-            <input type="email" id="email" name="email">
+            <input type="email" id="email" name="email" placeholder="you@example.com" required>
             <span id="email-error" class="error-message"></span>
           </div>
 
+          <!-- Date -->
           <div class="form-field">
-            <label for="date">Select a Date</label>
-            <input type="date" id="date" name="date">
+            <label for="date">Date</label>
+            <input type="date" id="date" name="date" required>
             <span id="date-error" class="error-message"></span>
           </div>
 
+          <!-- Time -->
           <div class="form-field">
-            <label for="time">Select a Time</label>
-            <input type="time" id="time" name="time">
+            <label for="time">Time</label>
+            <input type="time" id="time" name="time" required>
             <span id="time-error" class="error-message"></span>
           </div>
 
+          <!-- Party Size -->
           <div class="form-field">
-            <label for="size">Select Party Size</label>
-            <select id="size" name="size">
+            <label for="size">Party Size</label>
+            <select id="size" name="size" required>
               <option value="">-- Select --</option>
               <option value="1">1 person</option>
               <option value="2">2 people</option>
@@ -64,23 +93,45 @@
             <span id="size-error" class="error-message"></span>
           </div>
 
-          <div class="form-field">
-            <label for="comment">Additional Comments</label>
-            <textarea id="comment" name="comment" rows="4"></textarea>
+          <!-- Comments - Full Width -->
+          <div class="form-field full-width">
+            <label for="comment">Special Requests or Dietary Restrictions</label>
+            <textarea id="comment" name="comment" rows="4" placeholder="Let us know if you have any special requests..."></textarea>
           </div>
+        </div>
 
-          <button type="submit">Reserve</button>
-
-        </fieldset>
+        <!-- Submit Button -->
+        <button type="submit" class="btn-submit">Reserve My Spot</button>
       </form>
+    </section>
+
+    <!-- 
+      RESERVATION INFO SECTION
+      Provides helpful information about reservations
+    -->
+    <section class="info-card">
+      <h3>Reservation Details</h3>
+      <ul>
+        <li>Reservations are recommended but walk-ins are welcome based on availability</li>
+        <li>Each reservation includes 90 minutes with our cats and complimentary matcha tasting</li>
+        <li>Please arrive 10 minutes early to check in</li>
+        <li>Cancellations must be made 24 hours in advance</li>
+      </ul>
     </section>
   </main>
 
-  <!--footer-->
+  <!-- 
+    FOOTER SECTION
+    Displays cafe location and copyright information
+  -->
   <footer class="site-footer">
     <p>Matcha Cat Cafe • Seattle, WA</p>
   </footer>
 
+  <!-- 
+    BOTTOM NAVIGATION
+    Fixed navigation bar with icons for main site sections
+  -->
   <%- include('partials/bottom-nav') %>
 
 </body>

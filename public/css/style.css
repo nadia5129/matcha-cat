@@ -309,60 +309,132 @@ legend {
 
 
 /* -------------------------------------------
-   10. FORM PAGES (Reservation & Create Account)
+   10. RESERVATION PAGE (RESPONSIVE FORM)
 ------------------------------------------- */
 
-/* Card container */
-.res-form,
-.form-section {
-  background-color: var(--white);
-  border-radius: var(--radius-md);
-  box-shadow: var(--shadow);
-  padding: 24px;
-  margin-top: 16px;
+/* Reservation page main container */
+.reservation-page {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 32px 20px;
 }
 
-/* Grid layout - single column by default */
-.res-form form,
-.account-form {
+/* Page intro section */
+.page-intro {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.page-intro h1 {
+  margin-bottom: 12px;
+  font-size: 2rem;
+}
+
+.page-intro p {
+  font-size: 1.05rem;
+  color: var(--text-mid);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Form container card */
+.form-container {
+  background-color: var(--white);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow);
+  padding: 40px 32px;
+  margin-bottom: 32px;
+}
+
+/* Form title */
+.form-title {
+  font-size: 1.5rem;
+  margin-bottom: 24px;
+  color: var(--brown-dark);
+  text-align: center;
+}
+
+/* Input grid - responsive */
+.input-grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 4px;
+  gap: 20px;
+  margin-bottom: 24px;
 }
 
-/* Two column layout on wider screens */
-@media (min-width: 480px) {
-  .res-form form,
-  .account-form {
+/* Tablet: 2 columns */
+@media (min-width: 600px) {
+  .input-grid {
     grid-template-columns: 1fr 1fr;
+    gap: 24px;
   }
-
-  /* Fields that should always be full width */
-  .res-form .form-field:has(#email),
-  .res-form .form-field:has(#comment),
-  .res-form fieldset > button,
-  .account-form .form-field:has(#username),
-  .account-form .form-field:has(#email),
-  .account-form .form-field:has(#password),
-  .account-form button {
+  
+  .input-grid .full-width {
     grid-column: 1 / -1;
   }
 }
 
-/* Submit buttons always full width */
-.res-form button[type="submit"],
-.account-form button[type="submit"] {
-  grid-column: 1 / -1;
+/* Desktop: 3 columns */
+@media (min-width: 900px) {
+  .form-container {
+    padding: 48px 56px;
+  }
+  
+  .input-grid {
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 28px;
+  }
+  
+  .input-grid .full-width {
+    grid-column: 1 / -1;
+  }
+}
+
+/* Submit button */
+.btn-submit {
   width: 100%;
-  margin-top: 8px;
+  padding: 16px 32px;
+  font-size: 1.05rem;
+  background-color: var(--brown-dark);
+  color: var(--white);
+  border: none;
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  font-weight: 700;
+  transition: all 0.3s ease;
 }
 
-/* Page headings */
-.reservation-section h1,
-#create-an-account-section h2 {
-  margin-bottom: 8px;
+.btn-submit:hover {
+  background-color: var(--brown-mid);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(59, 35, 20, 0.2);
 }
 
+/* Info card */
+.info-card {
+  background-color: var(--white);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow);
+  padding: 32px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.info-card h3 {
+  margin-bottom: 16px;
+  font-size: 1.2rem;
+  color: var(--brown-dark);
+}
+
+.info-card ul {
+  list-style-position: inside;
+  padding-left: 0;
+}
+
+.info-card li {
+  margin-bottom: 12px;
+  line-height: 1.6;
+}
 
 /* -------------------------------------------
    11. CARDS

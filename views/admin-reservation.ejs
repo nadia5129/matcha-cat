@@ -1,64 +1,90 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Reservations</title>
-  <%- include('partials/head', { title: 'Account' }) %>
-    <!-- Scripts -->
+    <!--
+    ====================================================
+    Page: Admin – Reservation Submissions
+  
+    Description:
+    Administrative page that displays all reservation
+    submissions made by users.
+
+    Reservation data is dynamically rendered from the
+    server using EJS. The DataTables library is used
+    to improve the table with sorting, searching,
+    and interactive display features.
+    ====================================================
+    -->
+
+    <!-- Reusable Head Partial -->
+    <%- include('partials/head', { title: 'Admin - Reservations' }) %>
+
+    <!-- jQuery Library (required for some DataTables setups) -->
     <script src="//code.jquery.com/jquery-3.7.1.js"></script>
+
+    <!-- DataTables JavaScript -->
     <script src="//cdn.datatables.net/2.3.7/js/dataTables.js"></script>
 
-    <!-- Styles -->
+    <!-- DataTables Styles -->
     <link rel="stylesheet" href="//cdn.datatables.net/2.3.7/css/dataTables.dataTables.css">
 </head>
 
 <body>
 
-<h1>Reservation Submissions</h1>
+    <!-- Page Title -->
+    <h1>Reservation Submissions</h1>
 
-<table id="reservations-table">
-<thead>
-<tr>
-<th>Name</th>
-<th>Phone</th>
-<th>Email</th>
-<th>Date</th>
-<th>Time</th>
-<th>Party Size</th>
-<th>Comment</th>
-<th>Timestamp</th>
-</tr>
-</thead>
+    <!-- Reservations Table -->
+    <table id="reservations-table">
 
-<tbody>
+        <!-- Table Headers -->
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Phone</th>
+                <th>Email</th>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Party Size</th>
+                <th>Comment</th>
+                <th>Timestamp</th>
+            </tr>
+        </thead>
 
-<% submissions.forEach(r => { %>
-<tr>
-<td><%= r.fname %></td>
-<td><%= r.phone %></td>
-<td><%= r.email %></td>
-<td><%= r.date %></td>
-<td><%= r.time %></td>
-<td><%= r.size %></td>
-<td><%= r.comment %></td>
-<td><%= r.timestamp %></td>
-</tr>
-<% }) %>
+        <!-- Dynamically Rendered Reservation Data -->
+        <tbody>
 
-</tbody>
-</table>
+            <%-- Loop through reservation submissions from the server --%>
+            <% submissions.forEach(r => { %>
+            <tr>
+                <td><%= r.fname %></td>
+                <td><%= r.phone %></td>
+                <td><%= r.email %></td>
+                <td><%= r.date %></td>
+                <td><%= r.time %></td>
+                <td><%= r.size %></td>
+                <td><%= r.comment %></td>
+                <td><%= r.timestamp %></td>
+            </tr>
+            <% }) %>
 
-<script>
-new DataTable('#reservations-table');
-</script>
+        </tbody>
+    </table>
 
-<!--footer-->
-<footer class="site-footer">
-<p>Matcha Cat Cafe • Seattle, WA</p>
-</footer>
+    <!-- Initialize DataTables for interactive table features -->
+    <script>
+        /*
+        Adds DataTables functionality to the reservations table.
+        This provides sorting, searching, and a cleaner admin view.
+        */
+        new DataTable('#reservations-table');
+    </script>
 
-<%- include('partials/bottom-nav') %>
+    <!-- Site Footer -->
+   <%- include('partials/footer') %>
+
+    <!-- Reusable Bottom Navigation -->
+    <%- include('partials/bottom-nav') %>
 
 </body>
 </html>

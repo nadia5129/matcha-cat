@@ -1,9 +1,9 @@
 <!--
- Kate Nguyen
-- This page is pop up when you hit add to order
-- It will asked if you want to log in or just continue with guest
-- If pick login -> send to login.ejs
-- if pick continue with guest, send to review.ejs
+---- Kate Nguyen
+---- This page is pop up when you hit add to order
+---- It will asked if you want to log in or just continue with guest
+---- If pick login -> send to login.ejs
+---- if pick continue with guest, send to review.ejs
 -->
 <!DOCTYPE html>
 <html lang="en">
@@ -11,12 +11,13 @@
   <%- include('partials/head', { title: 'Continue' }) %>
 </head>
 <body>
+    <!-- Header-->
   <header class="site-header">
     <a href="/" class="logo-text">
       <span class="matcha">Matcha</span> <span class="cat">Cat</span>
     </a>
   </header>
-
+<!-- Main -->
   <main>
     <section class="card">
       <h1>Before you order...</h1>
@@ -27,7 +28,7 @@
       <a href="/review" class="btn btn-secondary full-width">Continue as Guest</a>
     </section>
   </main>
-
+<!-- Footer-->
   <footer class="site-footer">
     <p>Matcha Cat Cafe • Seattle, WA</p>
   </footer>

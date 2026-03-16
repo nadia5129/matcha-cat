@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,69 +7,77 @@
 </head>
 <body>
 
-  <!--header-->
   <header class="site-header">
     <a href="/" class="logo-text">
-  <span class="matcha">Matcha</span> <span class="cat">Cat</span>
-</a>
+      <span class="matcha">Matcha</span> <span class="cat">Cat</span>
+    </a>
   </header>
-  <!--create an account section -->
-  <main>
-    <section id="create-an-account-section" class="form-section">
-      <h2>Create an Account</h2>
-      <form id="create-an-account-form" class="account-form" action="/submit" method="POST" novalidate>
 
-        <div class="form-field">
-          <label for="username">Username:</label>
-          <input type="text" id="username" name="username" required>
-          <span id="username-error" class="error-message"></span>
+  <main class="reservation-page">
+
+    <div class="page-intro">
+      <h1>Create an Account</h1>
+      <p>Join Matcha Cat to save your orders and manage reservations.</p>
+    </div>
+
+    <div class="form-container">
+      <h2 class="form-title">Your Details</h2>
+      <form id="create-an-account-form" action="/submit" method="POST" novalidate>
+
+        <div class="input-grid">
+
+          <div class="form-field">
+            <label for="first-name">First Name</label>
+            <input type="text" id="first-name" name="fname" required>
+            <span id="first-name-error" class="error-message"></span>
+          </div>
+
+          <div class="form-field">
+            <label for="last-name">Last Name</label>
+            <input type="text" id="last-name" name="lname" required>
+            <span id="last-name-error" class="error-message"></span>
+          </div>
+
+          <div class="form-field">
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" required>
+            <span id="username-error" class="error-message"></span>
+          </div>
+
+          <div class="form-field">
+            <label for="phone">Phone Number</label>
+            <input type="tel" id="phone" name="phone" required>
+            <span id="phone-error" class="error-message"></span>
+          </div>
+
+          <div class="form-field">
+            <label for="birthday">Birthday</label>
+            <input type="date" id="birthday" name="birthday" required>
+            <span id="birthday-error" class="error-message"></span>
+          </div>
+
+          <div class="form-field">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required>
+            <span id="email-error" class="error-message"></span>
+          </div>
+
+          <!-- Password: full width so it doesn't look lonely -->
+          <div class="form-field full-width">
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" required>
+            <span id="password-error" class="error-message"></span>
+          </div>
+
         </div>
 
-        <div class="form-field">
-          <label for="first-name">First Name:</label>
-          <input type="text" id="first-name" name="fname" required>
-          <span id="first-name-error" class="error-message"></span>
-        </div>
-
-        <div class="form-field">
-          <label for="last-name">Last Name:</label>
-          <input type="text" id="last-name" name="lname" required>
-          <span id="last-name-error" class="error-message"></span>
-        </div>
-
-        <div class="form-field">
-          <label for="phone">Phone Number:</label>
-          <input type="tel" id="phone" name="phone" required>
-          <span id="phone-error" class="error-message"></span>
-        </div>
-
-        <div class="form-field">
-          <label for="birthday">Birthday:</label>
-          <input type="date" id="birthday" name="birthday" required>
-          <span id="birthday-error" class="error-message"></span>
-        </div>
-
-        <div class="form-field">
-          <label for="email">Email:</label>
-          <input type="email" id="email" name="email" required>
-          <span id="email-error" class="error-message"></span>
-        </div>
-
-        <div class="form-field">
-          <label for="password">Password:</label>
-          <input type="password" id="password" name="password" required>
-          <span id="password-error" class="error-message"></span>
-        </div>
-
-        <button type="submit">Create Account</button>
+        <button type="submit" class="btn-submit">Create Account</button>
       </form>
-    </section>
+    </div>
+
   </main>
 
-  <!--footer-->
-  <footer class="site-footer">
-    <p>Matcha Cat Cafe • Seattle, WA</p>
-  </footer>
+  <%- include('partials/footer') %>
 
   <%- include('partials/bottom-nav') %>
 

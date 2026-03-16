@@ -1,6 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <%--
+  ====================================================
+  Page: Checkout
+
+  Description:
+  This page allows users to review their current
+  order and complete checkout by entering payment
+  and contact information. It dynamically displays
+  selected items, shows the order total, and
+  provides an empty-state message if the cart is empty.
+  ====================================================
+  --%>
+
+  <!-- Reusable Head Partial -->
   <%- include('partials/head', { title: 'Checkout' }) %>
   <script defer src="/js/matcha-cat.js"></script>
 </head>
@@ -14,49 +28,51 @@
     </a>
   </header>
 
+  <!-- Main Checkout Page Content -->
   <main class="reservation-page">
 
-    <div class="page-intro">
-      <h1>Checkout</h1>
-      <p>Review your order and complete your payment below.</p>
+  <!-- Page Intro -->
+  <div class="page-intro">
+    <h1>Checkout</h1>
+    <p>Review your order and complete your payment below.</p>
+  </div>
+
+  <!-- Order Summary Card -->
+  <div class="form-container" style="margin-bottom: 24px;">
+    <h2 class="form-title">Order Summary</h2>
+    <div class="review-order-header" style="justify-content: flex-end; margin-bottom: 12px;">
+      <a href="/review" class="edit-link" style="color: var(--pink-dark); font-size: 0.85rem; font-weight: 700;">Edit Order</a>
     </div>
 
-    <!-- Order Summary Card -->
-    <div class="form-container" style="margin-bottom: 24px;">
-      <h2 class="form-title">Order Summary</h2>
-      <div class="review-order-header" style="justify-content: flex-end; margin-bottom: 12px;">
-        <a href="/review" class="edit-link" style="color: var(--pink-dark); font-size: 0.85rem; font-weight: 700;">Edit Order</a>
+    <!-- Checkout Item List -->
+    <div class="checkout-item-list">
+
+      <%-- Check whether the order contains items --%>
+      <% if (order && order.length > 0) { %>
+
+      <%-- Loop through each item in the order --%>
+      <% order.forEach(item => { %>
+      <div class="checkout-item">
+
+      <!-- Individual item information -->
+      <div class="checkout-item-info">
+        <span class="item-name"><strong><%= item.name %></strong></span>
+        <span class="item-meta"><%= item.size %> | <%= item.milk %></span>
       </div>
 
-      <!-- Checkout Item List -->
-      <div class="checkout-item-list">
+      <!-- Item price -->
+      <span class="item-price"><%= item.price %></span>
+      </div>
+      <% }); %>
+      <div class="order-total">
+        <span>Total (<%= order.length %> items):</span>
+        <span class="total-amount">$<%= (order.length * 4.00).toFixed(2) %></span>
+      </div>
 
-        <%-- Check whether the order contains items --%>
-        <% if (order && order.length > 0) { %>
+    <% } else { %>
 
-          <%-- Loop through each item in the order --%>
-          <% order.forEach(item => { %>
-            <div class="checkout-item">
-
-              <!-- Individual item information -->
-              <div class="checkout-item-info">
-                <span class="item-name"><strong><%= item.name %></strong></span>
-                <span class="item-meta"><%= item.size %> | <%= item.milk %></span>
-              </div>
-
-              <!-- Item price -->
-              <span class="item-price"><%= item.price %></span>
-            </div>
-          <% }); %>
-          <div class="order-total">
-            <span>Total (<%= order.length %> items):</span>
-            <span class="total-amount">$<%= (order.length * 4.00).toFixed(2) %></span>
-          </div>
-
-        <% } else { %>
-
-          <!-- Empty state shown if cart has no items -->
-          <p>Your cart is empty. <a href="/menu">Go to Menu</a></p>
+      <!-- Empty state shown if cart has no items -->
+      <p>Your cart is empty. <a href="/menu">Go to Menu</a></p>
 
         <% } %>
       </div>
@@ -67,45 +83,44 @@
       <h2 class="form-title">Payment Information</h2>
       <form action="/place-order" method="POST" class="checkout-form">
 
-        <div class="input-grid">
+      <div class="input-grid">
 
-          <!-- Card Number: full width -->
-          <div class="form-field full-width">
-            <label for="card-number">Card Number</label>
-            <input type="text" id="card-number" name="cardNumber" maxlength="16" placeholder="0000 0000 0000 0000" required>
-          </div>
+      <!-- Card Number: full width -->
+      <div class="form-field full-width">
+        <label for="card-number">Card Number</label>
+        <input type="text" id="card-number" name="cardNumber" maxlength="16" placeholder="0000 0000 0000 0000" required>
+      </div>
 
-          <!-- Exp -->
-          <div class="form-field">
-            <label for="exp">Expiration Date</label>
-            <input type="text" id="exp" name="exp" placeholder="MM/YY" maxlength="5" required>
-          </div>
+      <!-- Exp -->
+      <div class="form-field">
+        <label for="exp">Expiration Date</label>
+        <input type="text" id="exp" name="exp" placeholder="MM/YY" maxlength="5" required>
+      </div>
 
-          <!-- CVC -->
-          <div class="form-field">
-            <label for="cvc">CVC</label>
-            <input type="text" id="cvc" name="cvc" placeholder="123" maxlength="3" required>
-          </div>
+      <!-- CVC -->
+      <div class="form-field">
+        <label for="cvc">CVC</label>
+        <input type="text" id="cvc" name="cvc" placeholder="123" maxlength="3" required>
+      </div>
 
-          <!-- Name on Card: full width -->
-          <div class="form-field full-width">
-            <label for="name-on-card">Name on Card</label>
-            <input type="text" id="name-on-card" name="nameOnCard" required>
-          </div>
+      <!-- Name on Card: full width -->
+      <div class="form-field full-width">
+        <label for="name-on-card">Name on Card</label>
+        <input type="text" id="name-on-card" name="nameOnCard" required>
+      </div>
 
-          <!-- Email -->
-          <div class="form-field">
-            <label for="email">Email for Receipt</label>
-            <input type="email" id="email" name="email" required>
-          </div>
+      <!-- Email -->
+      <div class="form-field">
+        <label for="email">Email for Receipt</label>
+        <input type="email" id="email" name="email" required>
+      </div>
 
-          <!-- Phone -->
-          <div class="form-field">
-            <label for="phone">Phone</label>
-            <input type="tel" id="phone" name="phone" required>
-          </div>
-
-        </div>
+      <!-- Phone -->
+      <div class="form-field">
+        <label for="phone">Phone</label>
+        <input type="tel" id="phone" name="phone" required>
+      </div>
+    </div>
 
         <button type="submit" class="btn-submit">Place Order</button>
       </form>
@@ -114,9 +129,7 @@
   </main>
 
   <!-- Site Footer -->
-  <footer class="site-footer">
-    <p>Matcha Cat Cafe • Seattle, WA</p>
-  </footer>
+  <%- include('partials/footer') %>
 
   <!-- Reusable bottom navigation -->
   <%- include('partials/bottom-nav') %>

@@ -1,27 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <%--
+    ====================================================
+    Page: Account Created Confirmation
+  
+    Description:
+    Displays confirmation details after a user
+    successfully creates an account.
+
+    If submission data exists, the page renders
+    the user’s account information. If no data
+    is found, a fallback message is displayed.
+    ====================================================
+    --%>
+
     <%- include('partials/head', { title: 'Account Created' }) %>
 </head>
+
 <body>
     
-    <!--header-->
+    <!-- Site Header / Brand Logo -->
     <header class="site-header">
         <a href="/" class="logo-text">
-  <span class="matcha">Matcha</span> <span class="cat">Cat</span>
-</a>
+            <span class="matcha">Matcha</span> 
+            <span class="cat">Cat</span>
+        </a>
     </header>
 
-    <!--confirmation section-->
+    <!-- Account Creation Confirmation Section -->
     <main>
         <section id="confirm-create-an-account-section" class="confirm-section">
 
+            <%-- Check if submission data was passed from the server --%>
             <% if (submission) { %>
-                <h2>Account Created! MEOW</h2>
-                <p>Welcome, <strong><%= submission.firstName %> <%= submission.lastName %></strong>!</p>
 
+                <!-- Success Message -->
+                <h2>Account Created! MEOW</h2>
+                <p>
+                    Welcome, 
+                    <strong><%= submission.firstName %> <%= submission.lastName %></strong>!
+                </p>
+
+                <!-- Display Submitted Account Details -->
                 <div class="confirm-details">
                     <ul>
                         <li><strong>Username:</strong> <%= submission.username %></li>
@@ -33,21 +54,25 @@
                     </ul>
                 </div>
 
+                <!-- Navigation Back to Home -->
                 <a href="/">Back to Home</a>
 
             <% } else { %>
+
+                <!-- Fallback Message if No Submission Data Exists -->
                 <h2>No account data found.</h2>
-                <a href="/create-an-account">Create an Account</a>
+                <a href="/create-account">Create an Account</a>
+
             <% } %>
 
         </section>
     </main>
 
-    <!--footer-->
-    <footer class="site-footer">
-        <p>Matcha Cat Cafe • Seattle, WA</p>
-    </footer>
+    <!-- Site Footer -->
+   <%- include('partials/footer') %>
 
+    <!-- Reusable Bottom Navigation -->
     <%- include('partials/bottom-nav') %>
+
 </body>
 </html>

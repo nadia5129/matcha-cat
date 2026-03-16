@@ -1,27 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <%--
+  ====================================================
+  Page: Order Confirmation
+  
+  Description:
+  Displays a confirmation message after a
+  successful order submission. Renders
+  customer information dynamically and
+  provides navigation back to the menu.
+  ====================================================
+  --%>
+
+ <!-- Reusable head partial with page title -->
   <%- include('partials/head', { title: 'Order Confirmed' }) %>
 </head>
+
 <body>
+  <!-- Site Header / Brand Logo -->
   <header class="site-header">
-    <a href="/" class="logo-text">
+  <a href="/" class="logo-text">
   <span class="matcha">Matcha</span> <span class="cat">Cat</span>
-</a>
+  </a>
   </header>
 
+  <!-- Order Confirmation Content -->
   <main class="confirmation-container" style="text-align: center; padding: 50px 20px;">
     <div class="success-icon" style="font-size: 4rem;">🐾</div>
     <h1>Thank you, <%= orderDetails.customerName %>!</h1>
     <p>Your order has been placed and a receipt was sent to <strong><%= orderDetails.email %></strong>.</p>
     
+   <!-- Randomly Generated Order Number -->
     <div class="order-number" style="margin: 20px 0; color: #88ab75; font-weight: bold;">
         Order #<%= Math.floor(Math.random() * 1000000) %>
     </div>
 
+    <!-- Navigation Back to Menu -->
     <a href="/menu" class="add-btn" style="text-decoration: none; padding: 15px 30px; display: inline-block;">Back to Menu</a>
   </main>
 
+   <!-- Reusable Bottom Navigation -->
   <%- include('partials/bottom-nav') %>
+
+   <!-- Reusable Footer -->
+  <%- include('partials/footer') %>
 </body>
 </html>

@@ -1,53 +1,97 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <%- include('partials/head', { title: 'Deals' }) %>
+  <%--
+  ====================================================
+  Page: Deals
+
+  Description:
+  Displays current promotions and special
+  offers available at Matcha Cat Café.
+  Highlights student discounts and
+  limited-time merchandise promotions.
+  ====================================================
+  --%>
+
+<!-- Reusable head partial with page title -->
+<%- include('partials/head', { title: 'Deals' }) %>
 </head>
 <body>
 
-  <!--header-->
+  <!-- Site Header / Brand Logo -->
   <header class="site-header">
     <a href="/" class="logo-text">
-  <span class="matcha">Matcha</span> <span class="cat">Cat</span>
-</a>
+      <span class="matcha">Matcha</span> 
+      <span class="cat">Cat</span>
+    </a>
   </header>
 
+  <!-- Main Deals Page Content -->
   <main>
-    <!-- Kate - deals content here -->
+
+    <!-- Student Discount Deal -->
     <div class="deals-header">
       
-      <img src="/images/5offdeals.png" alt="a cat holding a book on top of it head and at its paw is a sign that says 5 off deals". class="deals-img">
+      <img 
+        src="/images/5offdeals.png" 
+        alt="Cat holding a sign that says 5% off deals"
+        class="deals-img"
+      >
+
+      <p><strong>Student Discount – 5% OFF</strong></p>
       <p>Hit the books, then treat yourself!</p>
-      <p>Students get 5% OFF their coffee when ordering in person at the café. Just show your valid student ID at checkout and enjoy your discount.</p>
+      <p>
+        Students get 5% OFF their coffee when ordering in person at the café.
+        Just show your valid student ID at checkout and enjoy your discount.
+      </p>
+
+      <!-- Discount Conditions -->
       <ul>
-        <li>Available at the cafe only</li>
-        <li> Not valid for online orders</li>
+        <li>Available at the café only</li>
+        <li>Not valid for online orders</li>
         <li>Cannot be combined with other offers or discounts</li>
       </ul>
 
-      <p> Because study is hard.. coffee shold be easier.</p>
-      </div>
+      <p>Because studying is hard… coffee should be easier.</p>
+    </div>
 
-      <div class="deals-header">
-        <img src="/images/bananadeals.png" alt="a cat wearing banana suit holding a matcha on one paw and shout I LOVE MATCHA with a keychain next to it that look like it.". class="deals-img">
-        <p> Matcha Lover Deal - FREE Banana Cat Keychain!</p>
-        <p>Matcha fans, this one's for you!</p>
-        <p>Buy any matcha drink, and receive a FREE Banana Cat Keychain — featuring our adorable Scottish Fold in a banana cosplay outfit.</p>
-        <ul>
-          <li>Available for in-person and online orders</li>
-          <li>One keychain per matcha drink purchased</li>
-          <li>While supplies last</li>
-        </ul>
-        <p>Show off your love for matcha and our café with this cute and quirky keychain. It's the perfect accessory for any matcha enthusiast!</p>
+    <!-- Matcha Lover Promotion -->
+    <div class="deals-header">
 
+      <img 
+        src="/images/bananadeals.png" 
+        alt="Banana costume cat holding matcha promoting free keychain deal"
+        class="deals-img"
+      >
 
+      <p><strong>Matcha Lover Deal – FREE Banana Cat Keychain!</strong></p>
+      <p>Matcha fans, this one's for you!</p>
 
-      </div>
+      <p>
+        Buy any matcha drink and receive a FREE Banana Cat Keychain —
+        featuring our adorable Scottish Fold in a banana cosplay outfit.
+      </p>
+
+      <!-- Promotion Conditions -->
+      <ul>
+        <li>Available for in-person and online orders</li>
+        <li>One keychain per matcha drink purchased</li>
+        <li>While supplies last</li>
+      </ul>
+
+      <p>
+        Show off your love for matcha and our café with this cute and quirky
+        keychain. It’s the perfect accessory for any matcha enthusiast!
+      </p>
+
+    </div>
+
   </main>
 
-  <!--footer-->
- <%- include('partials/footer') %>
+  <!-- Reusable Footer -->
+  <%- include('partials/footer') %>
 
+  <!-- Reusable Bottom Navigation -->
   <%- include('partials/bottom-nav') %>
 
 </body>

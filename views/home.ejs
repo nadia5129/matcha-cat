@@ -1,81 +1,100 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <%--
+  ====================================================
+  Page: Home
+
+  Description:
+  Landing page of the Matcha Cat Café application.
+  Introduces the café brand, highlights menu items,
+  promotes reservations, and encourages users to
+  explore deals, drinks, and the cat lounge experience.
+  ====================================================
+  --%>
+
+  <!-- Reusable head partial with page title -->
   <%- include('partials/head', { title: 'Home' }) %>
-  <script defer src="/js/matcha-cat.js"></script>
 </head>
 <body>
 
-  <!--header-->
+  <!-- Site Header / Brand Logo -->
   <header class="site-header">
     <a href="/" class="logo-text">
-  <span class="matcha">Matcha</span> <span class="cat">Cat</span>
-</a>
+    <span class="matcha">Matcha</span> <span class="cat">Cat</span>
+    </a>
   </header>
 
-  <!-- Hero video OUTSIDE main so it goes full width -->
+  <!-- Full-Width Hero Video -->
   <section class="home-video">
     <video autoplay muted loop playsinline>
-      <source src="/media/matcha-eating-video.mp4" type="video/mp4">
-      Your browser does not support the video tag.
+    <source src="/media/matcha-eating-video.mp4" type="video/mp4">
+    Your browser does not support the video tag.
     </video>
   </section>
 
+  <!-- Main Home Page Content -->
   <main>
 
-    <!--About Section-->
+    <!-- About / Brand Introduction Section -->
     <section class="about">
       <h1>Welcome to Matcha Cat</h1>
       <p>Women owned and ethically sourced</p>
+
+      <!-- Supporting brand video -->
       <video autoplay muted loop playsinline>
-        <source src="/media/136050-764371327_medium.mp4" type="video/mp4">
-        Your browser does not support the video tag.
+      <source src="/media/136050-764371327_medium.mp4" type="video/mp4">
+      Your browser does not support the video tag.
       </video>
     </section>
 
-    <!--Menu Section-->
+    <!-- Menu Promotion Section -->
     <section class="home-section section-beige">
       <h2>Find Your Perfect Drink</h2>
       <p>Explore our menu of matcha, coffee, pastries, and sweet treats made fresh daily.</p>
 
+      <!-- Call-to-action button for menu page -->
       <div class="feature-actions">
-        <a class="btn btn-primary" href="/menu">View Full Menu</a>
+      <a class="btn btn-primary" href="/menu">View Full Menu</a>
       </div>
 
+      <!-- Preview images of featured menu items -->
       <div class="feature-media menu-media">
         <div class="menu-grid-preview">
-          <img src="/images/iced-matcha.png" alt="Matcha Latte">
-          <img src="/images/iced-latte.png" alt="Matcha Cake">
-          <img src="/images/matcha-cake.png" alt="Matcha Smoothie">
+        <img src="/images/iced-matcha.png" alt="Matcha Latte">
+        <img src="/images/iced-latte.png" alt="Iced Latte">
+        <img src="/images/matcha-cake.png" alt="Matcha Cake">
         </div>
       </div>
     </section>
 
-    <!--Cat section-->
+    <!-- Cat Lounge / Reservation Section -->
     <section class="cat-section">
       <h2>Spend time with our cats</h2>
       <p>Reserve a cozy space to relax, sip matcha, and play with our friendly cats.</p>
 
+      <!-- Call-to-action buttons for deals and reservations -->
       <div class="feature-actions">
-        <a class="btn btn-secondary" href="/deals">View Deals</a>
-        <button class="btn btn-primary" onclick="window.location.href='/reservation'">Click here to reserve</button>
+      <a class="btn btn-secondary" href="/deals">View Deals</a>
+      <button class="btn btn-primary" onclick="window.location.href='/reservation'">Click here to reserve</button>
       </div>
 
+      <!-- Cat gallery preview -->
       <div class="feature-media cats-media">
         <div class="cat-grid">
-          <img src="/images/cat-one.png" alt="Cat at Matcha Cat Cafe">
-          <img src="/images/cat-two.png" alt="Cat at Matcha Cat Cafe">
-          <img src="/images/cat-three.png" alt="Cat at Matcha Cat Cafe">
-          <img src="/images/cat-four.png" alt="Cat at Matcha Cat Cafe">
+        <img src="/images/cat-one.png" alt="Cat at Matcha Cat Cafe">
+        <img src="/images/cat-two.png" alt="Cat at Matcha Cat Cafe">
+        <img src="/images/cat-three.png" alt="Cat at Matcha Cat Cafe">
+        <img src="/images/cat-four.png" alt="Cat at Matcha Cat Cafe">
         </div>
       </div>
     </section>
-
   </main>
 
-  <!--footer-->
- <%- include('partials/footer') %>
+  <!-- Reusable Footer -->
+  <%- include('partials/footer') %>
 
+  <!-- Reusable Bottom Navigation -->
   <%- include('partials/bottom-nav') %>
 
 </body>

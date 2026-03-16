@@ -219,7 +219,7 @@ app.post('/submit', async (req, res) => {
     res.status(500).send('Error saving account. Please try again. ');
 }
 });
-
+// confirmation for create an account
 app.get('/confirm-create-an-account', (req, res) => {
     res.render('confirm-create-an-account', { submission: null });
 });

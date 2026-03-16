@@ -1,52 +1,91 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <%- include('partials/head', { title: 'Home' }) %>
-  <script defer src="/js/matcha-cat.js"></script>
+  <%--
+  ====================================================
+  Page: Checkout
+  
+  Description:
+  This page allows users to review their selected
+  menu items and submit payment/contact information
+  to place an order.
+
+  It dynamically displays items stored in the order
+  array and shows an empty-state message if no items
+  are present.
+  ====================================================
+  --%>
+
+  <!-- Reusable head partial with page title -->
+  <%- include('partials/head', { title: 'Checkout' }) %>
 </head>
+
 <body>
 
+  <!-- Site Header / Brand Logo -->
   <header class="site-header">
     <a href="/" class="logo-text">
-  <span class="matcha">Matcha</span> <span class="cat">Cat</span>
-</a>
+      <span class="matcha">Matcha</span> <span class="cat">Cat</span>
+    </a>
   </header>
 
+  <!-- Main Checkout Content -->
   <main class="checkout-container">
     <h1>Checkout</h1>
 
+    <!-- Order Summary Section -->
     <section class="review-order">
       <div class="review-order-header">
         <h2>Order Summary</h2>
+
+        <!-- Link to return and edit current order -->
         <a href="/review" class="edit-link">Edit Order</a>
       </div>
 
+      <!-- Checkout Item List -->
       <div class="checkout-item-list">
+
+        <%-- Check whether the order contains items --%>
         <% if (order && order.length > 0) { %>
+
+          <%-- Loop through each item in the order --%>
           <% order.forEach(item => { %>
             <div class="checkout-item">
+
+              <!-- Individual item information -->
               <div class="checkout-item-info">
                 <span class="item-name"><strong><%= item.name %></strong></span>
                 <span class="item-meta"><%= item.size %> | <%= item.milk %></span>
               </div>
+
+              <!-- Item price -->
               <span class="item-price"><%= item.price %></span>
             </div>
           <% }); %>
 
+          <!-- Order total summary -->
           <div class="order-total">
             <span>Total (<%= order.length %> items):</span>
             <span class="total-amount">$<%= (order.length * 4.00).toFixed(2) %></span>
           </div>
+
         <% } else { %>
+
+          <!-- Empty state shown if cart has no items -->
           <p>Your cart is empty. <a href="/menu">Go to Menu</a></p>
+
         <% } %>
       </div>
     </section>
 
+    <!-- Payment Information Section -->
     <section class="payment-section">
       <h2>Payment Information</h2>
+
+      <!-- Checkout form submitted to place an order -->
       <form action="/place-order" method="POST" class="checkout-form">
 
+        <!-- Card Number Row -->
         <div class="card-row">
           <div class="form-field">
             <label for="card-number">Card Number</label>
@@ -54,41 +93,49 @@
           </div>
         </div>
         
+        <!-- Expiration Date and CVC Row -->
         <div class="card-extra-row">
           <div class="form-field">
             <label for="exp">Exp</label>
             <input type="text" id="exp" name="exp" placeholder="MM/YY" maxlength="5" required>
           </div>
+
           <div class="form-field">
             <label for="cvc">CVC</label>
             <input type="text" id="cvc" name="cvc" placeholder="123" maxlength="3" required>
           </div>
         </div>
 
+        <!-- Cardholder Name -->
         <div class="form-field">
           <label for="name-on-card">Name on Card</label>
           <input type="text" id="name-on-card" name="nameOnCard" required>
         </div>
 
+        <!-- Receipt Email -->
         <div class="form-field">
           <label for="email">Email for Receipt</label>
           <input type="email" id="email" name="email" required>
         </div>
 
+        <!-- Customer Phone Number -->
         <div class="form-field">
           <label for="phone">Phone</label>
           <input type="tel" id="phone" name="phone" required>
         </div>
 
+        <!-- Submit order button -->
         <button type="submit" class="place-order-btn">Place Order</button>
       </form>
     </section>
   </main>
 
+  <!-- Site Footer -->
   <footer class="site-footer">
     <p>Matcha Cat Cafe • Seattle, WA</p>
   </footer>
 
+  <!-- Reusable bottom navigation -->
   <%- include('partials/bottom-nav') %>
 
 </body>

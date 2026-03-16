@@ -1,16 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <%--
+    ====================================================
+    Page: Admin – Order History
+
+    Description:
+    Administrative dashboard displaying all
+    submitted customer orders in real time.
+
+    Orders are dynamically rendered from the server.
+    The DataTables library enhances the table with:
+    - Sorting
+    - Pagination
+    - Search functionality
+    - Responsive behavior
+
+    The order items column handles nested item arrays.
+    ====================================================
+    --%>
+
+    <!-- Reusable Head Partial -->
     <%- include('partials/head', { title: 'Admin - Order History' }) %>
+     <!-- DataTables Styles -->
     <link rel="stylesheet" href="//cdn.datatables.net/2.3.7/css/dataTables.dataTables.css">
 </head>
-<body>
 
+<body>
 <main class="admin-container">
+    <!-- Page Heading -->
     <h2>Live Order Feed 🍵</h2>
 
+    <!-- Responsive Table Wrapper -->
     <div class="table-responsive">
+
+        <!-- Orders Table -->
         <table id="ordersTable" class="display" style="width:100%">
+            <!-- Table Column Headers -->
             <thead>
                 <tr>
                     <th>Time</th>
@@ -19,6 +45,8 @@
                     <th>Total</th>
                 </tr>
             </thead>
+
+            <!-- Dynamically Rendered Order Data -->
             <tbody>
                 <% orders.forEach(order => { %>
                 <tr>
@@ -43,9 +71,12 @@
     </div>
 </main>
 
+<!-- jQuery (Required for DataTables) -->
 <script src="//code.jquery.com/jquery-3.7.1.js"></script>
+<!-- DataTables JavaScript -->
 <script src="//cdn.datatables.net/2.3.7/js/dataTables.js"></script>
 
+<!-- Initialize DataTables -->
 <script>
     $(document).ready(function() {
         $('#ordersTable').DataTable({
@@ -54,6 +85,5 @@
         });
     });
 </script>
-
 </body>
 </html>

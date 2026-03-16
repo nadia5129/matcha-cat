@@ -1,25 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <%--
+    ====================================================
+    Page: Admin – Account Submissions
+  
+    Description:
+    Administrative dashboard that displays all
+    submitted account/profile form data.
+
+    Data is dynamically rendered from the database
+    using EJS templating. The table is enhanced
+    with the DataTables library for sorting,
+    searching, and responsive behavior.
+    ====================================================
+    --%>
+
+     <!-- Reusable Head Partial -->
     <%- include('partials/head', { title: 'Admin – Account Submissions' }) %>
 
-     <!-- Scripts -->
+    <!-- DataTables & jQuery Libraries -->
+    <!-- jQuery required for DataTables functionality -->
     <script src="//code.jquery.com/jquery-3.7.1.js"></script>
+
+    <!-- DataTables JavaScript -->
     <script src="//cdn.datatables.net/2.3.7/js/dataTables.js"></script>
-    <!-- Styles -->
+
+    <!-- DataTables Styles -->
     <link rel="stylesheet" href="//cdn.datatables.net/2.3.7/css/dataTables.dataTables.css">
 </head>
+
 <body>
-    <!--header-->
+    <!-- Site Header -->
     <header class="site-header">
         <img src="/images/logo.jpg">
     </header>
 
+    <!-- Page Title -->
     <h1>Account Submissions</h1>
 
+    <!-- Account Submissions Table -->
+    <!-- This table displays user-submitted profile data -->
     <table id="account-table" class="display">
+         <!-- Table Column Headers -->
         <thead>
             <tr>
                 <th>Username</th>
@@ -31,6 +54,8 @@
                 <th>Timestamp</th>
             </tr>
         </thead>
+
+         <!-- Dynamically Rendered Table Data -->
         <tbody>
             <% submissions.forEach(submission => { %>
                 <tr>
@@ -48,10 +73,13 @@
 
     <!--footer-->
     <footer class="site-footer">
-        <p>Matcha Cat Cafe • Seattle, WA</p>
+    <p>Matcha Cat Cafe • Seattle, WA</p>
     </footer>
+
+    <!-- Reusable Bottom Navigation -->
     <%- include('partials/bottom-nav') %>
-    <!-- script  -->
+
+    <!-- Initialize DataTables-->
     <script>
         let table = new DataTable('#account-table', { responsive: true });
     </script>

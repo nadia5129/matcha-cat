@@ -1,85 +1,110 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <%--
+  ====================================================
+  Page: Account
+
+  Description:
+  This page allows users to view and manage their
+  account information. It includes sections for
+  editing profile details, viewing past orders,
+  and checking reservation history.
+  ====================================================
+  --%>
+
+  <!-- Reusable head partial with page title -->
   <%- include('partials/head', { title: 'Account' }) %>
-  <script defer src="/js/matcha-cat.js"></script>
 </head>
 
 <body>
+  <!-- Site Header / Brand Logo -->
   <header class="site-header">
-    <a href="/" class="logo-text">
+  <a href="/" class="logo-text">
   <span class="matcha">Matcha</span> <span class="cat">Cat</span>
-</a>
+  </a>
   </header>
 
+  <!-- Main Account Page Content -->
   <main class="account-page">
-    <!-- Profile Card -->
-    <section class="profile-hero card">
-      <div class="profile-copy">
-        <p class="eyebrow">My Account</p>
-        <h1>Hi, User</h1>
-        <p>Manage your profile, check past orders, and keep track of your reservations.</p>
-      </div>
-    </section>
 
-    <!-- Edit Profile Card-->
-    <section class="user-form card">
-      <div class="section-heading">
-        <p class="eyebrow">Profile</p>
-        <h2>Edit Information</h2>
-      </div>
+  <!-- Profile Welcome Card -->
+  <section class="profile-hero card">
+    <div class="profile-copy">
+      <p class="eyebrow">My Account</p>
+      <h1>Hi, User</h1>
+      <p>Manage your profile, check past orders, and keep track of your reservations.</p>
+    </div>
+  </section>
 
-      <form action="/edit-profile" method="POST" class="account-form">
-        <div class="form-field">
-          <label for="fname">First Name</label>
-          <input type="text" id="fname" name="fname" placeholder="Enter your first name" required>
-        </div>
+  <!-- Edit Profile Section -->
+  <section class="user-form card">
+    <div class="section-heading">
+      <p class="eyebrow">Profile</p>
+      <h2>Edit Information</h2>
+    </div>
 
-        <div class="form-field">
-          <label for="phone">Phone Number</label>
-          <input type="tel" id="phone" name="phone" placeholder="(555) 555-5555" required>
-        </div>
+    <!-- Form for updating user profile information -->
+    <form action="/edit-profile" method="POST" class="account-form">
 
-        <div class="form-field full-width">
-          <label for="email">Email Address</label>
-          <input type="email" id="email" name="email" placeholder="Enter your email" required>
-        </div>
-
-        <button type="submit" class="btn btn-primary full-width">Save Changes</button>
-      </form>
-    </section>
-
-    <!-- Past Orders Card-->
-    <section class="account-panel card ">
-      <div class="section-heading">
-        <p class="eyebrow">Orders</p>
-        <h2>Past Orders</h2>
+      <!-- First Name Input -->
+      <div class="form-field">
+        <label for="fname">First Name</label>
+        <input type="text" id="fname" name="fname" placeholder="Enter your first name" required>
       </div>
 
-      <div class="empty-state">
-        <p>Your previous drinks and treats will show up here.</p>
-        <a href="/menu" class="btn btn-secondary">Order Something Sweet</a>
-      </div>
-    </section>
-
-    <!-- Past Reservations Card-->
-    <section class="account-panel card ">
-      <div class="section-heading">
-        <p class="eyebrow">Reservations</p>
-        <h2>My Reservations</h2>
+      <!-- Phone Number Input -->
+      <div class="form-field">
+        <label for="phone">Phone Number</label>
+        <input type="tel" id="phone" name="phone" placeholder="(555) 555-5555" required>
       </div>
 
-      <div class="empty-state">
-        <p>Book a cozy table and your reservations will appear here.</p>
-        <a href="/reservation" class="btn btn-secondary">Create a Reservation</a>
+      <!-- Email Address Input -->
+      <div class="form-field full-width">
+        <label for="email">Email Address</label>
+        <input type="email" id="email" name="email" placeholder="Enter your email" required>
       </div>
-    </section>
+
+      <!-- Submit button to save profile updates -->
+      <button type="submit" class="btn btn-primary full-width">Save Changes</button>
+    </form>
+  </section>
+
+  <!-- Past Orders Section -->
+  <section class="account-panel card">
+    <div class="section-heading">
+      <p class="eyebrow">Orders</p>
+      <h2>Past Orders</h2>
+    </div>
+
+    <!-- Empty state shown when no past orders exist -->
+    <div class="empty-state">
+      <p>Your previous drinks and treats will show up here.</p>
+      <a href="/menu" class="btn btn-secondary">Order Something Sweet</a>
+    </div>
+  </section>
+
+  <!-- Reservations Section -->
+  <section class="account-panel card">
+    <div class="section-heading">
+      <p class="eyebrow">Reservations</p>
+      <h2>My Reservations</h2>
+    </div>
+
+    <!-- Empty state shown when no reservations exist -->
+    <div class="empty-state">
+      <p>Book a cozy table and your reservations will appear here.</p>
+      <a href="/reservation" class="btn btn-secondary">Create a Reservation</a>
+    </div>
+  </section>
   </main>
 
+  <!-- Site Footer -->
   <footer class="site-footer">
     <p>Matcha Cat Cafe • Seattle, WA</p>
   </footer>
 
+  <!-- Reusable bottom navigation bar -->
   <%- include('partials/bottom-nav') %>
 
 </body>

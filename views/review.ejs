@@ -29,6 +29,10 @@
               <div class="item-specs">
                 <p><strong>Size:</strong> <%= item.size %> | <strong>Milk:</strong> <%= item.milk %></p>
                 <p><strong>Syrup:</strong> <%= item.syrup %></p>
+                 <!-- show keychain if they claimed one -->
+                <% if (item.keychain && item.keychain !== 'None') { %>
+                  <p><strong> Free Gift:</strong> <%= item.keychain %></p>
+                <% } %>
               </div>
               
               <% if (item.instructions && item.instructions !== "None") { %>

@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-   <% /*
-  ====================================================
-  Page: Account
+<% /*
+====================================================
+Page: Account
 
-  Description:
-  This page allows users to view and manage their
-  account information. It includes sections for
-  creating an account, editing profile details,
-  viewing past orders, and checking reservation history.
-  ====================================================
-  */%>
+Description:
+This page allows users to view and manage their
+account information. It includes sections for
+creating an account, editing profile details,
+viewing past orders, and checking reservation history.
+====================================================
+*/%>
 
   <!-- Reusable head partial with page title -->
   <%- include('partials/head', { title: 'Account' }) %>
@@ -28,7 +28,7 @@
     <section class="profile-hero card" style="padding: 32px; margin-bottom: 24px;">
       <div class="profile-copy">
         <p class="eyebrow">My Account</p>
-        <h1>Hi, User</h1>
+        <h1>Hi, <%= user ? user.first_name : 'Guest' %>!</h1>
         <p>Manage your profile, check past orders, and keep track of your reservations.</p>
       </div>
     </section>
@@ -37,10 +37,16 @@
     <section class="form-container" style="margin-bottom: 24px; text-align: center;">
       <p class="eyebrow">New Here?</p>
       <h2 class="form-title">Create an Account</h2>
-      <p style="margin-bottom: 20px;">Sign up to save your orders and manage reservations.</p>
+      <p style="margin-bottom: 20px;">Sign up to save your orders and manage reservations or Log In</p>
       <a href="/create-account" class="btn-submit" style="display: inline-block; width: auto; padding: 16px 40px; text-decoration: none;">
         Create Account
       </a>
+          <!-- Button for log in and out -->
+      <% if (user) { %>
+    <a href="/logout" class="btn-submit">Log Out</a>
+      <% } else { %>
+        <a href="/login" class="btn-submit">Log In</a>
+      <% } %>
     </section>
 
     <!-- Edit Profile Section -->
@@ -79,6 +85,8 @@
       </form>
     </div>
 
+    <!-- Past Orders Card-->
+    <section class="account-panel card ">
     <!-- Past Orders Section -->
     <section class="form-container" style="margin-bottom: 24px;">
       <div class="section-heading">

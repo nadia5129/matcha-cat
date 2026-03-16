@@ -1,0 +1,44 @@
+<!--
+Kate Nguyen
+Login page - Where it will ask for your log in
+if you don't have an account, offer you to create an account page to sign up for one
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('partials/head', { title: 'Login' }) %>
+</head>
+<body>
+  <header class="site-header">
+    <a href="/" class="logo-text">
+      <span class="matcha">Matcha</span> <span class="cat">Cat</span>
+    </a>
+  </header>
+
+  <main>
+    <section class="card">
+      <h1>Log In</h1>
+      <form action="/login" method="POST">
+        <div class="form-field">
+          <label for="username">Username</label>
+          <input type="text" id="username" name="username" required>
+        </div>
+        <div class="form-field">
+          <label for="password">Password</label>
+          <input type="password" id="password" name="password" required>
+        </div>
+        <% if (error) { %>
+          <p class="error-message"><%= error %></p>
+        <% } %>
+        <button type="submit" class="btn btn-primary full-width">Log In</button>
+      </form>
+      <p>Don't have an account? <a href="/create-an-account">Sign up</a></p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>Matcha Cat Cafe • Seattle, WA</p>
+  </footer>
+  <%- include('partials/bottom-nav') %>
+</body>
+</html>

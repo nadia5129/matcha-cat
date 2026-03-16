@@ -109,9 +109,18 @@
         <p><%= item.description %></p>
         <textarea name="specialInstructions" rows="3" placeholder="Any special instructions..."></textarea>
       </section>
-
-      <button type="submit" class="add-to-order-btn">Add to Order</button>
-
+      <!-- only show keychain offer if item is a matcha drink -->
+      <% if (item.image.includes('matcha')) { %>
+        <section class="item-options">
+          <h2>🍵 Matcha Lover Deal</h2>
+          <p>Add a FREE Banana Cat Keychain with your order!</p>
+          <label class="option-row">
+            <input type="checkbox" name="keychain" value="yes">
+            <span>Yes, I want the FREE Banana Cat Keychain! </span>
+          </label>
+        </section>
+      <% } %>
+      <button type="submit" class="btn btn-primary full-width"> Add to Order</button>
     </form>
   </main>
 

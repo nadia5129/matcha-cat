@@ -17,7 +17,7 @@
     <section class="profile-hero card">
       <div class="profile-copy">
         <p class="eyebrow">My Account</p>
-        <h1>Hi, User</h1>
+        <h1>Hi, <%= user ? user.first_name : 'Guest' %>!</h1>
         <p>Manage your profile, check past orders, and keep track of your reservations.</p>
       </div>
     </section>
@@ -48,6 +48,13 @@
         <button type="submit" class="btn btn-primary full-width">Save Changes</button>
       </form>
     </section>
+
+    <!-- Button for log in and out -->
+      <% if (user) { %>
+  <a href="/logout" class="btn btn-secondary">Log Out</a>
+      <% } else { %>
+        <a href="/login" class="btn btn-primary">Log In</a>
+      <% } %>
 
     <!-- Past Orders Card-->
     <section class="account-panel card ">

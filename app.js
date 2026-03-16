@@ -1,6 +1,8 @@
 import express from 'express';
 import mysql2 from 'mysql2';
 import dotenv from 'dotenv';
+// ask chatgpt for this option to add session into this for login and password
+import session from 'express-session';
 
 dotenv.config();
 
@@ -20,6 +22,45 @@ const pool = mysql2.createPool({
 app.use(express.static('public'));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+
+// 
+app.use(session({
+  secret:'matchacat',
+  resave: false,
+  saveUninitialized: false
+}));
+
+// this is the login page
+app.get('/login', (req, res) => {
+  res.render('login', { error: null });
+});
+// look in the database for a row where username and password match using async and await
+// then grab the information 
+// if nothing came back, it mean username or pw was wrong
+app.post('/login', async (req, res) => {
+  try {
+  const [rows] = await pool.query(
+    'SELECT * FROM accounts WHERE username = ? AND password = ?',
+    [req.body.username, req.body.password]
+  );
+  if (rows.length === 0) {
+    return res.render('login', { error: 'Invalid username or password.' });
+  }
+  // then this mean that it pass all of that and it save the user in4 into the session
+  // then direct them to account page
+  req.session.user = rows[0];
+  res.redirect('/account');
+} catch (err) {
+  console.error('Login error: ', err.message);
+  return res.status(500).send('Login error: ' + err.message);
+
+}
+});
+// this is log out
+// wipe the session (destroy) and direct to login
+app.get('/logout', (req, res) => {
+  req.session.destroy(() => res.redirect('/login'));
+});
 
 // set EJS as the view engine
 app.set('view engine', 'ejs');
@@ -110,22 +151,35 @@ app.post('/add-to-order', (req, res) => {
         size: req.body.size || "Standard",
         milk: req.body.milk || "N/A",
         syrup: req.body.syrup || "None",
-        instructions: req.body.specialInstructions || "None",
+        instructions: req.body.keychain === 'yes' 
+        ? 'Banana Cat Keychain,  ' + (req.body.specialInstructions || '') 
+        : req.body.specialInstructions || 'None',
         price: "$4.00",
         timestamp: new Date().toLocaleString()
     };
 
     cart.push(orderItem);
     console.log("Current Cart:", cart);
-    res.redirect('/review');
+  
+    if (req.session.user) {
+      return res.redirect('/review')
+    }
+
+
+    res.redirect('/pre-order');
 });
 
 app.get('/review', (req, res) => {
     res.render('review', { order: cart });
 });
 
-// --- THE REST OF YOUR ROUTES ---
+// --- THE REST OF ROUTES ---
 
+// pre-order route
+app.get('/pre-order', (req, res) => {
+  res.render('pre-order');
+});
+// deals route
 app.get('/deals', (req, res) => {
     res.render('deals');
 });
@@ -143,8 +197,12 @@ app.get('/confirmation', (req, res) => {
 });
 
 app.get('/account', (req, res) => {
-    res.render('account');
+  // if not logged in, still show account page but as guest
+  const user = req.session.user || null;
+  res.render('account', { user });
 });
+
+// make a fuction to check if the user is logged in before allowing them to order
 
 // --- RESERVATIONS ---
 app.post('/reserve', async (req, res) => {
@@ -216,7 +274,7 @@ app.post('/submit', async (req, res) => {
     res.render('confirm-create-an-account', {submission});
 } catch (err) {
     console.error('Error saving account: ', err);
-    res.status(500).send('Error saving account. Please try again. ');
+    res.status(500).send('Error saving account. Please try again. ' + err.message);
 }
 });
 

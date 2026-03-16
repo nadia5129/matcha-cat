@@ -8,11 +8,11 @@
 
   <header class="site-header">
     <a href="/" class="logo-text">
-  <span class="matcha">Matcha</span> <span class="cat">Cat</span>
-</a>
+      <span class="matcha">Matcha</span> <span class="cat">Cat</span>
+    </a>
   </header>
 
-  <main>
+  <main class="menu-page">
 
     <nav class="menu-tabs">
       <button class="tab active" onclick="showCategory('coffee', event)">Coffee</button>
@@ -24,7 +24,7 @@
       <h2>Coffee</h2>
       <div class="menu-grid">
         <% Object.keys(menu).forEach(key => { %>
-          <% if (key.includes('latte') || key.includes('americano')) { %>
+          <% if (menu[key].category === 'coffee') { %>
             <div class="menu-item">
               <img src="/images/<%= menu[key].image %>" alt="<%= menu[key].name %>">
               <div class="item-info">
@@ -32,7 +32,7 @@
                 <p class="item-description"><%= menu[key].description %></p>
                 <p class="item-price"><%= menu[key].price %></p>
               </div>
-              <a href="/menu-item/<%= key %>"><button class="add-btn">View</button></a>
+              <a href="/menu-item/<%= key %>" class="btn add-btn">View</a>
             </div>
           <% } %>
         <% }); %>
@@ -43,7 +43,7 @@
       <h2>Matcha</h2>
       <div class="menu-grid">
         <% Object.keys(menu).forEach(key => { %>
-          <% if (key.includes('matcha')) { %>
+          <% if (menu[key].category === 'matcha') { %>
             <div class="menu-item">
               <img src="/images/<%= menu[key].image %>" alt="<%= menu[key].name %>">
               <div class="item-info">
@@ -51,7 +51,7 @@
                 <p class="item-description"><%= menu[key].description %></p>
                 <p class="item-price"><%= menu[key].price %></p>
               </div>
-              <a href="/menu-item/<%= key %>"><button class="add-btn">View</button></a>
+              <a href="/menu-item/<%= key %>" class="btn add-btn">View</a>
             </div>
           <% } %>
         <% }); %>
@@ -62,7 +62,7 @@
       <h2>Pastries</h2>
       <div class="menu-grid">
         <% Object.keys(menu).forEach(key => { %>
-          <% if (key === 'butter-croissant' || key === 'strawberry-roll') { %>
+          <% if (menu[key].category === 'pastries') { %>
             <div class="menu-item">
               <img src="/images/<%= menu[key].image %>" alt="<%= menu[key].name %>">
               <div class="item-info">
@@ -70,7 +70,7 @@
                 <p class="item-description"><%= menu[key].description %></p>
                 <p class="item-price"><%= menu[key].price %></p>
               </div>
-              <a href="/menu-item/<%= key %>"><button class="add-btn">View</button></a>
+              <a href="/menu-item/<%= key %>" class="btn add-btn">View</a>
             </div>
           <% } %>
         <% }); %>

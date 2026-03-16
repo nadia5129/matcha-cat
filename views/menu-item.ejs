@@ -8,8 +8,8 @@
 
   <header class="site-header">
     <a href="/" class="logo-text">
-  <span class="matcha">Matcha</span> <span class="cat">Cat</span>
-</a>
+      <span class="matcha">Matcha</span> <span class="cat">Cat</span>
+    </a>
   </header>
 
   <main class="item-details-container">
@@ -26,9 +26,10 @@
     </section>
 
     <form action="/add-to-order" method="POST">
+      <input type="hidden" name="itemId" value="<%= itemId %>">
       <input type="hidden" name="itemName" value="<%= item.name %>">
 
-      <% if (!item.image.includes('croissant') && !item.image.includes('roll')) { %>
+      <% if (item.category !== 'pastries') { %>
         <section class="item-options">
           <h2>Size Option</h2>
           <div class="option-list">
@@ -111,7 +112,6 @@
       </section>
 
       <button type="submit" class="add-to-order-btn">Add to Order</button>
-
     </form>
   </main>
 

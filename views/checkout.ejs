@@ -1,23 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <%--
-  ====================================================
-  Page: Checkout
-  
-  Description:
-  This page allows users to review their selected
-  menu items and submit payment/contact information
-  to place an order.
-
-  It dynamically displays items stored in the order
-  array and shows an empty-state message if no items
-  are present.
-  ====================================================
-  --%>
-
-  <!-- Reusable head partial with page title -->
   <%- include('partials/head', { title: 'Checkout' }) %>
+  <script defer src="/js/matcha-cat.js"></script>
 </head>
 
 <body>
@@ -29,17 +14,18 @@
     </a>
   </header>
 
-  <!-- Main Checkout Content -->
-  <main class="checkout-container">
-    <h1>Checkout</h1>
+  <main class="reservation-page">
 
-    <!-- Order Summary Section -->
-    <section class="review-order">
-      <div class="review-order-header">
-        <h2>Order Summary</h2>
+    <div class="page-intro">
+      <h1>Checkout</h1>
+      <p>Review your order and complete your payment below.</p>
+    </div>
 
-        <!-- Link to return and edit current order -->
-        <a href="/review" class="edit-link">Edit Order</a>
+    <!-- Order Summary Card -->
+    <div class="form-container" style="margin-bottom: 24px;">
+      <h2 class="form-title">Order Summary</h2>
+      <div class="review-order-header" style="justify-content: flex-end; margin-bottom: 12px;">
+        <a href="/review" class="edit-link" style="color: var(--pink-dark); font-size: 0.85rem; font-weight: 700;">Edit Order</a>
       </div>
 
       <!-- Checkout Item List -->
@@ -62,8 +48,6 @@
               <span class="item-price"><%= item.price %></span>
             </div>
           <% }); %>
-
-          <!-- Order total summary -->
           <div class="order-total">
             <span>Total (<%= order.length %> items):</span>
             <span class="total-amount">$<%= (order.length * 4.00).toFixed(2) %></span>
@@ -76,58 +60,57 @@
 
         <% } %>
       </div>
-    </section>
+    </div>
 
-    <!-- Payment Information Section -->
-    <section class="payment-section">
-      <h2>Payment Information</h2>
-
-      <!-- Checkout form submitted to place an order -->
+    <!-- Payment Card -->
+    <div class="form-container">
+      <h2 class="form-title">Payment Information</h2>
       <form action="/place-order" method="POST" class="checkout-form">
 
-        <!-- Card Number Row -->
-        <div class="card-row">
-          <div class="form-field">
+        <div class="input-grid">
+
+          <!-- Card Number: full width -->
+          <div class="form-field full-width">
             <label for="card-number">Card Number</label>
             <input type="text" id="card-number" name="cardNumber" maxlength="16" placeholder="0000 0000 0000 0000" required>
           </div>
-        </div>
-        
-        <!-- Expiration Date and CVC Row -->
-        <div class="card-extra-row">
+
+          <!-- Exp -->
           <div class="form-field">
-            <label for="exp">Exp</label>
+            <label for="exp">Expiration Date</label>
             <input type="text" id="exp" name="exp" placeholder="MM/YY" maxlength="5" required>
           </div>
 
+          <!-- CVC -->
           <div class="form-field">
             <label for="cvc">CVC</label>
             <input type="text" id="cvc" name="cvc" placeholder="123" maxlength="3" required>
           </div>
+
+          <!-- Name on Card: full width -->
+          <div class="form-field full-width">
+            <label for="name-on-card">Name on Card</label>
+            <input type="text" id="name-on-card" name="nameOnCard" required>
+          </div>
+
+          <!-- Email -->
+          <div class="form-field">
+            <label for="email">Email for Receipt</label>
+            <input type="email" id="email" name="email" required>
+          </div>
+
+          <!-- Phone -->
+          <div class="form-field">
+            <label for="phone">Phone</label>
+            <input type="tel" id="phone" name="phone" required>
+          </div>
+
         </div>
 
-        <!-- Cardholder Name -->
-        <div class="form-field">
-          <label for="name-on-card">Name on Card</label>
-          <input type="text" id="name-on-card" name="nameOnCard" required>
-        </div>
-
-        <!-- Receipt Email -->
-        <div class="form-field">
-          <label for="email">Email for Receipt</label>
-          <input type="email" id="email" name="email" required>
-        </div>
-
-        <!-- Customer Phone Number -->
-        <div class="form-field">
-          <label for="phone">Phone</label>
-          <input type="tel" id="phone" name="phone" required>
-        </div>
-
-        <!-- Submit order button -->
-        <button type="submit" class="place-order-btn">Place Order</button>
+        <button type="submit" class="btn-submit">Place Order</button>
       </form>
-    </section>
+    </div>
+
   </main>
 
   <!-- Site Footer -->

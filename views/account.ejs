@@ -8,13 +8,14 @@
 <body>
   <header class="site-header">
     <a href="/" class="logo-text">
-  <span class="matcha">Matcha</span> <span class="cat">Cat</span>
-</a>
+      <span class="matcha">Matcha</span> <span class="cat">Cat</span>
+    </a>
   </header>
 
-  <main class="account-page">
-    <!-- Profile Card -->
-    <section class="profile-hero card">
+  <main class="reservation-page">
+
+    <!-- Profile Hero -->
+    <section class="profile-hero card" style="padding: 32px; margin-bottom: 24px;">
       <div class="profile-copy">
         <p class="eyebrow">My Account</p>
         <h1>Hi, User</h1>
@@ -22,58 +23,71 @@
       </div>
     </section>
 
-    <!-- Edit Profile Card-->
-    <section class="user-form card">
+    <!-- New here? Create Account -->
+    <section class="form-container" style="margin-bottom: 24px; text-align: center;">
+      <p class="eyebrow">New Here?</p>
+      <h2 class="form-title">Create an Account</h2>
+      <p style="margin-bottom: 20px;">Sign up to save your orders and manage reservations.</p>
+      <a href="/create-account" class="btn-submit" style="display: inline-block; width: auto; padding: 16px 40px; text-decoration: none;">
+        Create Account
+      </a>
+    </section>
+
+    <!-- Edit Profile -->
+    <div class="form-container" style="margin-bottom: 24px;">
       <div class="section-heading">
         <p class="eyebrow">Profile</p>
-        <h2>Edit Information</h2>
+        <h2 class="form-title">Edit Information</h2>
       </div>
 
       <form action="/edit-profile" method="POST" class="account-form">
-        <div class="form-field">
-          <label for="fname">First Name</label>
-          <input type="text" id="fname" name="fname" placeholder="Enter your first name" required>
+        <div class="input-grid">
+
+          <div class="form-field">
+            <label for="fname">First Name</label>
+            <input type="text" id="fname" name="fname" placeholder="Enter your first name" required>
+          </div>
+
+          <div class="form-field">
+            <label for="phone">Phone Number</label>
+            <input type="tel" id="phone" name="phone" placeholder="(555) 555-5555" required>
+          </div>
+
+          <div class="form-field full-width">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" name="email" placeholder="Enter your email" required>
+          </div>
+
         </div>
 
-        <div class="form-field">
-          <label for="phone">Phone Number</label>
-          <input type="tel" id="phone" name="phone" placeholder="(555) 555-5555" required>
-        </div>
-
-        <div class="form-field full-width">
-          <label for="email">Email Address</label>
-          <input type="email" id="email" name="email" placeholder="Enter your email" required>
-        </div>
-
-        <button type="submit" class="btn btn-primary full-width">Save Changes</button>
+        <button type="submit" class="btn-submit">Save Changes</button>
       </form>
-    </section>
+    </div>
 
-    <!-- Past Orders Card-->
-    <section class="account-panel card ">
+    <!-- Past Orders -->
+    <section class="form-container" style="margin-bottom: 24px;">
       <div class="section-heading">
         <p class="eyebrow">Orders</p>
-        <h2>Past Orders</h2>
+        <h2 class="form-title">Past Orders</h2>
       </div>
-
       <div class="empty-state">
         <p>Your previous drinks and treats will show up here.</p>
-        <a href="/menu" class="btn btn-secondary">Order Something Sweet</a>
+        <a href="/menu" class="btn btn-secondary" style="margin-top: 12px; display: inline-block;">Order Something Sweet</a>
       </div>
     </section>
 
-    <!-- Past Reservations Card-->
-    <section class="account-panel card ">
+    <!-- Past Reservations -->
+    <section class="form-container">
       <div class="section-heading">
         <p class="eyebrow">Reservations</p>
-        <h2>My Reservations</h2>
+        <h2 class="form-title">My Reservations</h2>
       </div>
-
       <div class="empty-state">
         <p>Book a cozy table and your reservations will appear here.</p>
-        <a href="/reservation" class="btn btn-secondary">Create a Reservation</a>
+        <a href="/reservation" class="btn btn-secondary" style="margin-top: 12px; display: inline-block;">Create a Reservation</a>
       </div>
     </section>
+
   </main>
 
   <footer class="site-footer">

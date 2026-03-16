@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <%--
+    <%/*
   ====================================================
   Page: Home
 
@@ -11,19 +11,15 @@
   promotes reservations, and encourages users to
   explore deals, drinks, and the cat lounge experience.
   ====================================================
-  --%>
+  -*/%>
 
   <!-- Reusable head partial with page title -->
   <%- include('partials/head', { title: 'Home' }) %>
 </head>
 <body>
 
-  <!-- Site Header / Brand Logo -->
-  <header class="site-header">
-    <a href="/" class="logo-text">
-    <span class="matcha">Matcha</span> <span class="cat">Cat</span>
-    </a>
-  </header>
+  <!-- Partial For Site Header / Brand Logo -->
+  <%- include('partials/header') %>
 
   <!-- Full-Width Hero Video -->
   <section class="home-video">

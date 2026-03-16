@@ -1,22 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <%
+  /*
+  ====================================================
+  Page: Reservation Summary
+  
+  Description:
+  Displays a confirmation summary after a user
+  successfully submits a reservation form.
+
+  This page dynamically renders reservation details
+  passed from the server, including name, date,
+  time, party size, contact information, and
+  optional special comments.
+  ====================================================
+  */
+  %>
+
+  <!-- Reusable Head Partial -->
   <%- include('partials/head', { title: 'Reservation Summary' }) %>
 </head>
-<body>
 
-<header class="site-header">
-  <a href="/" class="logo-text">
-  <span class="matcha">Matcha</span> <span class="cat">Cat</span>
-</a>
-</header>
+<body>
+  <!-- Partial For Site Header / Brand Logo -->
+  <%- include('partials/header') %>
 
 <main>
+  <!-- Main Reservation Confirmation Content -->
   <section class="reservation-section">
     <h1>Reservation Summary </h1>
+
+    <!-- Dynamic thank-you message using submitted first name -->
     <p>Thanks, <%= reservation.fname %>! Your reservation has been saved.</p>
   </section>
 
+  <!-- Reservation Details Card -->
   <section class="res-form">
     <div class="card">
       <p><strong>Date:</strong> <%= reservation.date %></p>
@@ -29,9 +48,11 @@
         <p><strong>Comments:</strong> <%= reservation.comment %></p>
       <% } %>
 
+      <!-- Timestamp generated on server -->
       <p><strong>Submitted:</strong> <%= reservation.timestamp %></p>
     </div>
 
+ <!-- Button to create another reservation -->
   <div style="margin-top: 16px;">
   <button class="confirm-res-btn" type="button" onclick="window.location.href='/reservation'">
     Make another reservation
@@ -40,9 +61,11 @@
   </section>
 </main>
 
-<%- include('partials/footer') %>
+ <!-- Reusable Footer -->
+  <%- include('partials/footer') %>
 
-<%- include('partials/bottom-nav') %>
+  <!-- Reusable Bottom Navigation -->
+  <%- include('partials/bottom-nav') %>
 
 </body>
 </html>

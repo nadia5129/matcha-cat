@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <%--
+ <%/*
   ====================================================
   Page: Order Confirmation
   
@@ -11,19 +11,15 @@
   customer information dynamically and
   provides navigation back to the menu.
   ====================================================
-  --%>
+  */%>
 
  <!-- Reusable head partial with page title -->
   <%- include('partials/head', { title: 'Order Confirmed' }) %>
 </head>
 
 <body>
-  <!-- Site Header / Brand Logo -->
-  <header class="site-header">
-  <a href="/" class="logo-text">
-  <span class="matcha">Matcha</span> <span class="cat">Cat</span>
-  </a>
-  </header>
+   <!-- Partial For Site Header / Brand Logo -->
+  <%- include('partials/header') %>
 
   <!-- Order Confirmation Content -->
   <main class="confirmation-container" style="text-align: center; padding: 50px 20px;">

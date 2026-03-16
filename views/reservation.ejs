@@ -1,36 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <%- include('partials/head', { title: 'Home' }) %>
+   <%
+  /*
+  ====================================================
+  Page: Reservation
+
+  Description:
+  Allows users to submit a reservation request
+  for visiting the café. Collects customer details
+  including name, contact information, date,
+  time, party size, and optional special requests.
+  ====================================================
+  */
+  %>
+  
+  <!-- Head Partials-->
+  <%- include('partials/head', { title: 'Reserve a Visit' }) %>
   <script defer src="/js/matcha-cat.js"></script>
 </head>
 <body>
 
-  <!-- 
-    HEADER SECTION
-    Displays the Matcha Cat logo text with link to homepage
-  -->
-  <header class="site-header">
-    <a href="/" class="logo-text">
-      <span class="matcha">Matcha</span> <span class="cat">Cat</span>
-    </a>
-  </header>
+
+   <!-- Partial For Site Header / Brand Logo -->
+  <%- include('partials/header') %>
 
   <main class="reservation-page">
-    <!-- 
-      PAGE TITLE SECTION
-      Introduces the reservation page to users
-    -->
+    <!-- Introduces the reservation page to users -->
     <section class="page-intro">
       <h1>Reserve Your Visit</h1>
       <p>Book a cozy spot to sip matcha and spend time with our friendly cats.</p>
     </section>
 
-    <!-- 
-      RESERVATION FORM SECTION
-      Collects customer information for cafe reservations
-      Form uses responsive grid layout based on screen size
-    -->
+    <!-- RESERVATION FORM SECTION -->
     <section class="form-container">
       <form id="reservation-form" class="reservation-form" action="/reserve" method="POST">
         
@@ -105,10 +107,7 @@
       </form>
     </section>
 
-    <!-- 
-      RESERVATION INFO SECTION
-      Provides helpful information about reservations
-    -->
+    <!-- RESERVATION INFO SECTION-->
     <section class="info-card">
       <h3>Reservation Details</h3>
       <ul>
@@ -120,16 +119,10 @@
     </section>
   </main>
 
-  <!-- 
-    FOOTER SECTION
-    Displays cafe location and copyright information
-  -->
+  <!-- Reusable Footer -->
   <%- include('partials/footer') %>
 
-  <!-- 
-    BOTTOM NAVIGATION
-    Fixed navigation bar with icons for main site sections
-  -->
+  <!-- Reusable Bottom Navigation -->
   <%- include('partials/bottom-nav') %>
 
 </body>

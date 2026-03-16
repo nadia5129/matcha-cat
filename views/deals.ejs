@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <%--
+    <% /*
   ====================================================
   Page: Deals
 
@@ -11,20 +11,15 @@
   Highlights student discounts and
   limited-time merchandise promotions.
   ====================================================
-  --%>
+  */%>
 
 <!-- Reusable head partial with page title -->
 <%- include('partials/head', { title: 'Deals' }) %>
 </head>
 <body>
 
-  <!-- Site Header / Brand Logo -->
-  <header class="site-header">
-    <a href="/" class="logo-text">
-      <span class="matcha">Matcha</span> 
-      <span class="cat">Cat</span>
-    </a>
-  </header>
+<!-- Partial For Site Header / Brand Logo -->
+<%- include('partials/header') %>
 
   <!-- Main Deals Page Content -->
   <main>

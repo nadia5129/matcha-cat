@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <%--
+   <% /*
   ====================================================
   Page: Account
 
@@ -11,19 +11,15 @@
   creating an account, editing profile details,
   viewing past orders, and checking reservation history.
   ====================================================
-  --%>
+  */%>
 
   <!-- Reusable head partial with page title -->
   <%- include('partials/head', { title: 'Account' }) %>
 </head>
 
 <body>
-  <!-- Site Header / Brand Logo -->
-  <header class="site-header">
-    <a href="/" class="logo-text">
-      <span class="matcha">Matcha</span> <span class="cat">Cat</span>
-    </a>
-  </header>
+<!-- Partial For Site Header / Brand Logo -->
+<%- include('partials/header') %>
 
   <!-- Main Account Page Content -->
   <main class="reservation-page">

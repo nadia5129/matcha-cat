@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <%--
+    <%/*
     ====================================================
     Page: Account Created Confirmation
   
@@ -13,20 +13,15 @@
     the user’s account information. If no data
     is found, a fallback message is displayed.
     ====================================================
-    --%>
+    */ %>
 
     <%- include('partials/head', { title: 'Account Created' }) %>
 </head>
 
 <body>
     
-    <!-- Site Header / Brand Logo -->
-    <header class="site-header">
-        <a href="/" class="logo-text">
-            <span class="matcha">Matcha</span> 
-            <span class="cat">Cat</span>
-        </a>
-    </header>
+<!-- Partial For Site Header / Brand Logo -->
+<%- include('partials/header') %>
 
     <!-- Account Creation Confirmation Section -->
     <main>

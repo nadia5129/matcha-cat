@@ -1,16 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <%/*
+  ====================================================
+  Page: Item Details
+
+  Description:
+  Displays detailed information for a selected
+  menu item. Allows users to customize drink
+  options such as size, milk, and syrup before
+  adding the item to their order.
+  ====================================================
+  */%>
+
+  <!-- Reusable head partial with page title -->
   <%- include('partials/head', { title: item.name }) %>
   <script defer src="/js/matcha-cat.js"></script>
 </head>
 <body>
 
-  <header class="site-header">
-    <a href="/" class="logo-text">
-      <span class="matcha">Matcha</span> <span class="cat">Cat</span>
-    </a>
-  </header>
+  <!-- Partial For Site Header / Brand Logo -->
+  <%- include('partials/header') %>
 
   <main class="item-details-container">
     <div class="back-nav">
@@ -115,8 +125,10 @@
     </form>
   </main>
 
- <%- include('partials/footer') %>
+  <!-- Reusable Footer -->
+  <%- include('partials/footer') %>
 
+  <!-- Reusable Bottom Navigation -->
   <%- include('partials/bottom-nav') %>
 
 </body>

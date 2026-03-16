@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <%--
+ <%/*
   ====================================================
   Page: Checkout
 
@@ -12,7 +12,7 @@
   selected items, shows the order total, and
   provides an empty-state message if the cart is empty.
   ====================================================
-  --%>
+  */ %>
 
   <!-- Reusable Head Partial -->
   <%- include('partials/head', { title: 'Checkout' }) %>
@@ -21,12 +21,8 @@
 
 <body>
 
-  <!-- Site Header / Brand Logo -->
-  <header class="site-header">
-    <a href="/" class="logo-text">
-      <span class="matcha">Matcha</span> <span class="cat">Cat</span>
-    </a>
-  </header>
+  <!-- Partial For Site Header / Brand Logo -->
+  <%- include('partials/header') %>
 
   <!-- Main Checkout Page Content -->
   <main class="reservation-page">
@@ -47,10 +43,10 @@
     <!-- Checkout Item List -->
     <div class="checkout-item-list">
 
-      <%-- Check whether the order contains items --%>
+      <%/*Check whether the order contains items */%>
       <% if (order && order.length > 0) { %>
 
-      <%-- Loop through each item in the order --%>
+      <% /* Loop through each item in the order */ %>
       <% order.forEach(item => { %>
       <div class="checkout-item">
 

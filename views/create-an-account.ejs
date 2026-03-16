@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <%--
+  <%/*
   ====================================================
   Page: Create Account
  
@@ -13,19 +13,15 @@
   It includes client-side validation message
   placeholders for each required input field.
   ====================================================
-  --%>
+  */ %>
 
  <!-- Reusable head partial with page title -->
   <%- include('partials/head', { title: 'Create Account' }) %>
 </head>
 <body>
 
-  <!-- Site Header / Brand Logo -->
-  <header class="site-header">
-    <a href="/" class="logo-text">
-      <span class="matcha">Matcha</span> <span class="cat">Cat</span>
-    </a>
-  </header>
+  <!-- Partial For Site Header / Brand Logo -->
+  <%- include('partials/header') %>
 
   <!-- Main Create Account Page Content -->
   <main class="reservation-page">

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <%--
+    <% /*
     ====================================================
     Page: Admin – Account Submissions
   
@@ -14,7 +14,7 @@
     with the DataTables library for sorting,
     searching, and responsive behavior.
     ====================================================
-    --%>
+    */ %>
 
      <!-- Reusable Head Partial -->
     <%- include('partials/head', { title: 'Admin – Account Submissions' }) %>
@@ -31,10 +31,8 @@
 </head>
 
 <body>
-    <!-- Site Header -->
-    <header class="site-header">
-        <img src="/images/logo.jpg">
-    </header>
+  <!-- Partial For Site Header / Brand Logo -->
+  <%- include('partials/header') %>
 
     <!-- Page Title -->
     <h1>Account Submissions</h1>

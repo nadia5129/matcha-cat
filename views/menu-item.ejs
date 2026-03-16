@@ -1,14 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <%/*
+  ====================================================
+  Page: Item Details
+
+  Description:
+  Displays detailed information for a selected
+  menu item. Allows users to customize drink
+  options such as size, milk, and syrup before
+  adding the item to their order.
+  ====================================================
+  */%>
+
+  <!-- Reusable head partial with page title -->
   <%- include('partials/head', { title: item.name }) %>
   <script defer src="/js/matcha-cat.js"></script>
 </head>
 <body>
 
-  <header class="site-header">
-    <img src="/images/logo.jpg" alt="Matcha Cat Logo">
-  </header>
+  <!-- Partial For Site Header / Brand Logo -->
+  <%- include('partials/header') %>
 
   <main class="item-details-container">
     <div class="back-nav">
@@ -24,9 +36,10 @@
     </section>
 
     <form action="/add-to-order" method="POST">
+      <input type="hidden" name="itemId" value="<%= itemId %>">
       <input type="hidden" name="itemName" value="<%= item.name %>">
 
-      <% if (!item.image.includes('croissant') && !item.image.includes('roll')) { %>
+      <% if (item.category !== 'pastries') { %>
         <section class="item-options">
           <h2>Size Option</h2>
           <div class="option-list">
@@ -107,16 +120,25 @@
         <p><%= item.description %></p>
         <textarea name="specialInstructions" rows="3" placeholder="Any special instructions..."></textarea>
       </section>
-
-      <button type="submit" class="add-to-order-btn">Add to Order</button>
-
+      <!-- only show keychain offer if item is a matcha drink -->
+      <% if (item.image.includes('matcha')) { %>
+        <section class="item-options">
+          <h2>🍵 Matcha Lover Deal</h2>
+          <p>Add a FREE Banana Cat Keychain with your order!</p>
+          <label class="option-row">
+            <input type="checkbox" name="keychain" value="yes">
+            <span>Yes, I want the FREE Banana Cat Keychain! </span>
+          </label>
+        </section>
+      <% } %>
+      <button type="submit" class="add-to-order-btn"> Add to Order</button>
     </form>
   </main>
 
-  <footer class="site-footer">
-    <p>Matcha Cat Cafe • Seattle, WA</p>
-  </footer>
+  <!-- Reusable Footer -->
+  <%- include('partials/footer') %>
 
+  <!-- Reusable Bottom Navigation -->
   <%- include('partials/bottom-nav') %>
 
 </body>

@@ -1,16 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <%
+  /*
+  ====================================================
+  Page: Menu
+
+  Description:
+  Displays all available menu items categorized
+  into Coffee, Matcha, and Pastries.
+
+  Users can switch between categories using
+  tab navigation. Menu items are dynamically
+  generated from the server-side "menu" object.
+  ====================================================
+  */
+  %>
+
+  <!-- Reusable head partial -->
   <%- include('partials/head', { title: 'Menu' }) %>
   <script defer src="/js/matcha-cat.js"></script>
 </head>
 <body>
 
-  <header class="site-header">
-    <img src="/images/logo.jpg">
-  </header>
+  <!-- Partial For Site Header / Brand Logo -->
+  <%- include('partials/header') %>
 
-  <main>
+  <main class="menu-page">
 
     <nav class="menu-tabs">
       <button class="tab active" onclick="showCategory('coffee', event)">Coffee</button>
@@ -22,7 +38,7 @@
       <h2>Coffee</h2>
       <div class="menu-grid">
         <% Object.keys(menu).forEach(key => { %>
-          <% if (key.includes('latte') || key.includes('americano')) { %>
+          <% if (menu[key].category === 'coffee') { %>
             <div class="menu-item">
               <img src="/images/<%= menu[key].image %>" alt="<%= menu[key].name %>">
               <div class="item-info">
@@ -30,7 +46,7 @@
                 <p class="item-description"><%= menu[key].description %></p>
                 <p class="item-price"><%= menu[key].price %></p>
               </div>
-              <a href="/menu-item/<%= key %>"><button class="add-btn">View</button></a>
+              <a href="/menu-item/<%= key %>" class="btn add-btn">View</a>
             </div>
           <% } %>
         <% }); %>
@@ -41,7 +57,7 @@
       <h2>Matcha</h2>
       <div class="menu-grid">
         <% Object.keys(menu).forEach(key => { %>
-          <% if (key.includes('matcha')) { %>
+          <% if (menu[key].category === 'matcha') { %>
             <div class="menu-item">
               <img src="/images/<%= menu[key].image %>" alt="<%= menu[key].name %>">
               <div class="item-info">
@@ -49,7 +65,7 @@
                 <p class="item-description"><%= menu[key].description %></p>
                 <p class="item-price"><%= menu[key].price %></p>
               </div>
-              <a href="/menu-item/<%= key %>"><button class="add-btn">View</button></a>
+              <a href="/menu-item/<%= key %>" class="btn add-btn">View</a>
             </div>
           <% } %>
         <% }); %>
@@ -60,7 +76,7 @@
       <h2>Pastries</h2>
       <div class="menu-grid">
         <% Object.keys(menu).forEach(key => { %>
-          <% if (key === 'butter-croissant' || key === 'strawberry-roll') { %>
+          <% if (menu[key].category === 'pastries') { %>
             <div class="menu-item">
               <img src="/images/<%= menu[key].image %>" alt="<%= menu[key].name %>">
               <div class="item-info">
@@ -68,7 +84,7 @@
                 <p class="item-description"><%= menu[key].description %></p>
                 <p class="item-price"><%= menu[key].price %></p>
               </div>
-              <a href="/menu-item/<%= key %>"><button class="add-btn">View</button></a>
+              <a href="/menu-item/<%= key %>" class="btn add-btn">View</a>
             </div>
           <% } %>
         <% }); %>
@@ -81,10 +97,10 @@
 
   </main>
 
-  <footer class="site-footer">
-    <p>Matcha Cat Cafe • Seattle, WA</p>
-  </footer>
+  <!-- Reusable Footer -->
+  <%- include('partials/footer') %>
 
+  <!-- Reusable Bottom Navigation -->
   <%- include('partials/bottom-nav') %>
 
 </body>

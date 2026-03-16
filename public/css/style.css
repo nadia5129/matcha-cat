@@ -451,9 +451,17 @@ legend {
    12. MAIN LAYOUT
 ------------------------------------------- */
 main {
+  width: 100%;
   max-width: 480px;
   margin: 0 auto;
   padding: 20px 16px;
+}
+
+.menu-page {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 24px 20px 40px;
 }
 
 
@@ -709,26 +717,45 @@ width: 100%;
 /* 2 column item grid */
 .menu-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 16px;
-  margin-bottom: 20px;
+  grid-template-columns: 1fr;
+  gap: 18px;
+  margin-bottom: 24px;
+}
+
+@media (min-width: 600px) {
+  .menu-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 900px) {
+  .menu-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 1200px) {
+  .menu-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
 }
 
 .menu-item {
-  display: grid;
-  grid-template-rows: auto auto auto; /* image | name | button */
-  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   background-color: var(--white);
   border-radius: var(--radius-md);
   box-shadow: var(--shadow);
   padding: 12px;
   text-align: center;
-  gap: 8px;
+  gap: 10px;
+  height: 100%;
 }
 
 .menu-item img {
   width: 100%;
-  height: 100px;
+  height: 160px;
   object-fit: cover;
   border-radius: var(--radius-sm);
 }
@@ -737,6 +764,25 @@ width: 100%;
   font-family: var(--font-heading);
   font-size: 0.9rem;
   color: var(--brown-dark);
+}
+
+.item-info {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex-grow: 1;
+}
+
+.item-description {
+  background: #fcfcfc;
+  border-radius: var(--radius-md);
+  padding: 12px;
+}
+
+@media (min-width: 900px) {
+  .menu-item img {
+    height: 180px;
+  }
 }
 
 .view-order {
@@ -956,7 +1002,7 @@ section.my-reservations {
 
 /* Layout Container */
 .item-details-container {
-  max-width: 500px;
+  max-width: 900px;
   margin: 0 auto;
   padding: 20px;
   background-color: #fffaf5; /* Creamy background */
@@ -1361,5 +1407,38 @@ textarea[name="specialInstructions"] {
   margin: 10px 0;
 }
 
+/* --- Deals Page ---*/
+.deals-page {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 32px 20px;
+  display: grid;
+  gap: 40px;
+}
 
+.deals-header {
+  display: grid;
+  gap: 16px;
+}
+
+.deals-img {
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+  display: block;
+}
+
+/* Desktop: image and text side by side */
+@media (min-width: 768px) {
+  .deals-header {
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    gap: 32px;
+  }
+
+  .deals-img {
+    width: 100%;
+    max-width: 100%;
+  }
+}
 

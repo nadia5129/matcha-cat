@@ -1,73 +1,113 @@
+<!-- Create an Account Page
+ ---- Kate Nguyen
+ ---- Form to create an account for log in 
+ ---- Using mysql -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <%/*
+  ====================================================
+  Page: Create Account
+ 
+  Description:
+  This page allows new users to create an
+  account by entering personal information,
+  login details, and contact information.
+
+  It includes client-side validation message
+  placeholders for each required input field.
+  ====================================================
+  */ %>
+
+ <!-- Reusable head partial with page title -->
   <%- include('partials/head', { title: 'Create Account' }) %>
-  <script defer src="/js/matcha-cat.js"></script>
 </head>
 <body>
 
-  <!--header-->
-  <header class="site-header">
-    <img src="/images/logo.jpg">
-  </header>
-  <!--create an account section -->
-  <main>
-    <section id="create-an-account-section" class="form-section">
-      <h2>Create an Account</h2>
-      <form id="create-an-account-form" class="account-form" action="/submit" method="POST" novalidate>
+  <!-- Partial For Site Header / Brand Logo -->
+  <%- include('partials/header') %>
 
-        <div class="form-field">
-          <label for="username">Username:</label>
-          <input type="text" id="username" name="username" required>
-          <span id="username-error" class="error-message"></span>
+  <!-- Main Create Account Page Content -->
+  <main class="reservation-page">
+
+    <!-- Page Intro -->
+    <div class="page-intro">
+      <h1>Create an Account</h1>
+      <p>Join Matcha Cat to save your orders and manage reservations.</p>
+    </div>
+
+    <!-- Account Creation Form Container -->
+    <div class="form-container">
+      <h2 class="form-title">Your Details</h2>
+
+      <!-- Form submitted to create a new user account -->
+      <form id="create-an-account-form" action="/submit" method="POST" novalidate>
+
+        <!-- Grid layout for account input fields -->
+        <div class="input-grid">
+
+          <!-- First Name -->
+          <div class="form-field">
+            <label for="first-name">First Name</label>
+            <input type="text" id="first-name" name="fname" required>
+            <span id="first-name-error" class="error-message"></span>
+          </div>
+
+          <!-- Last Name -->
+          <div class="form-field">
+            <label for="last-name">Last Name</label>
+            <input type="text" id="last-name" name="lname" required>
+            <span id="last-name-error" class="error-message"></span>
+          </div>
+
+          <!-- Username -->
+          <div class="form-field">
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" required>
+            <span id="username-error" class="error-message"></span>
+          </div>
+
+          <!-- Phone Number -->
+          <div class="form-field">
+            <label for="phone">Phone Number</label>
+            <input type="tel" id="phone" name="phone" required>
+            <span id="phone-error" class="error-message"></span>
+          </div>
+
+          <!-- Birthday -->
+          <div class="form-field">
+            <label for="birthday">Birthday</label>
+            <input type="date" id="birthday" name="birthday" required>
+            <span id="birthday-error" class="error-message"></span>
+          </div>
+
+          <!-- Email Address -->
+          <div class="form-field">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required>
+            <span id="email-error" class="error-message"></span>
+          </div>
+
+          <!-- Password -->
+          <div class="form-field full-width">
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" required>
+            <span id="password-error" class="error-message"></span>
+          </div>
+
         </div>
 
-        <div class="form-field">
-          <label for="first-name">First Name:</label>
-          <input type="text" id="first-name" name="fname" required>
-          <span id="first-name-error" class="error-message"></span>
-        </div>
-
-        <div class="form-field">
-          <label for="last-name">Last Name:</label>
-          <input type="text" id="last-name" name="lname" required>
-          <span id="last-name-error" class="error-message"></span>
-        </div>
-
-        <div class="form-field">
-          <label for="phone">Phone Number:</label>
-          <input type="tel" id="phone" name="phone" required>
-          <span id="phone-error" class="error-message"></span>
-        </div>
-
-        <div class="form-field">
-          <label for="birthday">Birthday:</label>
-          <input type="date" id="birthday" name="birthday" required>
-          <span id="birthday-error" class="error-message"></span>
-        </div>
-
-        <div class="form-field">
-          <label for="email">Email:</label>
-          <input type="email" id="email" name="email" required>
-          <span id="email-error" class="error-message"></span>
-        </div>
-
-        <div class="form-field">
-          <label for="password">Password:</label>
-          <input type="password" id="password" name="password" required>
-          <span id="password-error" class="error-message"></span>
-        </div>
-
-        <button type="submit">Create Account</button>
+        <!-- Submit Button -->
+        <button type="submit" class="btn-submit">Create Account</button>
       </form>
-    </section>
+    </div>
+
   </main>
 
-  <!--footer-->
-  <footer class="site-footer">
-    <p>Matcha Cat Cafe • Seattle, WA</p>
-  </footer>
+  <!-- Reusable Footer -->
+  <%- include('partials/footer') %>
 
+  <!-- Reusable Bottom Navigation -->
   <%- include('partials/bottom-nav') %>
 
 </body>

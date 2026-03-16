@@ -1,51 +1,78 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <%- include('partials/head', { title: 'Account Created' }) %>
+  <%
+  /*
+  ====================================================
+  Page: Account Created Confirmation
+  Author: Kate Nguyen
+
+  Description:
+  Displays confirmation details after a user
+  successfully creates an account.
+
+  If submission data exists, the page renders
+  the user’s account information. If no data
+  is found, a fallback message is displayed.
+  ====================================================
+  */
+  %>
+
+  <!-- Reusable Head Partial -->
+  <%- include('partials/head', { title: 'Account Created' }) %>
 </head>
+
 <body>
     
-    <!--header-->
-    <header class="site-header">
-        <img src="/images/logo.jpg">
-    </header>
+  <!-- Reusable Site Header -->
+  <%- include('partials/header') %>
 
-    <!--confirmation section-->
-    <main>
-        <section id="confirm-create-an-account-section" class="confirm-section">
+  <!-- Main Account Confirmation Content -->
+  <main>
+    <section id="confirm-create-an-account-section" class="confirm-section">
 
-            <% if (submission) { %>
-                <h2>Account Created! MEOW</h2>
-                <p>Welcome, <strong><%= submission.firstName %> <%= submission.lastName %></strong>!</p>
+      <% /* Check if submission data was passed from the server */ %>
+      <% if (submission) { %>
 
-                <div class="confirm-details">
-                    <ul>
-                        <li><strong>Username:</strong> <%= submission.username %></li>
-                        <li><strong>Name:</strong> <%= submission.firstName %> <%= submission.lastName %></li>
-                        <li><strong>Phone:</strong> <%= submission.phone %></li>
-                        <li><strong>Birthday:</strong> <%= submission.birthday %></li>
-                        <li><strong>Email:</strong> <%= submission.email %></li>
-                        <li><strong>Submitted:</strong> <%= submission.timestamp %></li>
-                    </ul>
-                </div>
+        <!-- Success Message -->
+        <h2>Account Created! MEOW</h2>
+        <p>
+          Welcome,
+          <strong><%= submission.firstName %> <%= submission.lastName %></strong>!
+        </p>
 
-                <a href="/">Back to Home</a>
+        <!-- Display Submitted Account Details -->
+        <div class="confirm-details">
+          <ul>
+            <li><strong>Username:</strong> <%= submission.username %></li>
+            <li><strong>Name:</strong> <%= submission.firstName %> <%= submission.lastName %></li>
+            <li><strong>Phone:</strong> <%= submission.phone %></li>
+            <li><strong>Birthday:</strong> <%= submission.birthday %></li>
+            <li><strong>Email:</strong> <%= submission.email %></li>
+            <li><strong>Submitted:</strong> <%= submission.timestamp %></li>
+          </ul>
+        </div>
 
-            <% } else { %>
-                <h2>No account data found.</h2>
-                <a href="/create-an-account">Create an Account</a>
-            <% } %>
+        <!-- Navigation Back to Home -->
+        <br><br>
+        <a href="/" class="btn btn-primary full-width">Back to Home</a>
 
-        </section>
-    </main>
+      <% } else { %>
 
-    <!--footer-->
-    <footer class="site-footer">
-        <p>Matcha Cat Cafe • Seattle, WA</p>
-    </footer>
+        <!-- Fallback Message if No Submission Data Exists -->
+        <h2>No account data found.</h2>
+        <a href="/create-account">Create an Account</a>
 
-    <%- include('partials/bottom-nav') %>
+      <% } %>
+
+    </section>
+  </main>
+
+  <!-- Reusable Footer -->
+  <%- include('partials/footer') %>
+
+  <!-- Reusable Bottom Navigation -->
+  <%- include('partials/bottom-nav') %>
+
 </body>
 </html>

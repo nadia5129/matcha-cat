@@ -6,10 +6,8 @@
 </head>
 <body>
 
-  <header class="site-header">
-    <img src="/images/logo.jpg" alt="Matcha Cat Logo">
-    <h1>Your Order 🐾</h1>
-  </header>
+  <!-- Partial For Site Header / Brand Logo -->
+  <%- include('partials/header') %>
 
   <main class="review-container">
     <div class="back-nav">
@@ -31,6 +29,10 @@
               <div class="item-specs">
                 <p><strong>Size:</strong> <%= item.size %> | <strong>Milk:</strong> <%= item.milk %></p>
                 <p><strong>Syrup:</strong> <%= item.syrup %></p>
+                 <!-- show keychain if they claimed one -->
+                <% if (item.keychain && item.keychain !== 'None') { %>
+                  <p><strong> Free Gift:</strong> <%= item.keychain %></p>
+                <% } %>
               </div>
               
               <% if (item.instructions && item.instructions !== "None") { %>
@@ -70,9 +72,7 @@
 
   </main>
 
-  <footer class="site-footer">
-    <p>Matcha Cat Cafe • Seattle, WA</p>
-  </footer>
+  <%- include('partials/footer') %>
 
   <%- include('partials/bottom-nav') %>
 

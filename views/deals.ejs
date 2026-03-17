@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <% /*
+  <% /*
   ====================================================
   Page: Deals
   Author: Kate Nguyen
@@ -12,110 +12,115 @@
   Highlights student discounts and
   limited-time merchandise promotions.
   ====================================================
-  */%>
+  */ %>
 
-<!-- Reusable head partial with page title -->
-<%- include('partials/head', { title: 'Deals' }) %>
+  <!-- Reusable head partial with page title -->
+  <%- include('partials/head', { title: 'Deals' }) %>
 </head>
 <body>
 
-<!-- Partial For Site Header / Brand Logo -->
-<%- include('partials/header') %>
-
-<<<<<<< HEAD
+  <!-- Partial For Site Header / Brand Logo -->
+  <%- include('partials/header') %>
 
   <!-- Main Deals Page Content -->
-  <main>
-
-    <!-- Student Discount Deal -->
-    <div class="deals-header">
-      
-      <img 
-        src="/images/5offdeals.png" 
-        alt="Cat holding a sign that says 5% off deals"
-        class="deals-img"
-      >
-
-      <p><strong>Student Discount – 5% OFF</strong></p>
-      <p>Hit the books, then treat yourself!</p>
-      <p>
-        Students get 5% OFF their coffee when ordering in person at the café.
-        Just show your valid student ID at checkout and enjoy your discount.
-      </p>
-
-      <!-- Discount Conditions -->
-
-=======
->>>>>>> 8299d063bebbb14af97630c62b3935883d134c8c
   <main class="deals-page">
+
     <!-- Deal 1 - Student Discount -->
     <div class="deals-header">
-      <img src="/images/5offdeal.png" alt="a cat holding a book on top of it head and at its paw is a sign that says 5 off deals". class="deals-img">
+      <img
+        src="/images/5offdeal.png"
+        alt="A cat holding a book on top of its head, with a sign that says 5% off deals"
+        class="deals-img"
+      >
       <div class="deals-text">
-      <h2>Hit the books, then treat yourself!</h2>
-      <p>Students get 5% OFF their coffee when ordering in person at the café. Just show your valid student ID at checkout and enjoy your discount.</p>
-<<<<<<< HEAD
-
-=======
->>>>>>> 8299d063bebbb14af97630c62b3935883d134c8c
-      <ul>
-        <li>Available at the café only</li>
-        <li>Not valid for online orders</li>
-        <li>Cannot be combined with other offers or discounts</li>
-      </ul>
-
-      <p>Because studying is hard… coffee should be easier.</p>
+        <h2>Hit the books, then treat yourself!</h2>
+        <p>
+          Students get 5% OFF their coffee when ordering in person at the café.
+          Just show your valid student ID at checkout and enjoy your discount.
+        </p>
+        <ul>
+          <li>Available at the café only</li>
+          <li>Not valid for online orders</li>
+          <li>Cannot be combined with other offers or discounts</li>
+        </ul>
+        <p>Because studying is hard… coffee should be easier.</p>
+      </div>
     </div>
-    </div>
-      <!-- Deal 2 - Banana Cat Keychain -->
-      <div class="deals-header">
-        <img src="/images/bananadeal.png" alt="a cat wearing banana suit holding a matcha on one paw and shout I LOVE MATCHA with a keychain next to it that look like it.". class="deals-img">
-        <div class="deals-text">
-        <h2> Matcha Lover Deal - FREE Banana Cat Keychain!</h2>
+
+    <!-- Deal 2 - Banana Cat Keychain -->
+    <div class="deals-header">
+      <img
+        src="/images/bananadeal.png"
+        alt="A cat wearing a banana suit holding a matcha in one paw and shouting I LOVE MATCHA, with a matching keychain next to it"
+        class="deals-img"
+      >
+      <div class="deals-text">
+        <h2>Matcha Lover Deal - FREE Banana Cat Keychain!</h2>
         <p>Matcha fans, this one's for you!</p>
-        <p>Buy any matcha drink, and receive a FREE Banana Cat Keychain — featuring our adorable Scottish Fold in a banana cosplay outfit.</p>
+        <p>
+          Buy any matcha drink, and receive a FREE Banana Cat Keychain —
+          featuring our adorable Scottish Fold in a banana cosplay outfit.
+        </p>
         <ul>
           <li>Available for in-person and online orders</li>
           <li>One keychain per matcha drink purchased</li>
           <li>While supplies last</li>
         </ul>
-        <p>Show off your love for matcha and our café with this cute and quirky keychain. It's the perfect accessory for any matcha enthusiast!</p>
-        </div>
-        </div>
-    
-<!-- Deal 3 - Lunch Takeout Bundle -->
+        <p>
+          Show off your love for matcha and our café with this cute and quirky
+          keychain. It's the perfect accessory for any matcha enthusiast!
+        </p>
+      </div>
+    </div>
+
+    <!-- Deal 3 - Lunch Takeout Bundle -->
     <div class="deals-header">
-      <img src="/images/deal3.png" alt="two paws of a yellow tabby cat holding drink and foods. In the bottom show his ear" class="deals-img">
+      <img
+        src="/images/deal3.png"
+        alt="Two paws of a yellow tabby cat holding a drink and food, with its ears showing at the bottom"
+        class="deals-img"
+      >
       <div class="deals-text">
         <h2>Grab lunch and go!</h2>
-        <p>Fuel your afternoon with our cozy lunch combo — one freshly made pastry paired with the coffee or matcha drink of your choice. Quick, easy, and delicious.</p>
-    <ul>
-      <li>1 pastry of your choice</li>
-      <li>1 coffee or matcha drink</li>
-      <li>Up to 1 syrup add-in included</li>
-      <li>Takeout orders only</li>
-      <li>Cannot be combined with other offers or discounts</li>
-    </ul>
-  <p>Because every good afternoon starts with a great lunch.</p>
-</div>
-</div>
+        <p>
+          Fuel your afternoon with our cozy lunch combo — one freshly made
+          pastry paired with the coffee or matcha drink of your choice.
+          Quick, easy, and delicious.
+        </p>
+        <ul>
+          <li>1 pastry of your choice</li>
+          <li>1 coffee or matcha drink</li>
+          <li>Up to 1 syrup add-in included</li>
+          <li>Takeout orders only</li>
+          <li>Cannot be combined with other offers or discounts</li>
+        </ul>
+        <p>Because every good afternoon starts with a great lunch.</p>
+      </div>
+    </div>
 
-<!-- Deal 4 : Buy 3 drink get 1 free pastry -->
- <div class="deals-header">
-  <img src="/images/deal4.png" alt="3 pairs of paw each holding a drink matcha, cappucino and machiatto in the bottom half. the top half is a plate of matcha roll look so fluffy and has tiny star bling bling around it." class="deals-img">
+    <!-- Deal 4 - Buy 3 drinks get 1 free pastry -->
+    <div class="deals-header">
+      <img
+        src="/images/deal4.png"
+        alt="Three pairs of paws each holding a drink — matcha, cappuccino, and macchiato — with a fluffy matcha roll above surrounded by tiny sparkling stars"
+        class="deals-img"
+      >
       <div class="deals-text">
-  <div class="deals-text">
-  <h2>Treat the whole crew!</h2>
-  <p>Order any 3 drinks from our menu and we'll throw in a free pastry — your choice, on us. Great for groups, study sessions, or just treating yourself a little extra.</p>
-  <ul>
-    <li>Purchase any 3 drinks from our menu</li>
-    <li>Receive 1 free pastry of your choice</li>
-    <li>Available in-store only from 10am to 2pm Mon to Fri</li>
-    <li>Free pastry subject to availability — while in stock only</li>
-    <li>Cannot be combined with other offers or discounts</li>
-  </ul>
-  <p>Three drinks in, and the pastry is on us.</p>
-</div>
+        <h2>Treat the whole crew!</h2>
+        <p>
+          Order any 3 drinks from our menu and we'll throw in a free pastry —
+          your choice, on us. Great for groups, study sessions, or just treating
+          yourself a little extra.
+        </p>
+        <ul>
+          <li>Purchase any 3 drinks from our menu</li>
+          <li>Receive 1 free pastry of your choice</li>
+          <li>Available in-store only from 10am to 2pm Mon to Fri</li>
+          <li>Free pastry subject to availability — while in stock only</li>
+          <li>Cannot be combined with other offers or discounts</li>
+        </ul>
+        <p>Three drinks in, and the pastry is on us.</p>
+      </div>
     </div>
 
   </main>

@@ -38,15 +38,23 @@ viewing past orders, and checking reservation history.
       <p class="eyebrow">New Here?</p>
       <h2 class="form-title">Create an Account</h2>
       <p style="margin-bottom: 20px;">Sign up to save your orders and manage reservations or Log In</p>
-      <a href="/create-account" class="btn-submit" style="display: inline-block; width: auto; padding: 16px 40px; text-decoration: none;">
+
+      <!-- if user is alr log in / give button to log out -->
+      <% if (user) { %>
+      <p style="margin-bottom: 16px;">Welcome back, <strong><%= user.first_name %></strong>!</p>
+      <a href="/logout" class="btn-submit" style="display: inline-block; width: auto; padding: 16px 40px; text-decoration: none;">
+        Log Out
+      </a>
+      <!-- offer create an account button if not logged in --> 
+    <% } else { %>
+      <a href="/create-an-account" class="btn-submit" style="display: inline-block; width: auto; padding: 16px 40px; text-decoration: none; margin-right: 12px;">
         Create Account
       </a>
-          <!-- Button for log in and out -->
-      <% if (user) { %>
-    <a href="/logout" class="btn-submit">Log Out</a>
-      <% } else { %>
-        <a href="/login" class="btn-submit">Log In</a>
-      <% } %>
+      <!-- offer log in button for user alr create an account -->
+      <a href="/login" class="btn-submit" style="display: inline-block; width: auto; padding: 16px 40px; text-decoration: none;">
+        Log In
+      </a>
+    <% } %>
     </section>
 
     <!-- Edit Profile Section -->
@@ -113,6 +121,7 @@ viewing past orders, and checking reservation history.
         <p>Book a cozy table and your reservations will appear here.</p>
         <a href="/reservation" class="btn btn-secondary" style="margin-top: 12px; display: inline-block;">Create a Reservation</a>
       </div>
+    </section>
     </section>
 
   </main>

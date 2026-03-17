@@ -1,79 +1,117 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <%
+  /*
+  ====================================================
+  Page: Review Order
+
+  Description:
+  Displays the user’s current cart before checkout.
+  Allows users to review selected items, remove
+  individual items, clear the full cart, and
+  continue to checkout.
+  ====================================================
+  */
+  %>
+
+  <!-- Reusable Head Partial -->
   <%- include('partials/head', { title: 'Review Order' }) %>
-  <script defer src="/js/matcha-cat.js"></script>
 </head>
 <body>
 
-  <!-- Partial For Site Header / Brand Logo -->
+  <!-- Reusable Site Header -->
   <%- include('partials/header') %>
 
+  <!-- Main Review Order Content -->
   <main class="review-container">
+
+    <!-- Back Navigation -->
     <div class="back-nav">
       <a href="/menu" class="back-link">← Keep Shopping</a>
     </div>
 
+    <% /* Check whether the cart contains items */ %>
     <% if (order && order.length > 0) { %>
+
+      <!-- Clear Entire Cart Action -->
       <div class="clear-cart-container">
-          <form action="/clear-cart" method="POST">
-              <button type="submit" class="clear-cart-btn">Clear All Items</button>
-          </form>
+        <form action="/clear-cart" method="POST">
+          <button type="submit" class="clear-cart-btn">Clear All Items</button>
+        </form>
       </div>
 
+      <!-- Cart Item List -->
       <div class="cart-list">
+
+        <% /* Loop through each item currently in the cart */ %>
         <% order.forEach((item, index) => { %>
           <div class="cart-item">
+
+            <!-- Item Details -->
             <div class="cart-item-details">
               <h3><%= item.name %></h3>
+
               <div class="item-specs">
                 <p><strong>Size:</strong> <%= item.size %> | <strong>Milk:</strong> <%= item.milk %></p>
                 <p><strong>Syrup:</strong> <%= item.syrup %></p>
-                 <!-- show keychain if they claimed one -->
+
+                <% /* Show keychain gift only if one was selected */ %>
                 <% if (item.keychain && item.keychain !== 'None') { %>
-                  <p><strong> Free Gift:</strong> <%= item.keychain %></p>
+                  <p><strong>Free Gift:</strong> <%= item.keychain %></p>
                 <% } %>
               </div>
-              
+
+              <% /* Show special instructions only if provided */ %>
               <% if (item.instructions && item.instructions !== "None") { %>
                 <p class="special-note">"<%= item.instructions %>"</p>
               <% } %>
             </div>
-            
+
+            <!-- Item Price and Remove Action -->
             <div class="cart-item-actions">
               <span class="cart-item-price"><%= item.price %></span>
-              
+
               <form action="/remove-from-cart" method="POST">
                 <input type="hidden" name="itemIndex" value="<%= index %>">
                 <button type="submit" class="remove-btn">Remove</button>
               </form>
             </div>
+
           </div>
         <% }); %>
       </div>
 
+      <!-- Order Summary Section -->
       <div class="order-summary">
         <div class="total-row">
           <span>Total Items:</span>
           <strong><%= order.length %></strong>
         </div>
+
+        <!-- Proceed to Checkout -->
         <a href="/checkout">
           <button class="checkout-btn">Proceed to Checkout 🛍️</button>
         </a>
       </div>
 
     <% } else { %>
+
+      <!-- Empty Cart State -->
       <div class="empty-cart">
         <div class="empty-icon">🧺</div>
         <p>Your basket is empty!</p>
         <a href="/menu"><button class="add-btn">View Menu</button></a>
       </div>
+
     <% } %>
 
   </main>
 
+  <!-- Reusable Footer -->
   <%- include('partials/footer') %>
 
+  <!-- Reusable Bottom Navigation -->
   <%- include('partials/bottom-nav') %>
 
 </body>

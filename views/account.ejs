@@ -116,12 +116,29 @@ viewing past orders, and checking reservation history.
         <h2 class="form-title">My Reservations</h2>
       </div>
 
+
+      <!-- If user have reservation - display it -->
+        <% if (reservations && reservations.length > 0) { %>
+    <div class="reservations-list">
+      <% reservations.forEach(r => { %>
+        <div class="card" style="padding: 20px; margin-bottom: 16px;">
+          <p><strong>Date:</strong> <%= new Date(r.date).toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) %></p>
+          <p><strong>Time:</strong> <%= r.time %></p>
+          <p><strong>Party Size:</strong> <%= r.size %></p>
+          <!-- only show special requests if one was left -->
+          <% if (r.comment) { %>
+            <p><strong>Special Requests:</strong> <%= r.comment %></p>
+          <% } %>
+        </div>
+      <% }) %>
+    </div>
       <!-- Empty state shown when no reservations exist -->
+       <% } else { %>
       <div class="empty-state">
         <p>Book a cozy table and your reservations will appear here.</p>
         <a href="/reservation" class="btn btn-secondary" style="margin-top: 12px; display: inline-block;">Create a Reservation</a>
       </div>
-    </section>
+      <% } %>
     </section>
 
   </main>

@@ -333,10 +333,32 @@ app.get('/confirmation', (req, res) => {
   res.render('confirmation');
 });
 
-app.get('/account', (req, res) => {
-  // if not logged in, still show account page but as guest
+// if the user is logged in, if they have reservation, fetch it
+app.get('/account', async (req, res) => {
+
+  // grab user from session, or null if is guest
   const user = req.session.user || null;
-  res.render('account', { user });
+
+  // start w an empty array
+   let reservations = [];
+     console.log('SESSION USER:', user);
+
+  // only if user is logged in
+  // look up all reservation where the emails match w the user that logged in
+  // and ORDER By date -> recent show up 1st
+  if (user) {
+    try {
+      const [rows] = await pool.query(
+        'SELECT * FROM reservations WHERE email = ? ORDER BY date DESC',
+        [user.email]
+      );
+      reservations = rows;
+    } catch (err) {
+      console.error('Error fetching reservations:', err);
+    }
+  }
+  // render account page and collect/pass user + reservation
+  res.render('account', { user, reservations });
 });
 
 // make a fuction to check if the user is logged in before allowing them to order

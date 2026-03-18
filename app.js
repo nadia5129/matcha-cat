@@ -88,7 +88,7 @@ function applyDeals(currentCart, context = {}) {
     updatedCart.push({ id: "keychain", name: "FREE Banana Cat Keychain", price: "$0.00", size: "-", milk: "-" });
   }
 
-  // DEAL 2: Buy 3 drinks → free pastry (Logic handled in Place Order)
+  // DEAL 2: Buy 3 drinks → free pastry
   updatedCart = updatedCart.filter(item => item.id !== "free-pastry");
   if (drinkCount >= 3 && context.freePastry) {
     updatedCart.push({ id: "free-pastry", name: `FREE ${context.freePastry} (Deal)`, price: "$0.00", size: "-", milk: "-" });
@@ -153,11 +153,30 @@ app.post('/remove-from-cart', (req, res) => {
   res.redirect('/review');
 });
 
-// Pages
+// Simple Navigation Routes
 app.get('/pre-order', (req, res) => res.render('pre-order'));
 app.get('/deals', (req, res) => res.render('deals'));
 app.get('/reservation', (req, res) => res.render('reservation'));
 app.get('/confirmation', (req, res) => res.render('confirmation', { orderDetails: null }));
+
+// Account & Personalized Reservations
+app.get('/account', async (req, res) => {
+  const user = req.session.user || null;
+  let reservations = [];
+
+  if (user) {
+    try {
+      const [rows] = await pool.query(
+        'SELECT * FROM reservations WHERE email = ? ORDER BY date DESC',
+        [user.email]
+      );
+      reservations = rows;
+    } catch (err) {
+      console.error('Error fetching reservations:', err);
+    }
+  }
+  res.render('account', { user, reservations });
+});
 
 // Checkout Logic
 app.get('/checkout', (req, res) => {
@@ -194,7 +213,7 @@ app.post('/place-order', async (req, res) => {
   }
 });
 
-// Auth & Admin
+// Auth & Registration
 app.get('/login', (req, res) => res.render('login', { error: null }));
 app.post('/login', async (req, res) => {
   try {
@@ -206,7 +225,6 @@ app.post('/login', async (req, res) => {
 });
 
 app.get('/logout', (req, res) => req.session.destroy(() => res.redirect('/login')));
-app.get('/account', (req, res) => res.render('account', { user: req.session.user || null }));
 
 app.get('/create-an-account', (req, res) => res.render('create-an-account'));
 app.post('/submit', async (req, res) => {
@@ -219,24 +237,42 @@ app.post('/submit', async (req, res) => {
   } catch (err) { res.status(500).send('Error creating account'); }
 });
 
+// Reservation Submission
 app.post('/reserve', async (req, res) => {
   try {
+    const reservation = { ...req.body, timestamp: new Date().toLocaleString() };
     await pool.query(
       `INSERT INTO reservations (fname, phone, email, date, time, size, comment) VALUES (?, ?, ?, ?, ?, ?, ?)`,
       [req.body.fname, req.body.phone, req.body.email, req.body.date, req.body.time, req.body.size, req.body.comment || ""]
     );
-    res.render('reservation-confirmation', { reservation: req.body });
+    res.render('reservation-confirmation', { reservation });
   } catch (err) { res.status(500).send('Error'); }
 });
 
 // Admin Routes
+app.get('/admin-create-an-account', async (req, res) => {
+  try {
+    const [submissions] = await pool.query(`SELECT username, first_name AS firstName, last_name AS lastName, phone, birthday, email, created_at AS timestamp FROM accounts ORDER BY created_at DESC`);
+    res.render('admin-create-an-account', { submissions });
+  } catch (err) { res.status(500).send('Error loading accounts'); }
+});
+
+app.get('/admin-reservation', async (req, res) => {
+  try {
+    const [rows] = await pool.query('SELECT * FROM reservations ORDER BY id DESC');
+    res.render('admin-reservation', { submissions: rows });
+  } catch (err) { res.status(500).send('Error loading reservations'); }
+});
+
 app.get('/admin-orders', isAuthenticated, async (req, res) => {
-  const [orders] = await pool.execute('SELECT * FROM orders ORDER BY id DESC');
-  for (let o of orders) {
-    const [items] = await pool.execute('SELECT * FROM order_items WHERE order_id = ?', [o.id]);
-    o.items = items;
-  }
-  res.render('admin-orders', { orders });
+  try {
+    const [orders] = await pool.execute('SELECT * FROM orders ORDER BY id DESC');
+    for (let o of orders) {
+      const [items] = await pool.execute('SELECT * FROM order_items WHERE order_id = ?', [o.id]);
+      o.items = items;
+    }
+    res.render('admin-orders', { orders });
+  } catch (err) { res.status(500).send('Error fetching orders'); }
 });
 
 app.listen(PORT, () => console.log(`Server: http://localhost:${PORT}`));

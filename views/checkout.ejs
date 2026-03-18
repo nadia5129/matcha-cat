@@ -1,171 +1,141 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
- <%/*
+  <%/*
   ====================================================
   Page: Checkout
-
-  Description:
-  This page allows users to review their current
-  order and complete checkout by entering payment
-  and contact information. It dynamically displays
-  selected items, shows the order total, and
-  provides an empty-state message if the cart is empty.
+  Description: Review order and complete checkout.
   ====================================================
   */ %>
-
-  <!-- Reusable Head Partial -->
   <%- include('partials/head', { title: 'Checkout' }) %>
   <script defer src="/js/matcha-cat.js"></script>
 </head>
 
 <body>
-
-  <!-- Partial For Site Header / Brand Logo -->
   <%- include('partials/header') %>
 
-  <!-- Main Checkout Page Content -->
   <main class="reservation-page">
-
-  <!-- Page Intro -->
-  <div class="page-intro">
-    <h1>Checkout</h1>
-    <p>Review your order and complete your payment below.</p>
-  </div>
-
-  <!-- Order Summary Card -->
-  <div class="form-container" style="margin-bottom: 24px;">
-    <h2 class="form-title">Order Summary</h2>
-    <div class="review-order-header" style="justify-content: flex-end; margin-bottom: 12px;">
-      <a href="/review" class="edit-link" style="color: var(--pink-dark); font-size: 0.85rem; font-weight: 700;">Edit Order</a>
+    <div class="page-intro">
+      <h1>Checkout</h1>
+      <p>Review your order and complete your payment below.</p>
     </div>
 
-    <!-- Checkout Item List -->
-    <div class="checkout-item-list">
-
-      <%/*Check whether the order contains items */%>
-      <% if (order && order.length > 0) { %>
-
-      <% /* Loop through each item in the order */ %>
-      <% order.forEach(item => { %>
-      <div class="checkout-item">
-
-      <!-- Individual item information -->
-      <div class="checkout-item-info">
-        <span class="item-name"><strong><%= item.name %></strong></span>
-        <span class="item-meta"><%= item.size %> | <%= item.milk %></span>
+    <div class="form-container" style="margin-bottom: 24px;">
+      <h2 class="form-title">Order Summary</h2>
+      <div class="review-order-header" style="justify-content: flex-end; margin-bottom: 12px;">
+        <a href="/review" class="edit-link" style="color: var(--pink-dark); font-size: 0.85rem; font-weight: 700;">Edit Order</a>
       </div>
 
-      <!-- Item price -->
-      <span class="item-price"><%= item.price %></span>
-      </div>
-      <% }); %>
-      <div class="order-total">
-        <span>Total (<%= order.length %> items):</span>
-        <span class="total-amount">$<%= total %></span>
-      </div>
+      <div class="checkout-item-list">
+        <% if (order && order.length > 0) { %>
+          <% order.forEach(item => { %>
+            <div class="checkout-item">
+              <div class="checkout-item-info">
+                <span class="item-name"><strong><%= item.name %></strong></span>
+                <span class="item-meta"><%= item.size %> | <%= item.milk %></span>
+              </div>
+              <span class="item-price"><%= item.price %></span>
+            </div>
+          <% }); %>
 
-    <% } else { %>
+          <div class="order-total" style="border-top: 1px solid #eee; padding-top: 10px; margin-top: 10px;">
+            <p style="display: flex; justify-content: space-between; font-weight: bold; margin-bottom: 4px;">
+              <span>Total (<%= order.length %> items):</span>
+              <span class="total-amount">$<%= total %></span>
+            </p>
+            <% if (user) { %>
+              <p style="font-size: 0.85rem; color: #6b8e23; text-align: right; margin: 0; font-weight: 600;">
+                ✓ 5% Student Discount Applied
+              </p>
+            <% } %>
+          </div>
 
-      <!-- Empty state shown if cart has no items -->
-      <p>Your cart is empty. <a href="/menu">Go to Menu</a></p>
-
+        <% } else { %>
+          <p>Your cart is empty. <a href="/menu">Go to Menu</a></p>
         <% } %>
       </div>
     </div>
 
-    <!-- Payment Card -->
     <div class="form-container">
       <h2 class="form-title">Payment Information</h2>
       <form action="/place-order" method="POST" class="checkout-form">
+        <div class="input-grid">
+          <div class="form-field full-width">
+            <label for="card-number">Card Number</label>
+            <input type="text" id="card-number" name="cardNumber" maxlength="16" placeholder="0000 0000 0000 0000" required>
+          </div>
 
-      <div class="input-grid">
+          <div class="form-field">
+            <label for="exp">Expiration Date</label>
+            <input type="text" id="exp" name="exp" placeholder="MM/YY" maxlength="5" required>
+          </div>
 
-      <!-- Card Number: full width -->
-      <div class="form-field full-width">
-        <label for="card-number">Card Number</label>
-        <input type="text" id="card-number" name="cardNumber" maxlength="16" placeholder="0000 0000 0000 0000" required>
-      </div>
+          <div class="form-field">
+            <label for="cvc">CVC</label>
+            <input type="text" id="cvc" name="cvc" placeholder="123" maxlength="3" required>
+          </div>
 
-      <!-- Exp -->
-      <div class="form-field">
-        <label for="exp">Expiration Date</label>
-        <input type="text" id="exp" name="exp" placeholder="MM/YY" maxlength="5" required>
-      </div>
+          <div class="form-field full-width">
+            <label for="name-on-card">Name on Card</label>
+            <input type="text" id="name-on-card" name="nameOnCard" value="<%= user ? user.first_name + ' ' + user.last_name : '' %>" required>
+          </div>
 
-      <!-- CVC -->
-      <div class="form-field">
-        <label for="cvc">CVC</label>
-        <input type="text" id="cvc" name="cvc" placeholder="123" maxlength="3" required>
-      </div>
+          <div class="form-field">
+            <label for="email">Email for Receipt</label>
+            <input type="email" id="email" name="email" value="<%= user ? user.email : '' %>" required>
+          </div>
 
-      <!-- Name on Card: full width -->
-      <div class="form-field full-width">
-        <label for="name-on-card">Name on Card</label>
-        <input type="text" id="name-on-card" name="nameOnCard" required>
-      </div>
+          <div class="form-field">
+            <label for="phone">Phone</label>
+            <input type="tel" id="phone" name="phone" value="<%= user ? user.phone : '' %>" required>
+          </div>
+        </div>
 
-      <!-- Email -->
-      <div class="form-field">
-        <label for="email">Email for Receipt</label>
-        <input type="email" id="email" name="email" required>
-      </div>
+        <div style="margin: 20px 0; padding: 12px; background: #fdf8f4; border-radius: 8px;">
+          <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+            <input type="checkbox" name="student" <%= user ? 'checked' : '' %>>
+            <span style="font-size: 0.9rem;">Apply Student Discount (5% off - in store only)</span>
+          </label>
+        </div>
 
-      <!-- Phone -->
-      <div class="form-field">
-        <label for="phone">Phone</label>
-        <input type="tel" id="phone" name="phone" required>
-      </div>
-    </div>
+        <%
+          const drinkCount = order.filter(item =>
+            item.name.toLowerCase().includes('latte') ||
+            item.name.toLowerCase().includes('americano') ||
+            item.name.toLowerCase().includes('mocha') ||
+            item.name.toLowerCase().includes('matcha')
+          ).length;
+        %>
 
-    <div style="margin: 16px 0;">
-  <label>
-    <input type="checkbox" name="student">
-    Apply Student Discount (5% off - in store only)
-  </label>
-</div>
+        <% if (drinkCount >= 3) { %>
+          <div style="margin: 16px 0; padding: 12px; border: 1px dashed var(--pink-dark); border-radius: 8px;">
+            <label for="freePastry"><strong>Choose your FREE pastry:</strong></label>
+            <select name="freePastry" id="freePastry" style="width: 100%; margin-top: 8px; padding: 8px;">
+              <option value="Butter Croissant">Butter Croissant</option>
+              <option value="Chocolate Croissant">Chocolate Croissant</option>
+              <option value="Almond Danish">Almond Danish</option>
+              <option value="Strawberry Roll">Strawberry Roll</option>
+              <option value="Matcha Muffin">Matcha Muffin</option>
+              <option value="Cat Paw Cookie">Cat Paw Cookie</option>
+            </select>
+          </div>
+        <% } %>
 
-<%
-const drinkCount = order.filter(item =>
-  item.name.toLowerCase().includes('latte') ||
-  item.name.toLowerCase().includes('americano') ||
-  item.name.toLowerCase().includes('mocha') ||
-  item.name.toLowerCase().includes('matcha')
-).length;
-%>
-
-<% if (drinkCount >= 3) { %>
-  <div style="margin: 16px 0;">
-    <label for="freePastry"><strong>Choose your FREE pastry:</strong></label>
-    <select name="freePastry" id="freePastry">
-      <option value="Butter Croissant">Butter Croissant</option>
-      <option value="Chocolate Croissant">Chocolate Croissant</option>
-      <option value="Almond Danish">Almond Danish</option>
-      <option value="Strawberry Roll">Strawberry Roll</option>
-      <option value="Matcha Muffin">Matcha Muffin</option>
-      <option value="Cat Paw Cookie">Cat Paw Cookie</option>
-    </select>
-  </div>
-<% } %>
-
-<div style="margin: 16px 0;">
-  <label>Order Type:</label><br>
-  <label><input type="radio" name="orderType" value="online" checked> Online</label>
-  <label><input type="radio" name="orderType" value="in-store"> In Store</label>
-  <label><input type="radio" name="orderType" value="takeout"> Takeout</label>
-</div>
+        <div style="margin: 20px 0;">
+          <label style="font-weight: bold; display: block; margin-bottom: 8px;">Order Type:</label>
+          <div style="display: flex; gap: 15px;">
+            <label><input type="radio" name="orderType" value="online" checked> Online</label>
+            <label><input type="radio" name="orderType" value="in-store"> In Store</label>
+            <label><input type="radio" name="orderType" value="takeout"> Takeout</label>
+          </div>
+        </div>
 
         <button type="submit" class="btn-submit">Place Order</button>
       </form>
     </div>
-
   </main>
 
-  <!-- Site Footer -->
   <%- include('partials/footer') %>
-
-  <!-- Reusable bottom navigation -->
   <%- include('partials/bottom-nav') %>
-
 </body>
 </html>

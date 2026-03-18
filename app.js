@@ -178,10 +178,18 @@ app.get('/account', async (req, res) => {
   res.render('account', { user, reservations });
 });
 
-// Checkout Logic
 app.get('/checkout', (req, res) => {
-  const result = applyDeals(cart, { isStudent: !!req.session.user });
-  res.render('checkout', { order: result.items, total: result.total });
+  // We pass 'in-store' as a default or check a query param
+  // This calculates the total WITH the potential student discount
+  const result = applyDeals(cart, { 
+    isStudent: !!req.session.user, 
+    orderType: 'in-store' 
+  });
+
+  res.render('checkout', { 
+    order: result.items, 
+    total: result.total // <--- This is the secret sauce
+  });
 });
 
 app.post('/place-order', async (req, res) => {

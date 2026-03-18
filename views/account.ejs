@@ -1,30 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<% /*
-====================================================
-Page: Account
-
-Description:
-This page allows users to view and manage their
-account information. It includes sections for
-creating an account, editing profile details,
-viewing past orders, and checking reservation history.
-====================================================
-*/%>
-
-  <!-- Reusable head partial with page title -->
+  <% /*
+  ====================================================
+  Page: Account
+  Description: Reusable site header for branding and navigation.
+  ====================================================
+  */%>
   <%- include('partials/head', { title: 'Account' }) %>
 </head>
 
 <body>
-<!-- Partial For Site Header / Brand Logo -->
-<%- include('partials/header') %>
+  <%- include('partials/header') %>
 
-  <!-- Main Account Page Content -->
   <main class="reservation-page">
 
-    <!-- Profile Hero -->
     <section class="profile-hero card" style="padding: 32px; margin-bottom: 24px;">
       <div class="profile-copy">
         <p class="eyebrow">My Account</p>
@@ -33,120 +23,97 @@ viewing past orders, and checking reservation history.
       </div>
     </section>
 
-    <!-- Create Account Section -->
     <section class="form-container" style="margin-bottom: 24px; text-align: center;">
-      <p class="eyebrow">New Here?</p>
-      <h2 class="form-title">Create an Account</h2>
-      <p style="margin-bottom: 20px;">Sign up to save your orders and manage reservations or Log In</p>
-
-      <!-- if user is alr log in / give button to log out -->
       <% if (user) { %>
-      <p style="margin-bottom: 16px;">Welcome back, <strong><%= user.first_name %></strong>!</p>
-      <a href="/logout" class="btn-submit" style="display: inline-block; width: auto; padding: 16px 40px; text-decoration: none;">
-        Log Out
-      </a>
-      <!-- offer create an account button if not logged in --> 
-    <% } else { %>
-      <a href="/create-an-account" class="btn-submit" style="display: inline-block; width: auto; padding: 16px 40px; text-decoration: none; margin-right: 12px;">
-        Create Account
-      </a>
-      <!-- offer log in button for user alr create an account -->
-      <a href="/login" class="btn-submit" style="display: inline-block; width: auto; padding: 16px 40px; text-decoration: none;">
-        Log In
-      </a>
-    <% } %>
+        <p class="eyebrow">Member Access</p>
+        <h2 class="form-title">Account Settings</h2>
+        <p style="margin-bottom: 16px;">You are currently logged in as <strong><%= user.first_name %></strong>.</p>
+        <a href="/logout" class="btn-submit" style="display: inline-block; width: auto; padding: 16px 40px; text-decoration: none;">
+          Log Out
+        </a>
+      <% } else { %>
+        <p class="eyebrow">New Here?</p>
+        <h2 class="form-title">Create an Account</h2>
+        <p style="margin-bottom: 20px;">Sign up to save your orders and manage reservations or Log In</p>
+        <div style="display: flex; justify-content: center; gap: 12px;">
+          <a href="/create-an-account" class="btn-submit" style="display: inline-block; width: auto; padding: 16px 40px; text-decoration: none;">
+            Create Account
+          </a>
+          <a href="/login" class="btn-submit" style="display: inline-block; width: auto; padding: 16px 40px; text-decoration: none;">
+            Log In
+          </a>
+        </div>
+      <% } %>
     </section>
 
-    <!-- Edit Profile Section -->
     <div class="form-container" style="margin-bottom: 24px;">
       <div class="section-heading">
         <p class="eyebrow">Profile</p>
         <h2 class="form-title">Edit Information</h2>
       </div>
 
-      <!-- Form for updating user profile information -->
       <form action="/edit-profile" method="POST" class="account-form">
         <div class="input-grid">
-
-          <!-- First Name Input -->
           <div class="form-field">
             <label for="fname">First Name</label>
-            <input type="text" id="fname" name="fname" placeholder="Enter your first name" required>
+            <input type="text" id="fname" name="fname" placeholder="Enter your first name" value="<%= user ? user.first_name : '' %>" required>
           </div>
 
-          <!-- Phone Number Input -->
           <div class="form-field">
             <label for="phone">Phone Number</label>
-            <input type="tel" id="phone" name="phone" placeholder="(555) 555-5555" required>
+            <input type="tel" id="phone" name="phone" placeholder="(555) 555-5555" value="<%= user ? user.phone : '' %>" required>
           </div>
 
-          <!-- Email Address Input -->
           <div class="form-field full-width">
             <label for="email">Email Address</label>
-            <input type="email" id="email" name="email" placeholder="Enter your email" required>
+            <input type="email" id="email" name="email" placeholder="Enter your email" value="<%= user ? user.email : '' %>" required>
           </div>
-
         </div>
-
-        <!-- Submit button to save profile updates -->
         <button type="submit" class="btn-submit">Save Changes</button>
       </form>
     </div>
 
-    <!-- Past Orders Card-->
-    <section class="account-panel card ">
-    <!-- Past Orders Section -->
     <section class="form-container" style="margin-bottom: 24px;">
       <div class="section-heading">
         <p class="eyebrow">Orders</p>
         <h2 class="form-title">Past Orders</h2>
       </div>
-
-      <!-- Empty state shown when no past orders exist -->
       <div class="empty-state">
         <p>Your previous drinks and treats will show up here.</p>
-        <a href="/menu" class="btn btn-secondary" style="margin-top: 12px; display: inline-block;">Order Something Sweet</a>
+        <a href="/menu" class="btn btn-secondary" style="margin-top: 12px; display: inline-block; text-decoration: none; border: 1px solid #ccc; padding: 8px 16px; border-radius: 4px;">Order Something Sweet</a>
       </div>
     </section>
 
-    <!-- Past Reservations Section -->
     <section class="form-container">
       <div class="section-heading">
         <p class="eyebrow">Reservations</p>
         <h2 class="form-title">My Reservations</h2>
       </div>
 
-
-      <!-- If user have reservation - display it -->
-        <% if (reservations && reservations.length > 0) { %>
-    <div class="reservations-list">
-      <% reservations.forEach(r => { %>
-        <div class="card" style="padding: 20px; margin-bottom: 16px;">
-          <p><strong>Date:</strong> <%= new Date(r.date).toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) %></p>
-          <p><strong>Time:</strong> <%= r.time %></p>
-          <p><strong>Party Size:</strong> <%= r.size %></p>
-          <!-- only show special requests if one was left -->
-          <% if (r.comment) { %>
-            <p><strong>Special Requests:</strong> <%= r.comment %></p>
-          <% } %>
+      <% if (reservations && reservations.length > 0) { %>
+        <div class="reservations-list">
+          <% reservations.forEach(r => { %>
+            <div class="card" style="padding: 20px; margin-bottom: 16px; border: 1px solid #eee; border-radius: 8px;">
+              <p><strong>Date:</strong> <%= new Date(r.date).toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) %></p>
+              <p><strong>Time:</strong> <%= r.time %></p>
+              <p><strong>Party Size:</strong> <%= r.size %></p>
+              <% if (r.comment) { %>
+                <p><strong>Special Requests:</strong> <%= r.comment %></p>
+              <% } %>
+            </div>
+          <% }) %>
         </div>
-      <% }) %>
-    </div>
-      <!-- Empty state shown when no reservations exist -->
-       <% } else { %>
-      <div class="empty-state">
-        <p>Book a cozy table and your reservations will appear here.</p>
-        <a href="/reservation" class="btn btn-secondary" style="margin-top: 12px; display: inline-block;">Create a Reservation</a>
-      </div>
+      <% } else { %>
+        <div class="empty-state">
+          <p>Book a cozy table and your reservations will appear here.</p>
+          <a href="/reservation" class="btn btn-secondary" style="margin-top: 12px; display: inline-block; text-decoration: none; border: 1px solid #ccc; padding: 8px 16px; border-radius: 4px;">Create a Reservation</a>
+        </div>
       <% } %>
     </section>
 
   </main>
 
-  <!-- Site Footer -->
- <%- include('partials/footer') %>
-
-  <!-- Reusable bottom navigation bar -->
+  <%- include('partials/footer') %>
   <%- include('partials/bottom-nav') %>
 
 </body>

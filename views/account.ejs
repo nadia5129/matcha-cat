@@ -4,7 +4,7 @@
   <% /*
   ====================================================
   Page: Account
-  Description: Reusable site header for branding and navigation.
+  Description: User profile, order history, and reservations.
   ====================================================
   */%>
   <%- include('partials/head', { title: 'Account' }) %>
@@ -82,10 +82,12 @@
       <% if (orders && orders.length > 0) { %>
         <div class="orders-list">
           <% orders.forEach(order => { %>
-            <div class="card" style="padding: 20px; margin-bottom: 16px; border: 1px solid #f4ece4; border-radius: 12px; background-color: #fff;">
+            <div class="card" style="padding: 20px; margin-bottom: 16px; border-left: 5px solid #88ab75; border-radius: 12px; background-color: #fff;">
               <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #f4ece4; padding-bottom: 8px; margin-bottom: 12px;">
                 <span style="font-weight: 700; color: var(--pink-dark);">Order #<%= order.id %></span>
-                <span style="font-size: 0.85rem; color: #888;"><%= new Date(order.created_at).toLocaleDateString() %></span>
+                <span style="font-size: 0.85rem; color: #888;">
+                    <%= new Date(order.created_at || order.timestamp).toLocaleDateString() %>
+                </span>
               </div>
               
               <ul style="list-style: none; padding: 0; margin-bottom: 12px;">
@@ -109,7 +111,7 @@
       <% } else { %>
         <div class="empty-state">
           <p>Your previous drinks and treats will show up here.</p>
-          <a href="/menu" class="btn btn-secondary" style="margin-top: 12px; display: inline-block; text-decoration: none; border: 1px solid #ccc; padding: 8px 16px; border-radius: 4px;">Order Something Sweet</a>
+          <a href="/menu" class="btn-secondary" style="margin-top: 12px; display: inline-block; text-decoration: none; border: 1px solid #ccc; padding: 8px 16px; border-radius: 4px;">Order Something Sweet</a>
         </div>
       <% } %>
     </section>
@@ -123,10 +125,10 @@
       <% if (reservations && reservations.length > 0) { %>
         <div class="reservations-list">
           <% reservations.forEach(r => { %>
-            <div class="card" style="padding: 20px; margin-bottom: 16px; border: 1px solid #eee; border-radius: 8px;">
+            <div class="card" style="padding: 20px; margin-bottom: 16px; border-left: 5px solid var(--pink-dark); border-radius: 12px;">
               <p><strong>Date:</strong> <%= new Date(r.date).toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) %></p>
               <p><strong>Time:</strong> <%= r.time %></p>
-              <p><strong>Party Size:</strong> <%= r.size %></p>
+              <p><strong>Party Size:</strong> <%= r.party_size %></p>
               <% if (r.comment) { %>
                 <p><strong>Special Requests:</strong> <%= r.comment %></p>
               <% } %>
@@ -136,7 +138,7 @@
       <% } else { %>
         <div class="empty-state">
           <p>Book a cozy table and your reservations will appear here.</p>
-          <a href="/reservation" class="btn btn-secondary" style="margin-top: 12px; display: inline-block; text-decoration: none; border: 1px solid #ccc; padding: 8px 16px; border-radius: 4px;">Create a Reservation</a>
+          <a href="/reservation" class="btn-secondary" style="margin-top: 12px; display: inline-block; text-decoration: none; border: 1px solid #ccc; padding: 8px 16px; border-radius: 4px;">Create a Reservation</a>
         </div>
       <% } %>
     </section>

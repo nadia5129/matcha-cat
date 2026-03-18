@@ -993,6 +993,32 @@ section.my-reservations {
   display: inline-block;
 }
 
+/* Limits the height of history sections and adds a scrollbar when needed */
+.orders-list, .reservations-list {
+    max-height: 450px; /* Fits about 2-3 orders before scrolling */
+    overflow-y: auto;
+    padding-right: 8px;
+    margin-top: 10px;
+}
+
+/* Custom Matcha Scrollbar for Chrome/Safari/Edge */
+.orders-list::-webkit-scrollbar, 
+.reservations-list::-webkit-scrollbar {
+    width: 6px;
+}
+
+.orders-list::-webkit-scrollbar-thumb, 
+.reservations-list::-webkit-scrollbar-thumb {
+    background: #88ab75; /* Matcha Green to match your logo */
+    border-radius: 10px;
+}
+
+.orders-list::-webkit-scrollbar-track, 
+.reservations-list::-webkit-scrollbar-track {
+    background: var(--pink-pale);
+    border-radius: 10px;
+}
+
 /* -------------------------------------------
    17. UTILITIES
 ------------------------------------------- */

@@ -159,23 +159,50 @@ app.get('/deals', (req, res) => res.render('deals'));
 app.get('/reservation', (req, res) => res.render('reservation'));
 app.get('/confirmation', (req, res) => res.render('confirmation', { orderDetails: null }));
 
-// Account & Personalized Reservations
+
+// Account & Personalized Reservations/Orders
 app.get('/account', async (req, res) => {
   const user = req.session.user || null;
   let reservations = [];
+  let orders = []; // Initialize as empty so the EJS doesn't crash
 
   if (user) {
     try {
-      const [rows] = await pool.query(
+      // 1. Fetch Reservations linked to this user's email
+      const [resRows] = await pool.query(
         'SELECT * FROM reservations WHERE email = ? ORDER BY date DESC',
         [user.email]
       );
-      reservations = rows;
+      reservations = resRows;
+
+      // 2. Fetch Orders linked to this user's email
+      const [orderRows] = await pool.query(
+        'SELECT * FROM orders WHERE email = ? ORDER BY id DESC',
+        [user.email]
+      );
+
+      // 3. For each order, fetch the specific drinks/pastries (order_items)
+      for (let order of orderRows) {
+        const [itemRows] = await pool.query(
+          'SELECT * FROM order_items WHERE order_id = ?',
+          [order.id]
+        );
+        order.items = itemRows; // Attach items to the order object
+      }
+      
+      orders = orderRows; // Now 'orders' is full of data!
+
     } catch (err) {
-      console.error('Error fetching reservations:', err);
+      console.error('Error fetching account data:', err);
     }
   }
-  res.render('account', { user, reservations });
+
+  // 4. Send EVERYTHING to the EJS file
+  res.render('account', { 
+    user, 
+    reservations, 
+    orders 
+  });
 });
 
 app.get('/checkout', (req, res) => {

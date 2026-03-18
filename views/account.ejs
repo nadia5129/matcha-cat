@@ -76,12 +76,42 @@
     <section class="form-container" style="margin-bottom: 24px;">
       <div class="section-heading">
         <p class="eyebrow">Orders</p>
-        <h2 class="form-title">Past Orders</h2>
+        <h2 class="form-title">Order History</h2>
       </div>
-      <div class="empty-state">
-        <p>Your previous drinks and treats will show up here.</p>
-        <a href="/menu" class="btn btn-secondary" style="margin-top: 12px; display: inline-block; text-decoration: none; border: 1px solid #ccc; padding: 8px 16px; border-radius: 4px;">Order Something Sweet</a>
-      </div>
+
+      <% if (orders && orders.length > 0) { %>
+        <div class="orders-list">
+          <% orders.forEach(order => { %>
+            <div class="card" style="padding: 20px; margin-bottom: 16px; border: 1px solid #f4ece4; border-radius: 12px; background-color: #fff;">
+              <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #f4ece4; padding-bottom: 8px; margin-bottom: 12px;">
+                <span style="font-weight: 700; color: var(--pink-dark);">Order #<%= order.id %></span>
+                <span style="font-size: 0.85rem; color: #888;"><%= new Date(order.created_at).toLocaleDateString() %></span>
+              </div>
+              
+              <ul style="list-style: none; padding: 0; margin-bottom: 12px;">
+                <% order.items.forEach(item => { %>
+                  <li style="font-size: 0.9rem; display: flex; justify-content: space-between; margin-bottom: 4px;">
+                    <span><%= item.name %> <small style="color: #888;">(<%= item.size %>)</small></span>
+                    <span>$<%= parseFloat(item.price).toFixed(2) %></span>
+                  </li>
+                <% }) %>
+              </ul>
+
+              <div style="text-align: right; border-top: 1px dashed #f4ece4; pt: 8px;">
+                <p style="font-weight: 800; font-size: 1.1rem; margin: 8px 0 0 0; color: #333;">
+                  Total: $<%= parseFloat(order.total).toFixed(2) %>
+                </p>
+              </div>
+            </div>
+          <% }) %>
+        </div>
+
+      <% } else { %>
+        <div class="empty-state">
+          <p>Your previous drinks and treats will show up here.</p>
+          <a href="/menu" class="btn btn-secondary" style="margin-top: 12px; display: inline-block; text-decoration: none; border: 1px solid #ccc; padding: 8px 16px; border-radius: 4px;">Order Something Sweet</a>
+        </div>
+      <% } %>
     </section>
 
     <section class="form-container">

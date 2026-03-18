@@ -62,7 +62,7 @@
       <% }); %>
       <div class="order-total">
         <span>Total (<%= order.length %> items):</span>
-        <span class="total-amount">$<%= (order.length * 4.00).toFixed(2) %></span>
+        <span class="total-amount">$<%= total %></span>
       </div>
 
     <% } else { %>
@@ -117,6 +117,43 @@
         <input type="tel" id="phone" name="phone" required>
       </div>
     </div>
+
+    <div style="margin: 16px 0;">
+  <label>
+    <input type="checkbox" name="student">
+    Apply Student Discount (5% off - in store only)
+  </label>
+</div>
+
+<%
+const drinkCount = order.filter(item =>
+  item.name.toLowerCase().includes('latte') ||
+  item.name.toLowerCase().includes('americano') ||
+  item.name.toLowerCase().includes('mocha') ||
+  item.name.toLowerCase().includes('matcha')
+).length;
+%>
+
+<% if (drinkCount >= 3) { %>
+  <div style="margin: 16px 0;">
+    <label for="freePastry"><strong>Choose your FREE pastry:</strong></label>
+    <select name="freePastry" id="freePastry">
+      <option value="Butter Croissant">Butter Croissant</option>
+      <option value="Chocolate Croissant">Chocolate Croissant</option>
+      <option value="Almond Danish">Almond Danish</option>
+      <option value="Strawberry Roll">Strawberry Roll</option>
+      <option value="Matcha Muffin">Matcha Muffin</option>
+      <option value="Cat Paw Cookie">Cat Paw Cookie</option>
+    </select>
+  </div>
+<% } %>
+
+<div style="margin: 16px 0;">
+  <label>Order Type:</label><br>
+  <label><input type="radio" name="orderType" value="online" checked> Online</label>
+  <label><input type="radio" name="orderType" value="in-store"> In Store</label>
+  <label><input type="radio" name="orderType" value="takeout"> Takeout</label>
+</div>
 
         <button type="submit" class="btn-submit">Place Order</button>
       </form>

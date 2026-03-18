@@ -164,40 +164,36 @@ app.get('/confirmation', (req, res) => res.render('confirmation', { orderDetails
 app.get('/account', async (req, res) => {
   const user = req.session.user || null;
   let reservations = [];
-  let orders = []; // Initialize as empty so the EJS doesn't crash
+  let orders = []; 
 
   if (user) {
     try {
-      // 1. Fetch Reservations linked to this user's email
       const [resRows] = await pool.query(
         'SELECT * FROM reservations WHERE email = ? ORDER BY date DESC',
         [user.email]
       );
       reservations = resRows;
 
-      // 2. Fetch Orders linked to this user's email
       const [orderRows] = await pool.query(
         'SELECT * FROM orders WHERE email = ? ORDER BY id DESC',
         [user.email]
       );
 
-      // 3. For each order, fetch the specific drinks/pastries (order_items)
       for (let order of orderRows) {
         const [itemRows] = await pool.query(
           'SELECT * FROM order_items WHERE order_id = ?',
           [order.id]
         );
-        order.items = itemRows; // Attach items to the order object
+        order.items = itemRows;
       }
       
-      orders = orderRows; // Now 'orders' is full of data!
+      orders = orderRows;
 
     } catch (err) {
       console.error('Error fetching account data:', err);
     }
   }
 
-  // 4. Send EVERYTHING to the EJS file
   res.render('account', { 
     user, 
     reservations, 
@@ -206,20 +202,75 @@ app.get('/account', async (req, res) => {
 });
 
 app.get('/checkout', (req, res) => {
-  // We pass 'in-store' as a default or check a query param
-  // This calculates the total WITH the potential student discount
   const result = applyDeals(cart, { 
     isStudent: !!req.session.user, 
     orderType: 'in-store' 
   });
 
+  const drinkCount = cart.filter(item =>
+    item.name.toLowerCase().includes('latte') ||
+    item.name.toLowerCase().includes('americano') ||
+    item.name.toLowerCase().includes('mocha') ||
+    item.name.toLowerCase().includes('matcha')
+  ).length;
+
   res.render('checkout', { 
     order: result.items, 
-    total: result.total // <--- This is the secret sauce
+    total: result.total, 
+    drinkCount: drinkCount 
   });
 });
 
 app.post('/place-order', async (req, res) => {
+  const { nameOnCard, email, cardNumber, expirationDate, cvc, orderType } = req.body;
+  let errors = [];
+
+  // --- SERVER-SIDE VALIDATION LOGIC ---
+  if (!nameOnCard || nameOnCard.trim().length < 2) {
+    errors.push("Please enter the full name as it appears on the card.");
+  }
+
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(email)) {
+    errors.push("A valid email address is required for your receipt.");
+  }
+
+  const cleanCard = (cardNumber || '').replace(/\s/g, '');
+  if (!/^\d{16}$/.test(cleanCard)) {
+    errors.push("Card number must be 16 digits.");
+  }
+
+  if (!/^\d{3,4}$/.test(cvc)) {
+    errors.push("CVC must be 3 or 4 digits.");
+  }
+
+  if (!orderType) {
+    errors.push("Please select an Order Type (Online, In-Store, or Takeout).");
+  }
+
+  // Calculate drinkCount for potential error re-render
+  const drinkCount = cart.filter(item =>
+    item.name.toLowerCase().includes('latte') ||
+    item.name.toLowerCase().includes('americano') ||
+    item.name.toLowerCase().includes('mocha') ||
+    item.name.toLowerCase().includes('matcha')
+  ).length;
+
+  if (errors.length > 0) {
+    const result = applyDeals(cart, { 
+      isStudent: req.body.student === 'on', 
+      orderType: req.body.orderType 
+    });
+    
+    return res.render('checkout', { 
+      errors, 
+      order: result.items, 
+      total: result.total,
+      drinkCount: drinkCount,
+      previousData: req.body 
+    });
+  }
+
   try {
     const result = applyDeals(cart, {
       isStudent: req.body.student === 'on',
@@ -229,7 +280,7 @@ app.post('/place-order', async (req, res) => {
 
     const [orderDB] = await pool.execute(
       'INSERT INTO orders (customer_name, email, total) VALUES (?, ?, ?)',
-      [req.body.nameOnCard, req.body.email, result.total]
+      [nameOnCard, email, result.total]
     );
 
     for (const item of result.items) {
@@ -239,8 +290,8 @@ app.post('/place-order', async (req, res) => {
       );
     }
 
-    const summary = { customerName: req.body.nameOnCard, email: req.body.email, items: result.items, total: result.total };
-    cart = [];
+    const summary = { customerName: nameOnCard, email: email, items: result.items, total: result.total };
+    cart = []; 
     res.render('confirmation', { orderDetails: summary });
   } catch (err) {
     console.error(err);

@@ -1,141 +1,138 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <%/*
-  ====================================================
-  Page: Checkout
-  Description: Review order and complete checkout.
-  ====================================================
-  */ %>
-  <%- include('partials/head', { title: 'Checkout' }) %>
-  <script defer src="/js/matcha-cat.js"></script>
-</head>
+<%- include('partials/head.ejs') %>
 
-<body>
-  <%- include('partials/header') %>
+<main class="reservation-page">
+  <div class="page-intro">
+    <h1>Checkout</h1>
+    <p>Review your order and complete your payment below.</p>
+  </div>
 
-  <main class="reservation-page">
-    <div class="page-intro">
-      <h1>Checkout</h1>
-      <p>Review your order and complete your payment below.</p>
+  <div class="form-container order-summary-section">
+    <h2 class="form-title">Order Summary</h2>
+    <div class="review-order-header">
+      <a href="/review" class="edit-link">Edit Order</a>
     </div>
 
-    <div class="form-container" style="margin-bottom: 24px;">
-      <h2 class="form-title">Order Summary</h2>
-      <div class="review-order-header" style="justify-content: flex-end; margin-bottom: 12px;">
-        <a href="/review" class="edit-link" style="color: var(--pink-dark); font-size: 0.85rem; font-weight: 700;">Edit Order</a>
-      </div>
-
-      <div class="checkout-item-list">
-        <% if (order && order.length > 0) { %>
-          <% order.forEach(item => { %>
-            <div class="checkout-item">
-              <div class="checkout-item-info">
-                <span class="item-name"><strong><%= item.name %></strong></span>
-                <span class="item-meta"><%= item.size %> | <%= item.milk %></span>
-              </div>
-              <span class="item-price"><%= item.price %></span>
+    <div class="checkout-item-list">
+      <% if (order && order.length > 0) { %>
+        <% order.forEach(item => { %>
+          <div class="checkout-item">
+            <div class="checkout-item-info">
+              <span class="item-name"><strong><%= item.name %></strong></span>
+              <br>
+              <small class="item-meta"><%= item.size %> | <%= item.milk %></small>
             </div>
-          <% }); %>
+            <span class="item-price"><%= item.price %></span>
+          </div>
+        <% }); %>
 
-          <div class="order-total" style="border-top: 1px solid #eee; padding-top: 10px; margin-top: 10px;">
-            <p style="display: flex; justify-content: space-between; font-weight: bold; margin-bottom: 4px;">
-              <span>Total (<%= order.length %> items):</span>
-              <span class="total-amount">$<%= total %></span>
+        <div class="order-total">
+          <p class="total-row">
+            <span>Total (<%= order.length %> items):</span>
+            <span class="total-amount">$<%= total %></span>
+          </p>
+          <% if (user || (locals.previousData && previousData.student === 'on')) { %>
+            <p class="discount-tag">
+              ✓ 5% Student Discount Applied
             </p>
-            <% if (user) { %>
-              <p style="font-size: 0.85rem; color: #6b8e23; text-align: right; margin: 0; font-weight: 600;">
-                ✓ 5% Student Discount Applied
-              </p>
-            <% } %>
-          </div>
+          <% } %>
+        </div>
 
-        <% } else { %>
-          <p>Your cart is empty. <a href="/menu">Go to Menu</a></p>
-        <% } %>
+      <% } else { %>
+        <p>Your cart is empty. <a href="/menu">Go to Menu</a></p>
+      <% } %>
+    </div>
+  </div>
+
+  <div class="form-container">
+    <h2 class="form-title">Payment Information</h2>
+
+    <% if (locals.errors && errors.length > 0) { %>
+      <div class="error-banner">
+        <p class="error-banner-title">Please check the following:</p>
+        <ul class="error-list">
+          <% errors.forEach(error => { %>
+            <li><%= error %></li>
+          <% }) %>
+        </ul>
       </div>
-    </div>
+    <% } %>
 
-    <div class="form-container">
-      <h2 class="form-title">Payment Information</h2>
-      <form action="/place-order" method="POST" class="checkout-form">
-        <div class="input-grid">
-          <div class="form-field full-width">
-            <label for="card-number">Card Number</label>
-            <input type="text" id="card-number" name="cardNumber" maxlength="16" placeholder="0000 0000 0000 0000" required>
-          </div>
-
-          <div class="form-field">
-            <label for="exp">Expiration Date</label>
-            <input type="text" id="exp" name="exp" placeholder="MM/YY" maxlength="5" required>
-          </div>
-
-          <div class="form-field">
-            <label for="cvc">CVC</label>
-            <input type="text" id="cvc" name="cvc" placeholder="123" maxlength="3" required>
-          </div>
-
-          <div class="form-field full-width">
-            <label for="name-on-card">Name on Card</label>
-            <input type="text" id="name-on-card" name="nameOnCard" value="<%= user ? user.first_name + ' ' + user.last_name : '' %>" required>
-          </div>
-
-          <div class="form-field">
-            <label for="email">Email for Receipt</label>
-            <input type="email" id="email" name="email" value="<%= user ? user.email : '' %>" required>
-          </div>
-
-          <div class="form-field">
-            <label for="phone">Phone</label>
-            <input type="tel" id="phone" name="phone" value="<%= user ? user.phone : '' %>" required>
-          </div>
+    <form action="/place-order" method="POST" class="checkout-form">
+      <div class="input-grid">
+        
+        <div class="form-field full-width">
+          <label for="card-number">Card Number</label>
+          <input type="text" id="card-number" name="cardNumber" maxlength="19" placeholder="0000 0000 0000 0000" 
+                 value="<%= locals.previousData ? previousData.cardNumber : '' %>" required>
         </div>
 
-        <div style="margin: 20px 0; padding: 12px; background: #fdf8f4; border-radius: 8px;">
-          <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
-            <input type="checkbox" name="student" <%= user ? 'checked' : '' %>>
-            <span style="font-size: 0.9rem;">Apply Student Discount (5% off - in store only)</span>
+        <div class="form-field">
+          <label for="expirationDate">Expiration Date</label>
+          <input type="text" id="expirationDate" name="expirationDate" placeholder="MM/YY" maxlength="5" 
+                 value="<%= locals.previousData ? previousData.expirationDate : '' %>" required>
+        </div>
+
+        <div class="form-field">
+          <label for="cvc">CVC</label>
+          <input type="text" id="cvc" name="cvc" placeholder="123" maxlength="4" 
+                 value="<%= locals.previousData ? previousData.cvc : '' %>" required>
+        </div>
+
+        <div class="form-field full-width">
+          <label for="nameOnCard">Name on Card</label>
+          <input type="text" id="nameOnCard" name="nameOnCard" 
+                 value="<%= locals.previousData ? previousData.nameOnCard : (user ? user.first_name + ' ' + user.last_name : '') %>" required>
+        </div>
+
+        <div class="form-field">
+          <label for="email">Email for Receipt</label>
+          <input type="email" id="email" name="email" 
+                 value="<%= locals.previousData ? previousData.email : (user ? user.email : '') %>" required>
+        </div>
+
+        <div class="form-field">
+          <label for="phone">Phone</label>
+          <input type="tel" id="phone" name="phone" 
+                 value="<%= locals.previousData ? previousData.phone : (user ? user.phone : '') %>" required>
+        </div>
+      </div>
+
+      <div class="discount-selection-box">
+        <label class="checkbox-label">
+          <input type="checkbox" name="student" <%= (user || (locals.previousData && previousData.student === 'on')) ? 'checked' : '' %>>
+          <span>Apply Student Discount (5% off - in store only)</span>
+        </label>
+      </div>
+
+      <% if (locals.drinkCount >= 3) { %>
+        <div class="free-pastry-selection">
+          <label for="freePastry">
+            <strong>✨ Buy 3 Drinks Reward: Choose your FREE pastry!</strong>
           </label>
+          <select name="freePastry" id="freePastry" class="pastry-dropdown">
+            <option value="Butter Croissant">Butter Croissant</option>
+            <option value="Chocolate Croissant">Chocolate Croissant</option>
+            <option value="Almond Danish">Almond Danish</option>
+            <option value="Strawberry Roll">Strawberry Roll</option>
+            <option value="Matcha Muffin">Matcha Muffin</option>
+            <option value="Cat Paw Cookie">Cat Paw Cookie</option>
+          </select>
         </div>
+      <% } %>
 
-        <%
-          const drinkCount = order.filter(item =>
-            item.name.toLowerCase().includes('latte') ||
-            item.name.toLowerCase().includes('americano') ||
-            item.name.toLowerCase().includes('mocha') ||
-            item.name.toLowerCase().includes('matcha')
-          ).length;
-        %>
-
-        <% if (drinkCount >= 3) { %>
-          <div style="margin: 16px 0; padding: 12px; border: 1px dashed var(--pink-dark); border-radius: 8px;">
-            <label for="freePastry"><strong>Choose your FREE pastry:</strong></label>
-            <select name="freePastry" id="freePastry" style="width: 100%; margin-top: 8px; padding: 8px;">
-              <option value="Butter Croissant">Butter Croissant</option>
-              <option value="Chocolate Croissant">Chocolate Croissant</option>
-              <option value="Almond Danish">Almond Danish</option>
-              <option value="Strawberry Roll">Strawberry Roll</option>
-              <option value="Matcha Muffin">Matcha Muffin</option>
-              <option value="Cat Paw Cookie">Cat Paw Cookie</option>
-            </select>
-          </div>
-        <% } %>
-
-        <div style="margin: 20px 0;">
-          <label style="font-weight: bold; display: block; margin-bottom: 8px;">Order Type:</label>
-          <div style="display: flex; gap: 15px;">
-            <label><input type="radio" name="orderType" value="online" checked> Online</label>
-            <label><input type="radio" name="orderType" value="in-store"> In Store</label>
-            <label><input type="radio" name="orderType" value="takeout"> Takeout</label>
-          </div>
+      <div class="order-type-selection">
+        <label class="selection-title">Order Type:</label>
+        <div class="radio-group">
+          <label><input type="radio" name="orderType" value="online" checked> Online</label>
+          <label><input type="radio" name="orderType" value="in-store"> In Store</label>
+          <label><input type="radio" name="orderType" value="takeout"> Takeout</label>
         </div>
+      </div>
 
-        <button type="submit" class="btn-submit">Place Order</button>
-      </form>
-    </div>
-  </main>
+      <button type="submit" class="btn-submit">Place Order</button>
+    </form>
+  </div>
+</main>
 
-  <%- include('partials/footer') %>
-  <%- include('partials/bottom-nav') %>
-</body>
-</html>
+<%- include('partials/bottom-nav.ejs') %>
+<%- include('partials/footer.ejs') %>

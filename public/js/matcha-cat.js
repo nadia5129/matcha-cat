@@ -172,6 +172,9 @@ if (reservationForm) {
   document.getElementById('fname').oninput = () => {
     if (document.getElementById('fname').value.trim()) clearError('fname-error');
   }
+  document.getElementById('lname').oninput = () => {
+  if (document.getElementById('lname').value.trim()) clearError('lname-error');
+}
   document.getElementById('phone').oninput = () => {
     const val = document.getElementById('phone').value.trim();
     if (/^[\d\s\-().+]{7,15}$/.test(val)) clearError('phone-error');
@@ -201,6 +204,12 @@ if (reservationForm) {
       showError('fname-error', 'First name is required.');
       isValid = false;
     }
+
+    const lname = document.getElementById('lname').value.trim();
+if (!lname) {
+  showError('lname-error', 'Last name is required.');
+  isValid = false;
+}
 
     // Phone
     const phone = document.getElementById('phone').value.trim();

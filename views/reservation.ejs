@@ -21,8 +21,7 @@
 </head>
 <body>
 
-
-   <!-- Partial For Site Header / Brand Logo -->
+  <!-- Partial For Site Header / Brand Logo -->
   <%- include('partials/header') %>
 
   <main class="reservation-page">
@@ -42,43 +41,43 @@
           <!-- First Name -->
           <div class="form-field">
             <label for="fname">First Name</label>
-            <input type="text" id="fname" name="fname" required>
-            <span id="fname-error" class="error-message"></span>
+            <input type="text" id="fname" name="fname" value="<%= oldData?.fname || '' %>" required>
+            <span id="fname-error" class="error-message"><%= errors?.fname || '' %></span>
           </div>
 
           <!-- Last Name -->
           <div class="form-field">
             <label for="lname">Last Name</label>
-            <input type="text" id="lname" name="lname" required>
-            <span id="lname-error" class="error-message"></span>
+            <input type="text" id="lname" name="lname" value="<%= oldData?.lname || '' %>" required>
+            <span id="lname-error" class="error-message"><%= errors?.lname || '' %></span>
           </div>
 
           <!-- Phone Number -->
           <div class="form-field">
             <label for="phone">Phone Number</label>
-            <input type="tel" id="phone" name="phone" placeholder="(206) 555-1234" required>
-            <span id="phone-error" class="error-message"></span>
+            <input type="tel" id="phone" name="phone" placeholder="(206) 555-1234" value="<%= oldData?.phone || '' %>" required>
+            <span id="phone-error" class="error-message"><%= errors?.phone || '' %></span>
           </div>
 
           <!-- Email - Full Width -->
           <div class="form-field full-width">
             <label for="email">Email Address</label>
-            <input type="email" id="email" name="email" placeholder="you@example.com" required>
-            <span id="email-error" class="error-message"></span>
+            <input type="email" id="email" name="email" placeholder="you@example.com" value="<%= oldData?.email || '' %>" required>
+            <span id="email-error" class="error-message"><%= errors?.email || '' %></span>
           </div>
 
           <!-- Date -->
           <div class="form-field">
             <label for="date">Date</label>
-            <input type="date" id="date" name="date" required>
-            <span id="date-error" class="error-message"></span>
+            <input type="date" id="date" name="date" value="<%= oldData?.date || '' %>" required>
+            <span id="date-error" class="error-message"><%= errors?.date || '' %></span>
           </div>
 
           <!-- Time -->
           <div class="form-field">
             <label for="time">Time</label>
-            <input type="time" id="time" name="time" required>
-            <span id="time-error" class="error-message"></span>
+            <input type="time" id="time" name="time" value="<%= oldData?.time || '' %>" required>
+            <span id="time-error" class="error-message"><%= errors?.time || '' %></span>
           </div>
 
           <!-- Party Size -->
@@ -86,19 +85,19 @@
             <label for="size">Party Size</label>
             <select id="size" name="size" required>
               <option value="">-- Select --</option>
-              <option value="1">1 person</option>
-              <option value="2">2 people</option>
-              <option value="3">3 people</option>
-              <option value="4">4 people</option>
-              <option value="5+">5+ people</option>
+              <option value="1" <%= oldData?.size === "1" ? "selected" : "" %>>1 person</option>
+              <option value="2" <%= oldData?.size === "2" ? "selected" : "" %>>2 people</option>
+              <option value="3" <%= oldData?.size === "3" ? "selected" : "" %>>3 people</option>
+              <option value="4" <%= oldData?.size === "4" ? "selected" : "" %>>4 people</option>
+              <option value="5+" <%= oldData?.size === "5+" ? "selected" : "" %>>5+ people</option>
             </select>
-            <span id="size-error" class="error-message"></span>
+            <span id="size-error" class="error-message"><%= errors?.size || '' %></span>
           </div>
 
           <!-- Comments - Full Width -->
           <div class="form-field full-width">
             <label for="comment">Special Requests</label>
-            <textarea id="comment" name="comment" rows="4" placeholder="Let us know if you have any special requests..."></textarea>
+            <textarea id="comment" name="comment" rows="4" placeholder="Let us know if you have any special requests..."><%= oldData?.comment || '' %></textarea>
           </div>
         </div>
 
